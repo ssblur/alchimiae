@@ -1,0 +1,11 @@
+{
+  "item": "minecraft:small_dripleaf",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:aquatic_plant",
+    "alchimiae:dripleaf"
+  ],
+  "rarity": 3.0,
+  "duration": 1000,
+  "no_effects": false
+}

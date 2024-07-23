@@ -1,0 +1,14 @@
+{
+  "itemGroup.alchimiae.tab": "Alchimiae Magicae",
+
+  "lore.alchimiae.ingredient": "Ingredient",
+
+  "tag.item.alchimiae.grinder": "Grinder",
+
+  "item.alchimiae.stone_mortar_and_pestle": "Mortar and Pestle",
+  "item.alchimiae.iron_mortar_and_pestle": "Iron Mortar and Pestle",
+  "item.alchimiae.gold_mortar_and_pestle": "Gold Mortar and Pestle",
+  "item.alchimiae.diamond_mortar_and_pestle": "Diamond-burred Grinder",
+  "item.alchimiae.netherite_mortar_and_pestle": "Netherite Grinder",
+  "item.alchimiae.mash": "Mash"
+}

@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:sea_pickle",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:kelp"
+  ],
+  "rarity": 5.0,
+  "duration": 900,
+  "no_effects": false
+}

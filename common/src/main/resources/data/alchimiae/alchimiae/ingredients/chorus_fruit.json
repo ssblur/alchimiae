@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:chorus_fruit",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 6.0,
+  "duration": 800,
+  "no_effects": false
+}

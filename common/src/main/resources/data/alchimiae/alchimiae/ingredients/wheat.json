@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:wheat",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.0,
+  "duration": 800,
+  "no_effects": false
+}

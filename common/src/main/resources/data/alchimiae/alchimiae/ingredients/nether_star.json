@@ -1,0 +1,8 @@
+{
+  "item": "minecraft:nether_star",
+  "guaranteed_effects": [],
+  "ingredient_classes": [],
+  "rarity": 50.0,
+  "duration": 6000,
+  "no_effects": false
+}

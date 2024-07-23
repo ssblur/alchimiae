@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:glow_lichen",
+  "guaranteed_effects": [
+    "minecraft:glowing"
+  ],
+  "ingredient_classes": [],
+  "rarity": 3.0,
+  "duration": 700,
+  "no_effects": false
+}

@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:torchflower",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower"
+  ],
+  "rarity": 4.0,
+  "duration": 800,
+  "no_effects": false
+}

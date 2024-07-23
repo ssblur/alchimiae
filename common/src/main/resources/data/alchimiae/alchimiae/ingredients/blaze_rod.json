@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:blaze_rod",
+  "guaranteed_effects": [
+    "minecraft:strength"
+  ],
+  "ingredient_classes": [],
+  "rarity": 6.0,
+  "duration": 1100,
+  "no_effects": false
+}

@@ -1,0 +1,12 @@
+{
+  "item": "minecraft:sugar",
+  "guaranteed_effects": [
+    "minecraft:speed"
+  ],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 0.75,
+  "duration": 500,
+  "no_effects": false
+}

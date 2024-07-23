@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:frogspawn",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:egg"
+  ],
+  "rarity": 3.0,
+  "duration": 1100,
+  "no_effects": false
+}

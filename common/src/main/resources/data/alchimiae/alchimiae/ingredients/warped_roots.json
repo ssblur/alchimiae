@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:warped_roots",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:nether_plant"
+  ],
+  "rarity": 3.0,
+  "duration": 1000,
+  "no_effects": false
+}

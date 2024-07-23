@@ -1,0 +1,13 @@
+{
+  "item": "minecraft:pufferfish",
+  "guaranteed_effects": [
+    "minecraft:water_breathing",
+    "minecraft:poison"
+  ],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 2.2,
+  "duration": 1200,
+  "no_effects": false
+}

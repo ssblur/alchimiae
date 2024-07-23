@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "p",
+    "m"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:flint"
+    },
+    "m": {
+      "item": "minecraft:bowl"
+    }
+  },
+  "result": {
+    "id": "alchimiae:stone_mortar_and_pestle",
+    "count": 1
+  }
+}

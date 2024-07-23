@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:lapis_lazuli",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:gem"
+  ],
+  "rarity": 4.0,
+  "duration": 500,
+  "no_effects": false
+}

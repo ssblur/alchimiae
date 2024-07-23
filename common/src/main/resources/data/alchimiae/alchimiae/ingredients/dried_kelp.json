@@ -1,0 +1,11 @@
+{
+  "item": "minecraft:dried_kelp",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:kelp"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

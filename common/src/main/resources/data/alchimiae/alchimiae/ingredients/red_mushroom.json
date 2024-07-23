@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:red_mushroom",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:mushroom"
+  ],
+  "rarity": 3.0,
+  "duration": 600,
+  "no_effects": false
+}

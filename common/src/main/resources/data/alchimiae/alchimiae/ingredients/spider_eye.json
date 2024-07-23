@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:spider_eye",
+  "guaranteed_effects": [
+    "minecraft:instant_damage"
+  ],
+  "ingredient_classes": [],
+  "rarity": 1.5,
+  "duration": 300,
+  "no_effects": false
+}

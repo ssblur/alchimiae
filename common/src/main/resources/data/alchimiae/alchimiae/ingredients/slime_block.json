@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:slime_block",
+  "guaranteed_effects": [
+    "minecraft:oozing"
+  ],
+  "ingredient_classes": [],
+  "rarity": 5.0,
+  "duration": 1040,
+  "no_effects": false
+}

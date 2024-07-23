@@ -1,0 +1,11 @@
+{
+  "item": "minecraft:glow_berries",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:berries"
+  ],
+  "rarity": 4.0,
+  "duration": 1100,
+  "no_effects": false
+}

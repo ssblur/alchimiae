@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sis",
+    "sps",
+    "sms"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:diamond"
+    },
+    "m": {
+      "item": "minecraft:bowl"
+    },
+    "s": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "alchimiae:diamond_mortar_and_pestle",
+    "count": 1
+  }
+}

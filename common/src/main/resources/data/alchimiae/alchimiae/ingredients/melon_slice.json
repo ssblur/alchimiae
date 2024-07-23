@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:melon_slice",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

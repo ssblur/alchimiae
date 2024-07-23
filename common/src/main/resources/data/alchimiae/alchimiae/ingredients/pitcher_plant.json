@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:pitcher_plant",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:aquatic_plant"
+  ],
+  "rarity": 4.0,
+  "duration": 1000,
+  "no_effects": false
+}

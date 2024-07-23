@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:phantom_membrane",
+  "guaranteed_effects": [
+    "minecraft:slow_falling"
+  ],
+  "ingredient_classes": [],
+  "rarity": 5.0,
+  "duration": 500,
+  "no_effects": false
+}

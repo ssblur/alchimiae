@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:fern",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plant"
+  ],
+  "rarity": 2.0,
+  "duration": 600,
+  "no_effects": false
+}

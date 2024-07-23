@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:kelp",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:kelp"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

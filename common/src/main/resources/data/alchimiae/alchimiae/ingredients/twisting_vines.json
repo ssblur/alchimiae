@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:twisting_vines",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:nether_plant"
+  ],
+  "rarity": 5.0,
+  "duration": 900,
+  "no_effects": false
+}

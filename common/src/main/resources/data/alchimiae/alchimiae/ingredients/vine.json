@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:vine",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plant"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

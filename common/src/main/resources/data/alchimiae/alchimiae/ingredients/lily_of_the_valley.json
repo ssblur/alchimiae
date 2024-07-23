@@ -1,0 +1,11 @@
+{
+  "item": "minecraft:lily_of_the_valley",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower",
+    "alchimiae:flower_2"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

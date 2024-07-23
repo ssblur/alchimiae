@@ -1,0 +1,11 @@
+{
+  "item": "minecraft:cod",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:fish"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

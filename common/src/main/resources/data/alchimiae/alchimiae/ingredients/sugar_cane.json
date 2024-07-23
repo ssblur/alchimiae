@@ -1,0 +1,12 @@
+{
+  "item": "minecraft:sugar_cane",
+  "guaranteed_effects": [
+    "minecraft:speed"
+  ],
+  "ingredient_classes": [
+    "alchimiae:plant"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

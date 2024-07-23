@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "p ",
+    "ms"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:gold_ingot"
+    },
+    "m": {
+      "item": "minecraft:bowl"
+    },
+    "s": {
+      "tag": "minecraft:stone_tool_materials"
+    }
+  },
+  "result": {
+    "id": "alchimiae:gold_mortar_and_pestle",
+    "count": 1
+  }
+}

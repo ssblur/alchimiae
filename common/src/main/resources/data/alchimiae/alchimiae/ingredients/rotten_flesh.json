@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:rotten_flesh",
+  "guaranteed_effects": [
+    "minecraft:hunger"
+  ],
+  "ingredient_classes": [],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

@@ -1,0 +1,11 @@
+{
+  "item": "minecraft:chicken",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:meat"
+  ],
+  "rarity": 1.0,
+  "duration": 600,
+  "no_effects": false
+}

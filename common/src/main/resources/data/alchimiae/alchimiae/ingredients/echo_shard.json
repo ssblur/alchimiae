@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:echo_shard",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:gem"
+  ],
+  "rarity": 8.0,
+  "duration": 1400,
+  "no_effects": false
+}

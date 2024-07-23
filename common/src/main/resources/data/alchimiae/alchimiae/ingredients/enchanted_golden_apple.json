@@ -1,0 +1,13 @@
+{
+  "item": "minecraft:enchanted_golden_apple",
+  "guaranteed_effects": [
+    "minecraft:regeneration"
+  ],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:golden_apple"
+  ],
+  "rarity": 20.0,
+  "duration": 2400,
+  "no_effects": false
+}

@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:magma_cream",
+  "guaranteed_effects": [
+    "minecraft:fire_resistance"
+  ],
+  "ingredient_classes": [],
+  "rarity": 2.0,
+  "duration": 1000,
+  "no_effects": false
+}

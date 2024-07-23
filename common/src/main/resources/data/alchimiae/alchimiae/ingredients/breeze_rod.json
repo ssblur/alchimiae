@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:breeze_rod",
+  "guaranteed_effects": [
+    "minecraft:wind_charged"
+  ],
+  "ingredient_classes": [],
+  "rarity": 6.0,
+  "duration": 1100,
+  "no_effects": false
+}

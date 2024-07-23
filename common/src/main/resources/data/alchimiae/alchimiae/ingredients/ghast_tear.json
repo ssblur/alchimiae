@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:ghast_tear",
+  "guaranteed_effects": [
+    "minecraft:regeneration"
+  ],
+  "ingredient_classes": [],
+  "rarity": 5.0,
+  "duration": 400,
+  "no_effects": false
+}

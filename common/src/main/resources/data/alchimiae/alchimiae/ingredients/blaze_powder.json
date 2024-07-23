@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:blaze_powder",
+  "guaranteed_effects": [
+    "minecraft:strength"
+  ],
+  "ingredient_classes": [],
+  "rarity": 4.0,
+  "duration": 1000,
+  "no_effects": false
+}

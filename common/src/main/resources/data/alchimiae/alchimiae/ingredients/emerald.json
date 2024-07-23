@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:emerald",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:gem"
+  ],
+  "rarity": 6.0,
+  "duration": 600,
+  "no_effects": false
+}

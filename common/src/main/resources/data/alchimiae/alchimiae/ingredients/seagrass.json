@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:seagrass",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:kelp"
+  ],
+  "rarity": 2.0,
+  "duration": 800,
+  "no_effects": false
+}

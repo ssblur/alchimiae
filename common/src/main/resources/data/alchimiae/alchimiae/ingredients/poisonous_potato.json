@@ -1,0 +1,12 @@
+{
+  "item": "minecraft:poisonous_potato",
+  "guaranteed_effects": [
+    "minecraft:poison"
+  ],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 0.0,
+  "duration": 1600,
+  "no_effects": false
+}

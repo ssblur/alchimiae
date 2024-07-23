@@ -1,0 +1,12 @@
+{
+  "item": "minecraft:golden_carrot",
+  "guaranteed_effects": [
+    "minecraft:night_vision"
+  ],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 2.0,
+  "duration": 1200,
+  "no_effects": false
+}

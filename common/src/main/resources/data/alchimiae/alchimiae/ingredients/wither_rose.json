@@ -1,0 +1,13 @@
+{
+  "item": "minecraft:wither_rose",
+  "guaranteed_effects": [
+    "minecraft:wither"
+  ],
+  "ingredient_classes": [
+    "alchimiae:flower",
+    "alchimiae:flower_2"
+  ],
+  "rarity": 4.0,
+  "duration": 800,
+  "no_effects": false
+}

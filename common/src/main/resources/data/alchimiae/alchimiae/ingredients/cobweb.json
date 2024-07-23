@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:cobweb",
+  "guaranteed_effects": [
+    "minecraft:weaving"
+  ],
+  "ingredient_classes": [],
+  "rarity": 3.0,
+  "duration": 900,
+  "no_effects": false
+}

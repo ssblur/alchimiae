@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:bubble_coral",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:coral"
+  ],
+  "rarity": 5.0,
+  "duration": 1200,
+  "no_effects": false
+}

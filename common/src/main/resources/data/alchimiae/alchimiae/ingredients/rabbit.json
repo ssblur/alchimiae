@@ -1,0 +1,11 @@
+{
+  "item": "minecraft:rabbit",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:meat"
+  ],
+  "rarity": 4.0,
+  "duration": 800,
+  "no_effects": false
+}
