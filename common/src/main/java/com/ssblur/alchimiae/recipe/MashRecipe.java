@@ -21,12 +21,13 @@ public class MashRecipe extends CustomRecipe {
 
   @Override
   public boolean matches(CraftingInput recipeInput, Level level) {
-    if(!recipeInput.items().stream().anyMatch(item -> item.is(AlchimiaeItems.GRINDER)))
+    if(recipeInput.items().stream().noneMatch(item -> item.is(AlchimiaeItems.GRINDER)))
+      return false;
+    if(recipeInput.ingredientCount() <= 2)
       return false;
 
-
-    if(level instanceof ServerLevel server) {
-      this.server = server;
+    if(level instanceof ServerLevel serverLevel) {
+      this.server = serverLevel;
       var items = recipeInput.items().stream().filter(item -> !item.is(AlchimiaeItems.GRINDER)).toList();
 
       return AlchemyHelper.getEffects(items, server) != null;
