@@ -45,9 +45,8 @@ jobs:
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-          curse-project-id: "" # TODO
+          curse-project-id: "1070539"
           curse-token: "${{ secrets.CURSEFORGE_TOKEN }}"
-          curse-relations: "architectury-api:requiredDependency"
 
           modrinth-project-id: "alchimiae-magicae"
           modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"
