@@ -29,7 +29,7 @@ public class ReceiveIngredientsNetwork implements AlchimiaNetworkInterface<Recei
 
   @Override
   public void receive(Payload value, NetworkManager.PacketContext context) {
-    System.out.println(value.key);
+    AlchimiaeMod.LOGGER.debug("Received data for ingredient with key {}", value.key);
     ClientAlchemyHelper.update(value.key, value.effects);
   }
 
