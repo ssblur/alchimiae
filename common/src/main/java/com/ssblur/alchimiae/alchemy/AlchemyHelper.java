@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class AlchemyHelper {
-  public static AlchemyPotion getEffects(List<AlchemyIngredient> ingredients) {
+  public static AlchemyPotion getEffects(List<AlchemyIngredient> ingredients, float efficiency) {
     HashMap<ResourceLocation, Float> potency = new HashMap<>();
     int duration = 0;
     for(var ingredient: ingredients) {
@@ -26,6 +26,7 @@ public class AlchemyHelper {
 
     duration /= ingredients.size();
     duration *= 2;
+    duration = Math.round(((float) duration) * efficiency);
     HashMap<ResourceLocation, Integer> output = new HashMap<>();
     potency.entrySet().stream()
       .filter(e -> e.getValue() >= 1)
@@ -33,7 +34,7 @@ public class AlchemyHelper {
     return new AlchemyPotion(output, duration);
   }
 
-  public static AlchemyPotion getEffects(List<ItemStack> items, ServerLevel level) {
+  public static AlchemyPotion getEffects(List<ItemStack> items, ServerLevel level, float efficiency) {
     if(items.size() <= 1) return null;
 
     var ingredients = items.stream().filter(item -> !item.isEmpty()).map(
@@ -50,16 +51,20 @@ public class AlchemyHelper {
           return null;
         }
 
-    return getEffects(ingredients);
+    return getEffects(ingredients, efficiency);
   }
 
-  public static List<MobEffectInstance> getPotion(List<ItemStack> items, ServerLevel level) {
-    var effects = getEffects(items, level);
+  public static List<MobEffectInstance> getPotion(List<ItemStack> items, ServerLevel level, float efficiency) {
+    var effects = getEffects(items, level, efficiency);
     if(effects == null) return List.of();
     return effects.toPotion();
   }
 
   public static PotionContents getPotionContents(List<ItemStack> items, ServerLevel level) {
-    return new PotionContents(Optional.empty(), Optional.empty(), getPotion(items, level));
+    return getPotionContents(items, level, 1.0f);
+  }
+
+  public static PotionContents getPotionContents(List<ItemStack> items, ServerLevel level, float efficiency) {
+    return new PotionContents(Optional.empty(), Optional.empty(), getPotion(items, level, efficiency));
   }
 }

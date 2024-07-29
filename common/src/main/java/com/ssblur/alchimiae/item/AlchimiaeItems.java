@@ -31,15 +31,15 @@ public class AlchimiaeItems {
   );
 
   public static final RegistrySupplier<Item> MORTAR_AND_PESTLE = ITEMS.register("stone_mortar_and_pestle", () ->
-    new Item(new Item.Properties().durability(16).arch$tab(TAB)));
+    new GrinderItem(0.3f, new Item.Properties().durability(16).arch$tab(TAB)));
   public static final RegistrySupplier<Item> IRON_MORTAR_AND_PESTLE = ITEMS.register("iron_mortar_and_pestle", () ->
-    new Item(new Item.Properties().durability(24).arch$tab(TAB)));
+    new GrinderItem(0.5f, new Item.Properties().durability(24).arch$tab(TAB)));
   public static final RegistrySupplier<Item> GOLD_MORTAR_AND_PESTLE = ITEMS.register("gold_mortar_and_pestle", () ->
-    new Item(new Item.Properties().durability(12).arch$tab(TAB)));
+    new GrinderItem(0.8f, new Item.Properties().durability(12).arch$tab(TAB)));
   public static final RegistrySupplier<Item> DIAMOND_MORTAR_AND_PESTLE = ITEMS.register("diamond_mortar_and_pestle", () ->
-    new Item(new Item.Properties().durability(32).arch$tab(TAB)));
+    new GrinderItem(0.7f, new Item.Properties().durability(32).arch$tab(TAB)));
   public static final RegistrySupplier<Item> NETHERITE_MORTAR_AND_PESTLE = ITEMS.register("netherite_mortar_and_pestle", () ->
-    new Item(new Item.Properties().durability(64).arch$tab(TAB)));
+    new GrinderItem(1.0f, new Item.Properties().durability(64).arch$tab(TAB)));
   public static final RegistrySupplier<Item> MASH = ITEMS.register("mash", () ->
     new Mash(new Item.Properties()));
 

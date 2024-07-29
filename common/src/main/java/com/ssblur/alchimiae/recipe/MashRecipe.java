@@ -2,6 +2,7 @@ package com.ssblur.alchimiae.recipe;
 
 import com.ssblur.alchimiae.alchemy.AlchemyHelper;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
+import com.ssblur.alchimiae.item.GrinderItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -30,7 +31,7 @@ public class MashRecipe extends CustomRecipe {
       this.server = serverLevel;
       var items = recipeInput.items().stream().filter(item -> !item.is(AlchimiaeItems.GRINDER)).toList();
 
-      return AlchemyHelper.getEffects(items, server) != null;
+      return AlchemyHelper.getEffects(items, server ,1.0f) != null;
     } else {
       return false;
     }
@@ -40,10 +41,14 @@ public class MashRecipe extends CustomRecipe {
   public ItemStack assemble(CraftingInput recipeInput, HolderLookup.Provider provider) {
     var output = new ItemStack(AlchimiaeItems.MASH);
     if(server == null || !server.getServer().isRunning()) return output;
+    float efficiency = 0.5f;
+    var grinder = recipeInput.items().stream().filter(item -> item.is(AlchimiaeItems.GRINDER)).findAny();
+    if(grinder.isPresent() && grinder.get().getItem() instanceof GrinderItem grinderItem)
+      efficiency = grinderItem.getEfficiency();
     var items = recipeInput.items().stream().filter(item -> !item.is(AlchimiaeItems.GRINDER)).toList();
     output.set(
       DataComponents.POTION_CONTENTS,
-      AlchemyHelper.getPotionContents(items, server)
+      AlchemyHelper.getPotionContents(items, server, efficiency)
     );
     return output;
   }
