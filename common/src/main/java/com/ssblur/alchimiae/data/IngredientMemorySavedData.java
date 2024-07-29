@@ -36,7 +36,7 @@ public class IngredientMemorySavedData extends SavedData {
   Map<ResourceLocation, List<String>> data;
 
   public IngredientMemorySavedData(Map<ResourceLocation, List<String>> data) {
-    this.data = data;
+    this.data = new HashMap<>(data);
   }
 
   public IngredientMemorySavedData() {
@@ -49,6 +49,11 @@ public class IngredientMemorySavedData extends SavedData {
       if(!this.data.containsKey(key))
         this.data.put(key, new ArrayList<>());
     setDirty();
+  }
+
+  public void reset(ServerLevel level) {
+    this.data.clear();
+    fill(level);
   }
 
   public Map<ResourceLocation, List<String>> getData() {
@@ -104,9 +109,12 @@ public class IngredientMemorySavedData extends SavedData {
     var server = level.getServer().getLevel(Level.OVERWORLD);
     var id = player.getStringUUID();
     if(id.isEmpty()) id = player.getDisplayName().getString();
+    return computeIfAbsent(server, id);
+  }
 
+  public static IngredientMemorySavedData computeIfAbsent(ServerLevel level, String uuid) {
     try {
-      var storage = (DimensionDataStorageAccessor) server.getDataStorage();
+      var storage = (DimensionDataStorageAccessor) level.getDataStorage();
 
       if(!Files.exists(storage.getDataFolder().toPath().resolve("alchimiae_players")))
         Files.createDirectory(storage.getDataFolder().toPath().resolve("alchimiae_players"));
@@ -114,12 +122,12 @@ public class IngredientMemorySavedData extends SavedData {
       throw new RuntimeException(e);
     }
 
-    Objects.requireNonNull(server);
-    var data = server.getDataStorage().computeIfAbsent(
+    Objects.requireNonNull(level);
+    var data = level.getDataStorage().computeIfAbsent(
       new Factory<>(IngredientMemorySavedData::new, IngredientMemorySavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA),
-      "alchimiae_players/memory_" + id
+      "alchimiae_players/memory_" + uuid
     );
-    data.fill(server);
+    data.fill(level);
     return data;
   }
 }

@@ -38,6 +38,7 @@ public class IngredientEffectsSavedData extends SavedData {
   public void generate() {
     HashMap<ResourceLocation, IngredientReloadListener.IngredientResource> ingredients = new HashMap<>();
     HashMap<ResourceLocation, List<ResourceLocation>> effects = new HashMap<>();
+    var random = new Random();
 
     for(var ingredient: IngredientReloadListener.INSTANCE.ingredients.entrySet()) {
       var item = ResourceLocation.parse(ingredient.getValue().item());
@@ -57,17 +58,16 @@ public class IngredientEffectsSavedData extends SavedData {
             ingredients.get(entry.getKey()).rarity() >= effect.getValue().rarity()
               && !effects.get(entry.getKey()).contains(key)
               && entry.getValue().size() < 4
-        );
+        ).toList();
 
-        var any = valid.findAny();
-        if (any.isPresent()) {
+        if (!valid.isEmpty()) {
+          var any = valid.get(random.nextInt(valid.size()));
           looping = true;
-          any.get().getValue().add(key);
+          any.getValue().add(key);
         }
       }
     }
 
-    Random random = new Random();
     for(var key: ingredients.keySet())
       data.put(key, new AlchemyIngredient(
         ingredients.get(key).duration(),

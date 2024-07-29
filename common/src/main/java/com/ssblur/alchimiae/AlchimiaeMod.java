@@ -1,7 +1,7 @@
 package com.ssblur.alchimiae;
 
 import com.google.common.base.Suppliers;
-import com.ssblur.alchimiae.command.DumpEffectsCommand;
+import com.ssblur.alchimiae.command.AlchimiaeCommand;
 import com.ssblur.alchimiae.events.AlchimiaeEvents;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
 import com.ssblur.alchimiae.recipe.AlchimiaeRecipes;
@@ -23,7 +23,7 @@ public final class AlchimiaeMod {
     AlchimiaeItems.register();
     AlchimiaeRecipes.register();
 
-    CommandRegistrationEvent.EVENT.register(DumpEffectsCommand::register);
+    CommandRegistrationEvent.EVENT.register(AlchimiaeCommand::register);
   }
 
   public static ResourceLocation location(String path) {

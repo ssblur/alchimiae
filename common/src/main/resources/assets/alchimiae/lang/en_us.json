@@ -11,5 +11,12 @@
   "item.alchimiae.diamond_mortar_and_pestle": "Diamond-burred Grinder",
   "item.alchimiae.netherite_mortar_and_pestle": "Netherite Grinder",
   "item.alchimiae.mash": "Mash",
-  "item.alchimiae.potion": "Brew"
+  "item.alchimiae.potion": "Brew",
+
+  "command.alchimiae.debug": "No sub-command provided! Available commands:",
+  "command.alchimiae.reset_desc": "Resets all alchimiae data in this world.",
+  "command.alchimiae.reset_desc_2": "Existing potions and mash will remain, but all effects will be reset and forgotten.",
+
+  "command.alchimiae.reset": "Alchimiae data have been reset for this world.",
+  "command.alchimiae.reset_player": "You have forgotten your alchemical knowledge."
 }
