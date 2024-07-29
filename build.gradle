@@ -1,7 +1,8 @@
 plugins {
-    id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
-    id 'architectury-plugin' version '3.4-SNAPSHOT'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+  id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
+  id 'architectury-plugin' version '3.4-SNAPSHOT'
+  id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+  id "com.palantir.git-version" version "0.15.0"
 }
 
 architectury {
@@ -10,7 +11,12 @@ architectury {
 
 allprojects {
     group = rootProject.maven_group
-    version = rootProject.mod_version
+    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+.*)/
+    matcher.find()
+    if(matcher.groupCount() >= 1)
+      version = matcher.group(1)
+    else
+      version = "dev"
 }
 
 subprojects {
