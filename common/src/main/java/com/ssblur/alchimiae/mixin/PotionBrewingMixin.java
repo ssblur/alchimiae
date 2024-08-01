@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +25,8 @@ public class PotionBrewingMixin {
 
   @Inject(method = "mix", at = @At("HEAD"), cancellable = true)
   private void mashMix(ItemStack ingredient, ItemStack potion, CallbackInfoReturnable<ItemStack> info) {
-    if(ingredient.is(AlchimiaeItems.MASH.get()) && potion.is(Items.POTION)) {
+    var potionContents = potion.get(DataComponents.POTION_CONTENTS);
+    if(ingredient.is(AlchimiaeItems.MASH.get()) && potionContents != null && potionContents.is(Potions.WATER)) {
       var out = potion.copy();
       var contents = ingredient.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
       var newContents = new PotionContents(
@@ -37,12 +39,25 @@ public class PotionBrewingMixin {
       out.set(DataComponents.POTION_CONTENTS, newContents);
       out.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
       info.setReturnValue(out);
+    } else if(ingredient.is(Items.GUNPOWDER) && potion.is(Items.POTION)) {
+      var out = potion.transmuteCopy(Items.SPLASH_POTION);
+      out.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.splash_potion"));
+      info.setReturnValue(out);
+    } else if(ingredient.is(Items.DRAGON_BREATH) && potion.is(Items.POTION)) {
+      var out = potion.transmuteCopy(Items.LINGERING_POTION);
+      out.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.lingering_potion"));
+      info.setReturnValue(out);
     }
   }
 
   @Inject(method = "hasMix", at = @At("HEAD"), cancellable = true)
   private void mashHasMix(ItemStack potion, ItemStack ingredient, CallbackInfoReturnable<Boolean> info) {
-    if(ingredient.is(AlchimiaeItems.MASH.get()))
+    var potionContents = potion.get(DataComponents.POTION_CONTENTS);
+    if(ingredient.is(AlchimiaeItems.MASH.get()) && potionContents != null && potionContents.is(Potions.WATER))
+      info.setReturnValue(true);
+    else if(ingredient.is(Items.DRAGON_BREATH) && potionContents != null && potion.is(Items.POTION))
+      info.setReturnValue(true);
+    else if(ingredient.is(Items.GUNPOWDER) && potionContents != null && potion.is(Items.POTION))
       info.setReturnValue(true);
   }
 }
