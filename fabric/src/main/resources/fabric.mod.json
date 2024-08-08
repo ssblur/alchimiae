@@ -3,9 +3,9 @@
   "id": "alchimiae",
   "version": "${version}",
   "name": "Alchimiae Magicae",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Brews, potions, all sorts of concoctions. All at the tip of your pestle!",
   "authors": [
-    "Me!"
+    "SSBlur"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -32,7 +32,5 @@
     "architectury": ">=13.0.2",
     "fabric-api": "*"
   },
-  "suggests": {
-    "another-mod": "*"
-  }
+  "suggests": {}
 }
