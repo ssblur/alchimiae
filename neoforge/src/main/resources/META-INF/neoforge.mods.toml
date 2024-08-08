@@ -11,7 +11,7 @@ authors = "SSBlur"
 description = '''
 Brews, potions, all sorts of concoctions. All at the tip of your pestle!
 '''
-#logoFile = ""
+logoFile = "assets/alchimiae/icon.png"
 
 [[dependencies.alchimiae]]
 modId = "neoforge"
