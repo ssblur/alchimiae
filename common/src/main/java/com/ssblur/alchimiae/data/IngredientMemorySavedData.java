@@ -68,7 +68,7 @@ public class IngredientMemorySavedData extends SavedData {
 
   public void add(ServerPlayer player, Item item, List<IngredientEffect> effects) {
     var key = AlchimiaeItems.ITEMS.getRegistrar().getId(item);
-    var data = this.data.getOrDefault(key, new ArrayList<>());
+    var data = new ArrayList<>(this.data.getOrDefault(key, List.of()));
 
     boolean changed = false;
     String languageKey;

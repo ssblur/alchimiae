@@ -67,12 +67,12 @@ public class MashRecipe extends CustomRecipe {
   public NonNullList<ItemStack> getRemainingItems(CraftingInput recipeInput) {
     NonNullList<ItemStack> list = NonNullList.withSize(recipeInput.size(), ItemStack.EMPTY);
     for(int i = 0; i < recipeInput.size(); i++) {
-      var item = recipeInput.getItem(i);
+      var item = recipeInput.getItem(i).copy();
       if(item.is(AlchimiaeItems.GRINDER) && item.isDamageableItem()) {
         item.setDamageValue(item.getDamageValue() + 1);
         if(item.getDamageValue() >= item.getMaxDamage())
           item = ItemStack.EMPTY;
-        list.set(i, item.copy());
+        list.set(i, item);
       }
     }
     return list;
