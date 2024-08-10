@@ -20,5 +20,13 @@
   "command.alchimiae.reset_desc_2": "Existing potions and mash will remain, but all effects will be reset and forgotten.",
 
   "command.alchimiae.reset": "Alchimiae data have been reset for this world.",
-  "command.alchimiae.reset_player": "You have forgotten your alchemical knowledge."
+  "command.alchimiae.reset_player": "You have forgotten your alchemical knowledge.",
+
+  "gui.alchimiae.mash_jei": "Ingredient Mashing",
+
+  "info.alchimiae.grinder_1": "Grinders can be used to combine Ingredients into Mash.",
+  "info.alchimiae.grinder_2": "Just craft multiple items marked as \"Ingredient\" with a Grinder or Mortar and Pestle.",
+  "info.alchimiae.mash_1": "Mash can be turned into potions through a couple of methods.",
+  "info.alchimiae.mash_2": "The simplest of these is crafting them with a bottle of water, which makes one potion.",
+  "info.alchimiae.mash_3": "You can also place them into the top slot of a Brewing Stand, though their duration will be reduced."
 }
