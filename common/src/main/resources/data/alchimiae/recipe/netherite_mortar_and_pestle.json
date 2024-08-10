@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "alchimiae:diamond_mortar_and_pestle"
+  },
+  "result": {
+    "count": 1,
+    "id": "alchimiae:netherite_mortar_and_pestle"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}
