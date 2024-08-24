@@ -25,7 +25,7 @@ public class AlchemyHelper {
     }
 
     duration /= ingredients.size();
-    duration *= 2;
+    duration *= ingredients.size() + 1;
     duration = Math.round(((float) duration) * efficiency);
     HashMap<ResourceLocation, Integer> output = new HashMap<>();
     potency.entrySet().stream()
