@@ -21,6 +21,8 @@
   "effect.alchimiae.famine": "Famine",
   "effect.alchimiae.immune": "Immune",
   "effect.alchimiae.afflicted": "Afflicted",
+  "effect.alchimiae.liliputian": "Liliputian",
+  "effect.alchimiae.alician": "Alician",
 
   "command.alchimiae.debug": "No sub-command provided! Available commands:",
   "command.alchimiae.reset_desc": "Resets all alchimiae data in this world.",

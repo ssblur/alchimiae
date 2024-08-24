@@ -8,6 +8,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 
+@SuppressWarnings("unused")
 public class AlchimiaeEffects {
   public static final String MOD_ID = AlchimiaeMod.MOD_ID;
   public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MOD_ID, Registries.MOB_EFFECT);
@@ -16,6 +17,12 @@ public class AlchimiaeEffects {
   public static final RegistrySupplier<MobEffect> FEAST = EFFECTS.register("feast", () -> new FoodMobEffect(true));
   public static final RegistrySupplier<MobEffect> IMMUNE = EFFECTS.register("immune", () -> new EffectModMobEffect(true));
   public static final RegistrySupplier<MobEffect> AFFLICTED = EFFECTS.register("afflicted", () -> new EffectModMobEffect(false));
+  public static final RegistrySupplier<MobEffect> LILIPUTIAN = EFFECTS.register("liliputian",
+    () -> new ScaleMobEffect(-0.5, AlchimiaeMod.location("liliputian"))
+  );
+  public static final RegistrySupplier<MobEffect> ALICIAN = EFFECTS.register("alician",
+    () -> new ScaleMobEffect(1, AlchimiaeMod.location("alician"))
+  );
 
   public static void register() {
     EFFECTS.register();
