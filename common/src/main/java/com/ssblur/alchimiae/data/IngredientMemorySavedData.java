@@ -1,5 +1,6 @@
 package com.ssblur.alchimiae.data;
 
+import com.google.common.base.MoreObjects;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.alchimiae.alchemy.IngredientEffect;
@@ -10,6 +11,7 @@ import dev.architectury.networking.NetworkManager;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +20,7 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -74,7 +77,7 @@ public class IngredientMemorySavedData extends SavedData {
   }
 
   public void add(ServerPlayer player, Item item, List<IngredientEffect> effects) {
-    var key = AlchimiaeItems.ITEMS.getRegistrar().getId(item);
+    var key = Objects.requireNonNull(AlchimiaeItems.ITEMS.getRegistrar().getId(item));
     var data = new ArrayList<>(this.data.getOrDefault(key, List.of()));
 
     boolean changed = false;
@@ -89,6 +92,7 @@ public class IngredientMemorySavedData extends SavedData {
     }
 
     if(changed) {
+      this.data.put(key, data);
       NetworkManager.sendToPlayer(player, new ReceiveIngredientsNetwork.Payload(key.toString(), data));
       setDirty();
     }
@@ -101,6 +105,7 @@ public class IngredientMemorySavedData extends SavedData {
     }
   }
 
+  @Nullable
   public static IngredientMemorySavedData load(CompoundTag tag, HolderLookup.Provider provider) {
     var input = tag.get("alchimiae:memory");
     if(input != null) {
@@ -113,9 +118,9 @@ public class IngredientMemorySavedData extends SavedData {
 
   public static IngredientMemorySavedData computeIfAbsent(ServerPlayer player) {
     var level = player.serverLevel();
-    var server = level.getServer().getLevel(Level.OVERWORLD);
+    var server = Objects.requireNonNull(level.getServer().getLevel(Level.OVERWORLD));
     var id = player.getStringUUID();
-    if(id.isEmpty()) id = player.getDisplayName().getString();
+    if(id.isEmpty()) id = MoreObjects.firstNonNull(player.getDisplayName(), Component.literal("player")).getString();
     return computeIfAbsent(server, id);
   }
 
