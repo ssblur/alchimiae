@@ -2,6 +2,7 @@ package com.ssblur.alchimiae;
 
 import com.google.common.base.Suppliers;
 import com.ssblur.alchimiae.command.AlchimiaeCommand;
+import com.ssblur.alchimiae.effect.AlchimiaeEffects;
 import com.ssblur.alchimiae.events.AlchimiaeEvents;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
 import com.ssblur.alchimiae.recipe.AlchimiaeRecipes;
@@ -22,6 +23,7 @@ public final class AlchimiaeMod {
     AlchimiaeEvents.register();
     AlchimiaeItems.register();
     AlchimiaeRecipes.register();
+    AlchimiaeEffects.register();
 
     CommandRegistrationEvent.EVENT.register(AlchimiaeCommand::register);
   }

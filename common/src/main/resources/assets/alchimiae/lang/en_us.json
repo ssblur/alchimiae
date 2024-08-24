@@ -11,9 +11,13 @@
   "item.alchimiae.diamond_mortar_and_pestle": "Diamond-burred Grinder",
   "item.alchimiae.netherite_mortar_and_pestle": "Netherite Grinder",
   "item.alchimiae.mash": "Mash",
+  "item.alchimiae.concentrate": "Concentrate",
   "item.alchimiae.potion": "Brew",
   "item.alchimiae.splash_potion": "Splash Brew",
   "item.alchimiae.lingering_potion": "Lingering Brew",
+
+  "effect.alchimiae.feast": "Feast",
+  "effect.alchimiae.famine": "Famine",
 
   "command.alchimiae.debug": "No sub-command provided! Available commands:",
   "command.alchimiae.reset_desc": "Resets all alchimiae data in this world.",

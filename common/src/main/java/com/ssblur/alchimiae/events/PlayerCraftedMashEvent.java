@@ -30,7 +30,7 @@ public class PlayerCraftedMashEvent implements PlayerEvent.CraftItem {
       if(ingredient == null) continue;
       var intersection = ingredient.effects().stream().filter(
         effect -> effects.customEffects().stream().anyMatch(instance ->
-          AlchimiaeEffects.MOB_EFFECTS.getRegistrar().getId(instance.getEffect().value()).equals(effect.effect())
+          AlchimiaeEffects.EFFECTS.getRegistrar().getId(instance.getEffect().value()).equals(effect.effect())
         )
       ).toList();
       memory.add(serverPlayer, inventory.getItem(i).getItem(), intersection);
