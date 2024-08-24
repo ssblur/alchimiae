@@ -23,7 +23,7 @@ public class PotionBrewingMixin {
     if(item.is(AlchimiaeItems.MASH.get())) info.setReturnValue(true);
   }
 
-  @Inject(method = "mix", at = @At("HEAD"), cancellable = true)
+  @Inject(method = "mix", at = @At("RETURN"), cancellable = true)
   private void mashMix(ItemStack ingredient, ItemStack potion, CallbackInfoReturnable<ItemStack> info) {
     var potionContents = potion.get(DataComponents.POTION_CONTENTS);
     if(ingredient.is(AlchimiaeItems.MASH.get()) && potionContents != null && potionContents.is(Potions.WATER)) {
@@ -39,11 +39,11 @@ public class PotionBrewingMixin {
       out.set(DataComponents.POTION_CONTENTS, newContents);
       out.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
       info.setReturnValue(out);
-    } else if(ingredient.is(Items.GUNPOWDER) && potion.is(Items.POTION)) {
+    } else if(ingredient.is(Items.GUNPOWDER) && potion.is(Items.POTION) && ItemStack.isSameItemSameComponents(info.getReturnValue(), potion)) {
       var out = potion.transmuteCopy(Items.SPLASH_POTION);
       out.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.splash_potion"));
       info.setReturnValue(out);
-    } else if(ingredient.is(Items.DRAGON_BREATH) && potion.is(Items.POTION)) {
+    } else if(ingredient.is(Items.DRAGON_BREATH) && potion.is(Items.POTION) && ItemStack.isSameItemSameComponents(info.getReturnValue(), potion)) {
       var out = potion.transmuteCopy(Items.LINGERING_POTION);
       out.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.lingering_potion"));
       info.setReturnValue(out);
