@@ -17,6 +17,7 @@ public class AlchimiaeCommand {
 
     ResetCommand.register(command);
     DumpEffectsCommand.register(command);
+    LearnEffectsCommand.register(command);
 
     dispatcher.register(command);
   }

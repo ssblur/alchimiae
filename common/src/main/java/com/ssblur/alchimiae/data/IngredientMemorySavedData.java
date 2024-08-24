@@ -51,6 +51,13 @@ public class IngredientMemorySavedData extends SavedData {
     setDirty();
   }
 
+  public void learnAll(ServerLevel level) {
+    var effects = IngredientEffectsSavedData.computeIfAbsent(level);
+    for(var key: effects.getData().keySet())
+      this.data.put(key, effects.getData().get(key).effectsLanguageKeys());
+    setDirty();
+  }
+
   public void reset(ServerLevel level) {
     this.data.clear();
     fill(level);

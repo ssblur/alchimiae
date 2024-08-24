@@ -13,4 +13,8 @@ public record AlchemyIngredient(int duration, List<IngredientEffect> effects) {
       IngredientEffect.CODEC.listOf().fieldOf("effects").forGetter(AlchemyIngredient::effects)
     ).apply(instance, AlchemyIngredient::new)
   );
+
+  public List<String> effectsLanguageKeys() {
+    return effects.stream().map(effect -> "effect." + effect.effect().toLanguageKey()).toList();
+  }
 }
