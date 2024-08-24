@@ -3,6 +3,7 @@ package com.ssblur.alchimiae.events;
 import com.ssblur.alchimiae.alchemy.ClientAlchemyHelper;
 import dev.architectury.event.events.client.ClientTooltipEvent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,9 +16,17 @@ public class AddTooltipEvent implements ClientTooltipEvent.Item {
   public void append(ItemStack stack, List<Component> lines, Item.TooltipContext tooltipContext, TooltipFlag flag) {
     var data = ClientAlchemyHelper.get(stack);
     if(data != null) {
-      lines.add(Component.translatable("lore.alchimiae.ingredient").withStyle(ChatFormatting.AQUA));
-      for(var item: data)
-        lines.add(Component.literal(" - ").append(Component.translatable(item).withStyle(ChatFormatting.BLUE)));
+      if(Screen.hasShiftDown()) {
+        lines.add(Component.translatable("lore.alchimiae.ingredient").withStyle(ChatFormatting.AQUA));
+        for (var item : data)
+          lines.add(Component.literal(" - ").append(Component.translatable(item).withStyle(ChatFormatting.BLUE)));
+      } else {
+        lines.add(
+          Component.translatable("lore.alchimiae.ingredient").withStyle(ChatFormatting.AQUA)
+            .append(" ")
+            .append(Component.translatable("lore.alchimiae.hold_shift").withStyle(ChatFormatting.GRAY))
+        );
+      }
     }
   }
 }
