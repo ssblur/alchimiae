@@ -14,6 +14,8 @@ public class AlchimiaeEffects {
 
   public static final RegistrySupplier<MobEffect> FAMINE = EFFECTS.register("famine", () -> new FoodMobEffect(false));
   public static final RegistrySupplier<MobEffect> FEAST = EFFECTS.register("feast", () -> new FoodMobEffect(true));
+  public static final RegistrySupplier<MobEffect> IMMUNE = EFFECTS.register("immune", () -> new EffectModMobEffect(true));
+  public static final RegistrySupplier<MobEffect> AFFLICTED = EFFECTS.register("afflicted", () -> new EffectModMobEffect(false));
 
   public static void register() {
     EFFECTS.register();
