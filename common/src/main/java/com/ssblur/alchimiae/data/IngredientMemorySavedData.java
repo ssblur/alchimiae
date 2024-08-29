@@ -3,7 +3,6 @@ package com.ssblur.alchimiae.data;
 import com.google.common.base.MoreObjects;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.ssblur.alchimiae.alchemy.IngredientEffect;
 import com.ssblur.alchimiae.events.network.client.ReceiveIngredientsNetwork;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
 import com.ssblur.alchimiae.mixin.DimensionDataStorageAccessor;
@@ -17,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class IngredientMemorySavedData extends SavedData {
   public static final Codec<IngredientMemorySavedData> CODEC = RecordCodecBuilder.create(instance ->
@@ -76,24 +77,29 @@ public class IngredientMemorySavedData extends SavedData {
     return tag;
   }
 
-  public void add(ServerPlayer player, Item item, List<IngredientEffect> effects) {
+  public void add(ServerPlayer player, Item item, List<MobEffectInstance> effects) {
     var key = Objects.requireNonNull(AlchimiaeItems.ITEMS.getRegistrar().getId(item));
+    var ingredientEffectsData = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel());
+
+    int checksumA = 0;
     var data = new ArrayList<>(this.data.getOrDefault(key, List.of()));
+    for(var effect: data) checksumA += effect.hashCode();
 
-    boolean changed = false;
-    String languageKey;
-
-    for(var effect: effects) {
-      languageKey = "effect." + effect.effect().toLanguageKey();
-      if(!data.contains(languageKey)) {
-        data.add(languageKey);
-        changed = true;
-      }
+    int checksumB = 0;
+    var updatedData = new ArrayList<String>();
+    for(var languageKey: Stream.concat(
+      effects.stream().map(MobEffectInstance::getDescriptionId),
+      data.stream()
+    ).filter(
+      effect -> ingredientEffectsData.getData().get(key).effectsLanguageKeys().contains(effect)
+    ).distinct().toList()) {
+      checksumB += languageKey.hashCode();
+      updatedData.add(languageKey);
     }
 
-    if(changed) {
-      this.data.put(key, data);
-      NetworkManager.sendToPlayer(player, new ReceiveIngredientsNetwork.Payload(key.toString(), data));
+    if(checksumA != checksumB) {
+      this.data.put(key, updatedData);
+      NetworkManager.sendToPlayer(player, new ReceiveIngredientsNetwork.Payload(key.toString(), updatedData));
       setDirty();
     }
   }
