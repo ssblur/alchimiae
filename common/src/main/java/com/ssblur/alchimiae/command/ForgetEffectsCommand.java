@@ -8,21 +8,18 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 
-public class LearnEffectsCommand {
+public class ForgetEffectsCommand {
   public static void register(LiteralArgumentBuilder<CommandSourceStack> command){
     command.then(
-      Commands.literal("learn_effects")
-        .requires(s -> s.hasPermission(4))
-        .executes(LearnEffectsCommand::execute)
+      Commands.literal("forget")
+        .executes(ForgetEffectsCommand::execute)
     );
   }
 
   private static int execute(CommandContext<CommandSourceStack> command){
     if(command.getSource().getEntity() instanceof ServerPlayer player) {
-      var level = command.getSource().getLevel();
-      var data = IngredientMemorySavedData.computeIfAbsent(player);
-      data.learnAll(level);
-      data.sync(player);
+      IngredientMemorySavedData.computeIfAbsent(player).reset(player.serverLevel());
+      IngredientMemorySavedData.computeIfAbsent(player).sync(player);
     }
     return Command.SINGLE_SUCCESS;
   }

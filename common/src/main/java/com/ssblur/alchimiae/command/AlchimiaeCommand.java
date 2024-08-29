@@ -18,6 +18,7 @@ public class AlchimiaeCommand {
     ResetCommand.register(command);
     DumpEffectsCommand.register(command);
     LearnEffectsCommand.register(command);
+    ForgetEffectsCommand.register(command);
 
     dispatcher.register(command);
   }
@@ -29,6 +30,10 @@ public class AlchimiaeCommand {
       player.sendSystemMessage(Component.literal("  ").append(Component.literal("  /alchimiae reset")));
       player.sendSystemMessage(Component.literal("  ").append(Component.translatable("command.alchimiae.reset_desc")));
       player.sendSystemMessage(Component.literal("  ").append(Component.translatable("command.alchimiae.reset_desc_2")));
+
+      player.sendSystemMessage(Component.literal("  ").append(Component.literal("  /alchimiae learn_effects")));
+
+      player.sendSystemMessage(Component.literal("  ").append(Component.literal("  /alchimiae forget")));
     }
     return Command.SINGLE_SUCCESS;
   }
