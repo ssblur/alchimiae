@@ -1,6 +1,6 @@
 package com.ssblur.alchimiae.mixin;
 
-import com.ssblur.alchimiae.item.AlchimiaeItems;
+import com.ssblur.alchimiae.item.Mash;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,13 +20,13 @@ import java.util.Optional;
 public class PotionBrewingMixin {
   @Inject(method = "isIngredient", at = @At("HEAD"), cancellable = true)
   private void mashIsIngredient(ItemStack item, CallbackInfoReturnable<Boolean> info) {
-    if(item.is(AlchimiaeItems.MASH.get())) info.setReturnValue(true);
+    if(item.getItem() instanceof Mash) info.setReturnValue(true);
   }
 
   @Inject(method = "mix", at = @At("RETURN"), cancellable = true)
   private void mashMix(ItemStack ingredient, ItemStack potion, CallbackInfoReturnable<ItemStack> info) {
     var potionContents = potion.get(DataComponents.POTION_CONTENTS);
-    if(ingredient.is(AlchimiaeItems.MASH.get()) && potionContents != null && potionContents.is(Potions.WATER)) {
+    if(ingredient.getItem() instanceof Mash && potionContents != null && potionContents.is(Potions.WATER)) {
       var out = potion.copy();
       var contents = ingredient.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
       var newContents = new PotionContents(
@@ -53,7 +53,7 @@ public class PotionBrewingMixin {
   @Inject(method = "hasMix", at = @At("HEAD"), cancellable = true)
   private void mashHasMix(ItemStack potion, ItemStack ingredient, CallbackInfoReturnable<Boolean> info) {
     var potionContents = potion.get(DataComponents.POTION_CONTENTS);
-    if(ingredient.is(AlchimiaeItems.MASH.get()) && potionContents != null && potionContents.is(Potions.WATER))
+    if(ingredient.getItem() instanceof Mash && potionContents != null && potionContents.is(Potions.WATER))
       info.setReturnValue(true);
     else if(ingredient.is(Items.DRAGON_BREATH) && potionContents != null && potion.is(Items.POTION))
       info.setReturnValue(true);

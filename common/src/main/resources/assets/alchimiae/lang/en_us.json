@@ -17,6 +17,8 @@
   "item.alchimiae.splash_potion": "Splash Brew",
   "item.alchimiae.lingering_potion": "Lingering Brew",
 
+  "block.alchimiae.boiler": "Boiler",
+
   "effect.alchimiae.feast": "Feast",
   "effect.alchimiae.famine": "Famine",
   "effect.alchimiae.immune": "Immune",
@@ -37,5 +39,7 @@
   "info.alchimiae.grinder_2": "Just craft multiple items marked as \"Ingredient\" with a Grinder or Mortar and Pestle.",
   "info.alchimiae.mash_1": "Mash can be turned into potions through a couple of methods.",
   "info.alchimiae.mash_2": "The simplest of these is crafting them with a bottle of water, which makes one potion.",
-  "info.alchimiae.mash_3": "You can also place them into the top slot of a Brewing Stand, though their duration will be reduced."
+  "info.alchimiae.mash_3": "You can also place them into the top slot of a Brewing Stand, though their duration will be reduced.",
+
+  "menu.alchimiae.boiler": "Boiler"
 }

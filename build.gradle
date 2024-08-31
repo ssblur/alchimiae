@@ -1,5 +1,5 @@
 plugins {
-  id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
+  id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
   id 'architectury-plugin' version '3.4-SNAPSHOT'
   id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
   id "com.palantir.git-version" version "0.15.0"
@@ -36,6 +36,10 @@ subprojects {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
     maven { url 'https://maven.blamejared.com' }
+    maven {
+      name = "TerraformersMC"
+      url = "https://maven.terraformersmc.com/"
+    }
   }
 
   loom {

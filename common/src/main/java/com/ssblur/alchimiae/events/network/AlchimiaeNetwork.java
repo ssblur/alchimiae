@@ -1,5 +1,6 @@
 package com.ssblur.alchimiae.events.network;
 
+import com.ssblur.alchimiae.events.network.client.ParticleNetwork;
 import com.ssblur.alchimiae.events.network.client.ReceiveIngredientsNetwork;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
@@ -9,6 +10,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 public class AlchimiaeNetwork {
   public static void register() {
     register(new ReceiveIngredientsNetwork());
+    register(new ParticleNetwork());
   }
 
   public static <T extends CustomPacketPayload> void register(AlchimiaNetworkInterface<T> networkInterface) {

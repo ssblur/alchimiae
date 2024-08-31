@@ -1,6 +1,6 @@
 package com.ssblur.alchimiae.recipe;
 
-import com.ssblur.alchimiae.item.AlchimiaeItems;
+import com.ssblur.alchimiae.item.Mash;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -24,16 +24,18 @@ public class MashPotionCraftingRecipe extends CustomRecipe {
 
   @Override
   public boolean matches(CraftingInput recipeInput, Level level) {
-    return recipeInput.items().stream().filter(item -> item.is(AlchimiaeItems.MASH.get())).count() == 1
+    return recipeInput.items().stream().filter(item -> item.getItem() instanceof Mash).count() == 1
       && recipeInput.items().stream().filter(this::isWaterBottle).count() == 1
       && recipeInput.ingredientCount() == 2;
   }
 
   @Override
   public ItemStack assemble(CraftingInput recipeInput, HolderLookup.Provider provider) {
-    var mash = recipeInput.items().stream().filter(item -> item.is(AlchimiaeItems.MASH.get())).findAny();
+    var mash = recipeInput.items().stream().filter(item -> item.getItem() instanceof Mash).findAny();
     if(mash.isEmpty()) return ItemStack.EMPTY;
-    var item = new ItemStack(recipeInput.items().stream().filter(this::isWaterBottle).findAny().get().getItem());
+    var option = recipeInput.items().stream().filter(this::isWaterBottle).findAny();
+    if(option.isEmpty()) return ItemStack.EMPTY;
+    var item = new ItemStack(option.get().getItem());
     item.set(DataComponents.POTION_CONTENTS, mash.get().get(DataComponents.POTION_CONTENTS));
     item.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
     return item;

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ig ",
+    "igr",
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:smooth_stone_slab"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "alchimiae:boiler",
+    "count": 1
+  }
+}
