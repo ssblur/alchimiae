@@ -13,7 +13,7 @@ public class IngredientClassReloadListener extends AlchimiaeReloadListener {
   static Type EFFECT_TYPE = new TypeToken<ClassResource>() {}.getType();
   public static final IngredientClassReloadListener INSTANCE = new IngredientClassReloadListener();
 
-  HashMap<ResourceLocation, ClassResource> classes = new HashMap<>();
+  public HashMap<ResourceLocation, ClassResource> classes = new HashMap<>();
 
   public IngredientClassReloadListener() {
     super("alchimiae/classes");

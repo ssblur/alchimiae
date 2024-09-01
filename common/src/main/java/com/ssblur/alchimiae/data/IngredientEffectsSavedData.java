@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.alchimiae.alchemy.AlchemyIngredient;
 import com.ssblur.alchimiae.alchemy.IngredientEffect;
 import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener;
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientClassReloadListener;
 import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -38,14 +39,38 @@ public class IngredientEffectsSavedData extends SavedData {
   public void generate() {
     HashMap<ResourceLocation, IngredientReloadListener.IngredientResource> ingredients = new HashMap<>();
     HashMap<ResourceLocation, List<ResourceLocation>> effects = new HashMap<>();
+    HashMap<ResourceLocation, List<ResourceLocation>> groups = new HashMap<>();
     var random = new Random();
+
+    for(var resource: IngredientClassReloadListener.INSTANCE.classes.entrySet()) {
+      var group = resource.getValue();
+      var key = resource.getKey();
+      var list = new ArrayList<ResourceLocation>();
+      for(var effect: group.guaranteedEffects())
+        list.add(ResourceLocation.parse(EffectReloadListener.INSTANCE.effects.get(effect).effect()));
+
+      if(list.isEmpty()) {
+        var valid = EffectReloadListener.INSTANCE.effects.entrySet().stream()
+          .filter(effect -> effect.getValue().rarity() <= group.rarity())
+          .toList();
+        if(!valid.isEmpty()) {
+          var any = valid.get(random.nextInt(valid.size()));
+          list.add(ResourceLocation.parse(any.getValue().effect()));
+        }
+      }
+
+      groups.put(key, list);
+    }
 
     for(var ingredient: IngredientReloadListener.INSTANCE.ingredients.entrySet()) {
       var item = ResourceLocation.parse(ingredient.getValue().item());
-      effects.put(item, new ArrayList<>());
+      var list = new ArrayList<ResourceLocation>();
+      effects.put(item, list);
       ingredients.put(item, ingredient.getValue());
+      for(var group: ingredient.getValue().ingredientClasses())
+        list.addAll(groups.get(ResourceLocation.parse(group)));
       for(var effect: ingredient.getValue().guaranteedEffects())
-        ResourceLocation.parse(effect);
+        list.add(ResourceLocation.parse(effect));
     }
 
     boolean looping = true;

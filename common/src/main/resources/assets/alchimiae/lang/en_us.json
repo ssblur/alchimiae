@@ -25,6 +25,7 @@
   "effect.alchimiae.afflicted": "Afflicted",
   "effect.alchimiae.liliputian": "Liliputian",
   "effect.alchimiae.alician": "Alician",
+  "effect.alchimiae.stride": "Stride",
 
   "command.alchimiae.debug": "No sub-command provided! Available commands:",
   "command.alchimiae.reset_desc": "Resets all alchimiae data in this world.",
