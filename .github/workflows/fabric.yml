@@ -37,7 +37,7 @@ jobs:
           mod-file: fabric/build/libs/alchimiae-fabric-${{ steps.tag.outputs.version }}.jar
           version-name: "${{ steps.tag.outputs.version }}-fabric"
           minecraft-version: |
-            [1.21, 1.21.1)
+            [1.21, 1.21.1]
           mod-loader: fabric
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |
