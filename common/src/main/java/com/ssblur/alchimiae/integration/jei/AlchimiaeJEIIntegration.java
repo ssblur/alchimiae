@@ -1,19 +1,21 @@
 package com.ssblur.alchimiae.integration.jei;
 
 import com.ssblur.alchimiae.AlchimiaeMod;
-import com.ssblur.alchimiae.item.AlchimiaeItems;
+import com.ssblur.alchimiae.integration.recipes.RecipeIntegration;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.*;
 
 import java.util.List;
 
@@ -53,22 +55,37 @@ public class AlchimiaeJEIIntegration implements IModPlugin {
   public void registerRecipes(IRecipeRegistration registration) {
     IModPlugin.super.registerRecipes(registration);
 
-    registration.addItemStackInfo(
-      List.of(Ingredient.of(AlchimiaeItems.GRINDER).getItems()),
-      Component.translatable("info.alchimiae.grinder_1"),
-      Component.translatable("info.alchimiae.grinder_2")
-    );
-    registration.addItemStackInfo(
-      new ItemStack(AlchimiaeItems.MASH),
-      Component.translatable("info.alchimiae.grinder_1"),
-      Component.translatable("info.alchimiae.grinder_2")
-    );
+    var level = Minecraft.getInstance().level;
+    assert level != null;
+    var manager = level.getRecipeManager();
 
-    registration.addItemStackInfo(
-      new ItemStack(AlchimiaeItems.MASH),
-      Component.translatable("info.alchimiae.mash_1"),
-      Component.translatable("info.alchimiae.mash_2"),
-      Component.translatable("info.alchimiae.mash_3")
-    );
+    RecipeIntegration.registerItemInfo((location, itemStacks, components) -> {
+      registration.addItemStackInfo(
+        itemStacks,
+        components
+      );
+    });
+
+    RecipeIntegration.registerRecipes(() -> manager.getAllRecipesFor(RecipeType.CRAFTING), ((ingredients, result, id) -> {
+      var list = NonNullList.of(
+        Ingredient.of(ItemStack.EMPTY)
+      );
+      list.addAll(ingredients);
+
+      registration.addRecipes(
+        RecipeTypes.CRAFTING,
+        List.of(
+          new RecipeHolder<>(
+            id,
+            new ShapelessRecipe(
+              id.getPath(),
+              CraftingBookCategory.MISC,
+              result,
+              list
+            )
+          )
+        )
+      );
+    }));
   }
 }

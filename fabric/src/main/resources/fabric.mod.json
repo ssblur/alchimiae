@@ -20,6 +20,9 @@
     ],
     "client": [
       "com.ssblur.fabric.client.AlchimiaeModFabricClient"
+    ],
+    "emi": [
+      "com.ssblur.alchimiae.integration.emi.AlchimiaeEMIIntegration"
     ]
   },
   "mixins": [

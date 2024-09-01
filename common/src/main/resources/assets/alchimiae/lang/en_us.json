@@ -33,7 +33,8 @@
   "command.alchimiae.reset": "Alchimiae data have been reset for this world.",
   "command.alchimiae.reset_player": "You have forgotten your alchemical knowledge.",
 
-  "gui.alchimiae.mash_jei": "Ingredient Mashing",
+  "gui.alchimiae.mash_recipe": "Ingredient Mashing",
+  "gui.alchimiae.any_ingredient": "Any Ingredient",
 
   "info.alchimiae.grinder_1": "Grinders can be used to combine Ingredients into Mash.",
   "info.alchimiae.grinder_2": "Just craft multiple items marked as \"Ingredient\" with a Grinder or Mortar and Pestle.",
