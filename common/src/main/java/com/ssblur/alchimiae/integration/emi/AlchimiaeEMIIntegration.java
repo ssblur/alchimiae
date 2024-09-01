@@ -62,7 +62,7 @@ public class AlchimiaeEMIIntegration implements EmiPlugin {
     potions.entrySet().forEach(entry -> {
       var key = entry.getKey();
       var mash = PotionContents.createItemStack(AlchimiaeItems.MASH.get(), Objects.requireNonNull(potions.getHolder(key)));
-      registry.addRecipe(new MashBrewingRecipe(mash, key.location().getPath()));
+      registry.addRecipe(new EmiMashBrewingRecipe(mash, key.location().getPath()));
     });
   }
 }

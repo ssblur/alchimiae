@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public record MashBrewingRecipe(ItemStack mash, String potionPath) implements EmiRecipe {
+public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements EmiRecipe {
   static ResourceLocation BACKGROUND = ResourceLocation.withDefaultNamespace("textures/gui/container/brewing_stand.png");
   static EmiStack BLAZE_POWDER = EmiStack.of(Items.BLAZE_POWDER);
 

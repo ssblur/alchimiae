@@ -34,6 +34,7 @@
   "command.alchimiae.reset_player": "You have forgotten your alchemical knowledge.",
 
   "gui.alchimiae.mash_recipe": "Ingredient Mashing",
+  "gui.alchimiae.mash_brewing_recipe": "Mash Brewing",
   "gui.alchimiae.any_ingredient": "Any Ingredient",
 
   "info.alchimiae.grinder_1": "Grinders can be used to combine Ingredients into Mash.",
