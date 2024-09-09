@@ -1,0 +1,11 @@
+{
+  "item": "farmersdelight:cabbage_seeds",
+  "required": "farmersdelight",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:seeds"
+  ],
+  "rarity": 1.0,
+  "duration": 100,
+  "no_effects": false
+}
