@@ -1,0 +1,11 @@
+{
+  "item": "burgered:edible_book",
+  "required": "burgered",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 3.0,
+  "duration": 200,
+  "no_effects": false
+}

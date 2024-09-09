@@ -1,0 +1,13 @@
+{
+  "item": "burgered:estrogen_waffle",
+  "required": "burgered",
+  "guaranteed_effects": [
+    "alchimiae:liliputian"
+  ],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 4.0,
+  "duration": 800,
+  "no_effects": false
+}

@@ -1,0 +1,11 @@
+{
+  "item": "burgered:cheese_slice",
+  "required": "burgered",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 2.0,
+  "duration": 500,
+  "no_effects": false
+}
