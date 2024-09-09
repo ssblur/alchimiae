@@ -26,7 +26,7 @@ public class ScaleMobEffect extends MobEffect {
     } else {
       this.addAttributeModifier(Attributes.SAFE_FALL_DISTANCE, attributeLocation.withSuffix("_att_fall_distance"), -scale, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
       this.addAttributeModifier(Attributes.OXYGEN_BONUS, attributeLocation.withSuffix("_att_oxygen"), -scale, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-      this.addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, attributeLocation.withSuffix("_att_range"), -scale, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+      this.addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, attributeLocation.withSuffix("_att_range"), scale, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
   }
 
