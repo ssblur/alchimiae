@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.alchimiae.alchemy.AlchemyIngredient;
 import com.ssblur.alchimiae.alchemy.IngredientEffect;
 import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener;
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientClassReloadListener;
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener;
 import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -42,7 +42,7 @@ public class IngredientEffectsSavedData extends SavedData {
     HashMap<ResourceLocation, List<ResourceLocation>> groups = new HashMap<>();
     var random = new Random();
 
-    for(var resource: IngredientClassReloadListener.INSTANCE.classes.entrySet()) {
+    for(var resource: IngredientGroupReloadListener.INSTANCE.groups.entrySet()) {
       var group = resource.getValue();
       var key = resource.getKey();
       var list = new ArrayList<ResourceLocation>();
@@ -96,7 +96,7 @@ public class IngredientEffectsSavedData extends SavedData {
     for(var key: ingredients.keySet())
       data.put(key, new AlchemyIngredient(
         ingredients.get(key).duration(),
-        effects.get(key).stream().map(value -> new IngredientEffect(value, 0.5f + random.nextFloat() * 0.5f)).toList()
+        effects.get(key).stream().map(value -> new IngredientEffect(value, 1.0f + random.nextFloat() * 0.4f)).toList()
       ));
 
     setDirty();

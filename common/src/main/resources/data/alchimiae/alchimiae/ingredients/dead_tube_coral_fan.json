@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:dead_tube_coral_fan",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:dead_coral"
+  ],
+  "rarity": 3.0,
+  "duration": 400,
+  "no_effects": false
+}

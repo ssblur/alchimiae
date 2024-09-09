@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:emerald",
+  "guaranteed_effects": [
+    "minecraft:luck"
+  ],
+  "ingredient_classes": [],
+  "rarity": 7.0,
+  "duration": 900,
+  "no_effects": false
+}

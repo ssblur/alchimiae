@@ -2,7 +2,7 @@ package com.ssblur.alchimiae.events;
 
 import com.ssblur.alchimiae.events.network.AlchimiaeNetwork;
 import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener;
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientClassReloadListener;
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener;
 import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener;
 import dev.architectury.event.events.client.ClientPlayerEvent;
 import dev.architectury.event.events.client.ClientTooltipEvent;
@@ -16,7 +16,7 @@ public class AlchimiaeEvents {
   public static void register() {
     ReloadListenerRegistry.register(PackType.SERVER_DATA, EffectReloadListener.INSTANCE);
     ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientReloadListener.INSTANCE);
-    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientClassReloadListener.INSTANCE);
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientGroupReloadListener.INSTANCE);
     PlayerEvent.CRAFT_ITEM.register(new PlayerCraftedMashEvent());
     PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
 

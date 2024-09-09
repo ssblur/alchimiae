@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:pumpkin_seeds",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:seeds"
+  ],
+  "rarity": 1.0,
+  "duration": 200,
+  "no_effects": false
+}

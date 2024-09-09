@@ -8,15 +8,15 @@ import net.minecraft.resources.ResourceLocation;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class IngredientClassReloadListener extends AlchimiaeReloadListener {
+public class IngredientGroupReloadListener extends AlchimiaeReloadListener {
   public record ClassResource(float rarity, String[] guaranteedEffects){}
   static Type EFFECT_TYPE = new TypeToken<ClassResource>() {}.getType();
-  public static final IngredientClassReloadListener INSTANCE = new IngredientClassReloadListener();
+  public static final IngredientGroupReloadListener INSTANCE = new IngredientGroupReloadListener();
 
-  public HashMap<ResourceLocation, ClassResource> classes = new HashMap<>();
+  public HashMap<ResourceLocation, ClassResource> groups = new HashMap<>();
 
-  public IngredientClassReloadListener() {
-    super("alchimiae/classes");
+  public IngredientGroupReloadListener() {
+    super("alchimiae/groups");
   }
 
   @Override
@@ -26,6 +26,6 @@ public class IngredientClassReloadListener extends AlchimiaeReloadListener {
       "Loaded ingredient class {}",
       resourceLocation
     );
-    classes.put(resourceLocation, resource);
+    groups.put(resourceLocation, resource);
   }
 }

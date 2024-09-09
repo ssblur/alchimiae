@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:big_dripleaf",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower"
+  ],
+  "rarity": 3.0,
+  "duration": 800,
+  "no_effects": false
+}

@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:cocoa_beans",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 4.0,
+  "duration": 600,
+  "no_effects": false
+}

@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:wind_charge",
+  "guaranteed_effects": [
+    "minecraft:wind_charged"
+  ],
+  "ingredient_classes": [],
+  "rarity": 4.0,
+  "duration": 1000,
+  "no_effects": false
+}

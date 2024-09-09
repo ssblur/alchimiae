@@ -1,0 +1,10 @@
+{
+  "item": "minecraft:beetroot_seeds",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:seeds"
+  ],
+  "rarity": 1.0,
+  "duration": 100,
+  "no_effects": false
+}
