@@ -1,0 +1,11 @@
+{
+  "item": "dusk_autumn:golden_beetroot",
+  "required": "dusk_autumn",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 6.0,
+  "duration": 1200,
+  "no_effects": false
+}
