@@ -1,0 +1,11 @@
+{
+  "item": "twigs:bamboo_leaves",
+  "required": "twigs",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plant"
+  ],
+  "rarity": 2.0,
+  "duration": 700,
+  "no_effects": false
+}
