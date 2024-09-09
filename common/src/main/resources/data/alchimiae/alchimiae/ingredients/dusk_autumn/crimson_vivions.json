@@ -1,0 +1,12 @@
+{
+  "item": "dusk_autumn:crimson_vivions",
+  "required": "dusk_autumn",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:nether_plant",
+    "alchimiae:petals"
+  ],
+  "rarity": 3.0,
+  "duration": 800,
+  "no_effects": false
+}

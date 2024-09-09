@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +30,12 @@ public class AlchemyHelper {
     duration = Math.round(((float) duration) * efficiency);
     HashMap<ResourceLocation, Integer> output = new HashMap<>();
     potency.entrySet().stream()
-      .filter(e -> e.getValue() >= 1)
+      .filter(e -> e.getValue() >= 2)
       .forEach(e -> output.put(e.getKey(), ((int) Math.floor(Math.sqrt(e.getValue()))) - 1));
     return new AlchemyPotion(output, duration);
   }
 
+  @Nullable
   public static AlchemyPotion getEffects(List<ItemStack> items, ServerLevel level, float efficiency) {
     if(items.size() <= 1) return null;
 

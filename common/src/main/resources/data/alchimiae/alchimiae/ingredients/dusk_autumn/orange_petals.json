@@ -1,8 +1,10 @@
 {
-  "item": "minecraft:pink_petals",
+  "item": "dusk_autumn:orange_petals",
+  "required": "dusk_autumn",
   "guaranteed_effects": [],
   "ingredient_classes": [
-    "alchimiae:flower"
+    "alchimiae:flower",
+    "alchimiae:petals"
   ],
   "rarity": 3.0,
   "duration": 800,

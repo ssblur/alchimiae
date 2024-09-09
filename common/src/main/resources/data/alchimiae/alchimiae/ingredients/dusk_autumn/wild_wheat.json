@@ -1,10 +1,11 @@
 {
-  "item": "minecraft:pink_petals",
+  "item": "dusk_autumn:wild_wheat",
+  "required": "dusk_autumn",
   "guaranteed_effects": [],
   "ingredient_classes": [
-    "alchimiae:flower"
+    "alchimiae:food"
   ],
-  "rarity": 3.0,
+  "rarity": 1.0,
   "duration": 800,
   "no_effects": false
 }

@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.ssblur.alchimiae.AlchimiaeMod;
 import dev.architectury.platform.Platform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -25,10 +26,14 @@ public abstract class AlchimiaeReloadListener extends SimpleJsonResourceReloadLi
     object.forEach((resourceLocation, jsonElement) -> {
       if(jsonElement.isJsonObject()) {
         var jsonObject = jsonElement.getAsJsonObject();
-        if(jsonObject.has("disabled") && jsonObject.get("disabled").getAsBoolean())
+        if(jsonObject.has("disabled") && jsonObject.get("disabled").getAsBoolean()) {
+          AlchimiaeMod.LOGGER.debug("Did not load {}; disabled", resourceLocation);
           return;
-        if(jsonObject.has("required") && Platform.isModLoaded(jsonObject.get("required").getAsString()))
+        }
+        if(jsonObject.has("required") && !Platform.isModLoaded(jsonObject.get("required").getAsString())) {
+          AlchimiaeMod.LOGGER.debug("Did not load {}; missing required mod {}", resourceLocation, jsonObject.get("required").getAsString());
           return;
+        }
       }
       loadResource(resourceLocation, jsonElement);
     });

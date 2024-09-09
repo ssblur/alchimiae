@@ -1,0 +1,12 @@
+{
+  "item": "dusk_autumn:moonberries",
+  "required": "dusk_autumn",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:berries"
+  ],
+  "rarity": 6.0,
+  "duration": 1100,
+  "no_effects": false
+}

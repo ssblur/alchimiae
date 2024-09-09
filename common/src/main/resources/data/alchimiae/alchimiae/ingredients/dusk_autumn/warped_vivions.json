@@ -1,8 +1,9 @@
 {
-  "item": "minecraft:pink_petals",
+  "item": "dusk_autumn:warped_vivions",
   "guaranteed_effects": [],
   "ingredient_classes": [
-    "alchimiae:flower"
+    "alchimiae:nether_plant",
+    "alchimiae:petals"
   ],
   "rarity": 3.0,
   "duration": 800,

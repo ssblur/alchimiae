@@ -22,6 +22,12 @@ public class IngredientReloadListener extends AlchimiaeReloadListener {
   @Override
   public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
     IngredientResource resource = GSON.fromJson(jsonElement, EFFECT_TYPE);
+    if(resourceLocation.getNamespace().equals("alchimiae") && !resourceLocation.getPath().endsWith(resource.item.split(":")[1]))
+      AlchimiaeMod.LOGGER.warn(
+        "Ingredient {} was loaded with item {}! This is probably not intentional",
+        resourceLocation,
+        resource.item
+      );
     AlchimiaeMod.LOGGER.debug(
       "Loaded ingredient {} with:\n\tGuaranteed Effects: {}\n\tIngredient Classes: {}",
       resourceLocation,
