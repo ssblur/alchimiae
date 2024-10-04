@@ -1,0 +1,12 @@
+{
+  "item": "naturesaura:aura_mushroom",
+  "required": "naturesaura",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:mushroom",
+    "alchimiae:naturesaura/aura_plant"
+  ],
+  "rarity": 3.0,
+  "duration": 800,
+  "no_effects": false
+}

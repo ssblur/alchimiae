@@ -47,7 +47,7 @@ public class IngredientEffectsSavedData extends SavedData {
       var key = resource.getKey();
       var list = new ArrayList<ResourceLocation>();
       for(var effect: group.guaranteedEffects())
-        list.add(ResourceLocation.parse(EffectReloadListener.INSTANCE.effects.get(ResourceLocation.parse(effect)).effect()));
+        list.add(ResourceLocation.parse(effect));
 
       if(list.isEmpty()) {
         var valid = EffectReloadListener.INSTANCE.effects.entrySet().stream()

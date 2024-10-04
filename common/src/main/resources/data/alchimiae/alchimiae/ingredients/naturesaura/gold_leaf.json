@@ -1,0 +1,11 @@
+{
+  "item": "naturesaura:gold_leaf",
+  "required": "naturesaura",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:naturesaura/aura_plant"
+  ],
+  "rarity": 5.5,
+  "duration": 1000,
+  "no_effects": false
+}

@@ -1,0 +1,12 @@
+{
+  "item": "naturesaura:crimson_aura_mushroom",
+  "required": "naturesaura",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:mushroom",
+    "alchimiae:naturesaura/aura_plant"
+  ],
+  "rarity": 4.0,
+  "duration": 700,
+  "no_effects": false
+}

@@ -1,0 +1,12 @@
+{
+  "item": "naturesaura:aura_cactus",
+  "required": "naturesaura",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plant",
+    "alchimiae:naturesaura/aura_plant"
+  ],
+  "rarity": 3.0,
+  "duration": 600,
+  "no_effects": false
+}

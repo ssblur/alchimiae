@@ -1,0 +1,12 @@
+{
+  "item": "naturesaura:aura_bloom",
+  "required": "naturesaura",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower_2",
+    "alchimiae:naturesaura/aura_plant"
+  ],
+  "rarity": 3.0,
+  "duration": 700,
+  "no_effects": false
+}
