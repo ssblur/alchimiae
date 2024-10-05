@@ -18,6 +18,7 @@ public class AlchimiaeEffects {
   public static final RegistrySupplier<MobEffect> IMMUNE = EFFECTS.register("immune", () -> new EffectModMobEffect(true));
   public static final RegistrySupplier<MobEffect> AFFLICTED = EFFECTS.register("afflicted", () -> new EffectModMobEffect(false));
   public static final RegistrySupplier<MobEffect> STRIDE = EFFECTS.register("stride", () -> new StrideMobEffect(AlchimiaeMod.location("stride")));
+  public static final RegistrySupplier<MobEffect> FUSE = EFFECTS.register("fuse", FuseMobEffect::new);
   public static final RegistrySupplier<MobEffect> LILIPUTIAN = EFFECTS.register("liliputian",
     () -> new ScaleMobEffect(-0.25, AlchimiaeMod.location("liliputian"))
   );
