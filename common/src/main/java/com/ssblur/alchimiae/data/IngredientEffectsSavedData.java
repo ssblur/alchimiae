@@ -1,5 +1,6 @@
 package com.ssblur.alchimiae.data;
 
+import com.google.common.base.MoreObjects;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ssblur.alchimiae.alchemy.AlchemyIngredient;
@@ -22,13 +23,16 @@ import java.util.*;
 public class IngredientEffectsSavedData extends SavedData {
   public static final Codec<IngredientEffectsSavedData> CODEC = RecordCodecBuilder.create(instance ->
     instance.group(
-      ExtraCodecs.strictUnboundedMap(ResourceLocation.CODEC, AlchemyIngredient.CODEC).fieldOf("data").forGetter(IngredientEffectsSavedData::getData)
+      ExtraCodecs.strictUnboundedMap(ResourceLocation.CODEC, AlchemyIngredient.CODEC).fieldOf("data").forGetter(IngredientEffectsSavedData::getData),
+      ExtraCodecs.strictUnboundedMap(ResourceLocation.CODEC, ResourceLocation.CODEC.listOf()).fieldOf("groups").forGetter(IngredientEffectsSavedData::getGroups)
     ).apply(instance, IngredientEffectsSavedData::new)
   );
   Map<ResourceLocation, AlchemyIngredient> data = new HashMap<>();
+  Map<ResourceLocation, List<ResourceLocation>> groups = new HashMap<>();
 
-  public IngredientEffectsSavedData(Map<ResourceLocation, AlchemyIngredient> data) {
+  public IngredientEffectsSavedData(Map<ResourceLocation, AlchemyIngredient> data, Map<ResourceLocation, List<ResourceLocation>> groups) {
     this.data = new HashMap<>(data);
+    this.groups = new HashMap<>(groups);
     generate();
   }
 
@@ -45,9 +49,10 @@ public class IngredientEffectsSavedData extends SavedData {
     for(var resource: IngredientGroupReloadListener.INSTANCE.groups.entrySet()) {
       var group = resource.getValue();
       var key = resource.getKey();
-      var list = new ArrayList<ResourceLocation>();
+      var list = new ArrayList<>(MoreObjects.firstNonNull(this.groups.get(key), List.of()));
       for(var effect: group.guaranteedEffects())
-        list.add(ResourceLocation.parse(effect));
+        if(!list.contains(ResourceLocation.parse(effect)))
+          list.add(ResourceLocation.parse(effect));
 
       if(list.isEmpty()) {
         var valid = EffectReloadListener.INSTANCE.effects.entrySet().stream()
@@ -61,6 +66,7 @@ public class IngredientEffectsSavedData extends SavedData {
 
       groups.put(key, list);
     }
+    this.groups = groups;
 
     for(var ingredient: IngredientReloadListener.INSTANCE.ingredients.entrySet()) {
       var item = ResourceLocation.parse(ingredient.getValue().item());
@@ -94,16 +100,21 @@ public class IngredientEffectsSavedData extends SavedData {
     }
 
     for(var key: ingredients.keySet())
-      data.put(key, new AlchemyIngredient(
-        ingredients.get(key).duration(),
-        effects.get(key).stream().map(value -> new IngredientEffect(value, 1.0f + random.nextFloat() * 0.4f)).toList()
-      ));
+      if(!data.containsKey(key))
+        data.put(key, new AlchemyIngredient(
+          ingredients.get(key).duration(),
+          effects.get(key).stream().map(value -> new IngredientEffect(value, 1.0f + random.nextFloat() * 0.4f)).toList()
+        ));
 
     setDirty();
   }
 
   public Map<ResourceLocation, AlchemyIngredient> getData() {
     return data;
+  }
+
+  public Map<ResourceLocation, List<ResourceLocation>> getGroups() {
+    return groups;
   }
 
   @Override

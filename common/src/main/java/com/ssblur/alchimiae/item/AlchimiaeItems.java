@@ -27,7 +27,7 @@ public class AlchimiaeItems {
   public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(MOD_ID, Registries.CREATIVE_MODE_TAB);
 
   public static final RegistrySupplier<CreativeModeTab> TAB = TABS.register(
-    ResourceLocation.tryBuild(MOD_ID, "scriptor_tab"),
+    ResourceLocation.tryBuild(MOD_ID, "alchimiae_tab"),
     () ->
       CreativeTabRegistry.create(
         Component.translatable("itemGroup.alchimiae.tab"),
