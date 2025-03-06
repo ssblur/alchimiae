@@ -3,11 +3,10 @@ package com.ssblur.alchimiae.data
 import com.google.common.base.MoreObjects
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import com.ssblur.alchimiae.events.network.client.ReceiveIngredientsNetwork
-import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.mixin.DimensionDataStorageAccessor
-import dev.architectury.networking.NetworkManager
+import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
 import net.minecraft.network.chat.Component
@@ -60,8 +59,8 @@ class IngredientMemorySavedData : SavedData {
     return tag
   }
 
-  fun add(player: ServerPlayer, item: Item?, effects: List<MobEffectInstance>) {
-    val key = AlchimiaeItems.ITEMS.registrar.getId(item)!!
+  fun add(player: ServerPlayer, item: Item, effects: List<MobEffectInstance>) {
+    val key = player.level().registryAccess().registry(Registries.ITEM).get().getKey(item)!!
     val ingredientEffectsData: IngredientEffectsSavedData =
       IngredientEffectsSavedData.Companion.computeIfAbsent(player.serverLevel())
 
@@ -82,7 +81,7 @@ class IngredientMemorySavedData : SavedData {
 
     if (checksumA != checksumB) {
       this.data[key] = updatedData
-      NetworkManager.sendToPlayer(player, ReceiveIngredientsNetwork.Payload(key.toString(), updatedData))
+      AlchimiaeNetworkS2C.sendIngredients(AlchimiaeNetworkS2C.SendIngredients(key.toString(), updatedData), listOf(player))
       setDirty()
     }
   }
@@ -90,9 +89,7 @@ class IngredientMemorySavedData : SavedData {
   fun sync(player: ServerPlayer) {
     fill(player.serverLevel())
     for ((key, value) in data) {
-      NetworkManager.sendToPlayer(
-        player, ReceiveIngredientsNetwork.Payload(key.toString(), value)
-      )
+      AlchimiaeNetworkS2C.sendIngredients(AlchimiaeNetworkS2C.SendIngredients(key.toString(), value), listOf(player))
     }
   }
 

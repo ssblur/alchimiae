@@ -1,22 +1,24 @@
 package com.ssblur.alchimiae.alchemy
 
-import com.ssblur.alchimiae.effect.AlchimiaeEffects
+import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.level.Level
 
 @JvmRecord
 data class AlchemyPotion(val effects: Map<ResourceLocation, Int>, val duration: Int) {
-  fun toPotion(): List<MobEffectInstance> {
+  fun toPotion(level: Level): List<MobEffectInstance> {
     val list: MutableList<MobEffectInstance> = ArrayList()
     for ((key, value) in effects) {
-      val effect = AlchimiaeEffects.get(key)
-      if (effect != null) list.add(
-        MobEffectInstance(
-          effect,
-          if (effect.value().isInstantenous) 0 else duration,
-          value
+      val effect = level.registryAccess().registry(Registries.MOB_EFFECT).get().getHolder(key)
+      if (effect.isPresent)
+        list.add(
+          MobEffectInstance(
+            effect.get(),
+            if (effect.get().value().isInstantenous) 0 else duration,
+            value
+          )
         )
-      )
     }
     return list
   }

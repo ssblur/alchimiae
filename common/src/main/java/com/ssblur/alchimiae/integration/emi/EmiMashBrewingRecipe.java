@@ -1,14 +1,15 @@
 package com.ssblur.alchimiae.integration.emi;
 
-import com.ssblur.alchimiae.item.AlchimiaeItems;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,7 +29,7 @@ public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements
   static EmiStack BLAZE_POWDER = EmiStack.of(Items.BLAZE_POWDER);
 
   ResourceLocation itemId() {
-    return Objects.requireNonNull(AlchimiaeItems.INSTANCE.getITEMS().getRegistrar().getId(mash.getItem()));
+    return Objects.requireNonNull(Minecraft.getInstance().level.registryAccess().registry(Registries.ITEM).get().getKey(mash.getItem()));
   }
 
   EmiStack potionResult() {

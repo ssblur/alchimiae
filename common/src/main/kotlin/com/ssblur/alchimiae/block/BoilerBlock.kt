@@ -2,9 +2,9 @@ package com.ssblur.alchimiae.block
 
 import com.mojang.serialization.MapCodec
 import com.ssblur.alchimiae.blockentity.BoilerBlockEntity
-import dev.architectury.platform.Platform
-import dev.architectury.registry.client.rendering.RenderTypeRegistry
+import com.ssblur.unfocused.extension.BlockExtension.renderType
 import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
 import net.minecraft.world.InteractionResult
@@ -21,10 +21,14 @@ import net.minecraft.world.phys.BlockHitResult
 class BoilerBlock :
   BaseEntityBlock(Properties.of().noOcclusion()) {
   init {
-    if (!Platform.isForgeLike() && Platform.getEnv() == EnvType.CLIENT) RenderTypeRegistry.register(
-      RenderType.cutout(),
-      this
-    )
+    try {
+      clientInit()
+    } catch (_: NoSuchMethodError) {}
+  }
+
+  @Environment(EnvType.CLIENT)
+  fun clientInit() {
+    this.renderType(RenderType.cutout())
   }
 
   override fun useWithoutItem(
@@ -57,14 +61,9 @@ class BoilerBlock :
     level: Level,
     blockState: BlockState,
     blockEntityType: BlockEntityType<T>
-  ): BlockEntityTicker<T>? {
-    return BlockEntityTicker { level, blockPos: BlockPos?, blockState, blockEntity: T ->
-      BoilerBlockEntity.Companion.tick(
-        level,
-        blockPos,
-        blockState,
-        blockEntity
-      )
+  ): BlockEntityTicker<T> {
+    return BlockEntityTicker { level, blockPos, blockState, blockEntity: T ->
+      BoilerBlockEntity.tick(level, blockPos, blockState, blockEntity)
     }
   }
 }

@@ -1,6 +1,7 @@
 package com.ssblur.alchimiae.alchemy
 
-import com.ssblur.alchimiae.item.AlchimiaeItems
+import net.minecraft.client.Minecraft
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
@@ -17,8 +18,8 @@ object ClientAlchemyHelper {
     EFFECTS[item] = effects
   }
 
-  fun update(id: String?, effects: List<String>?) {
-    val item = AlchimiaeItems.ITEMS.registrar[ResourceLocation.parse(id)]
+  fun update(id: String, effects: List<String>) {
+    val item = Minecraft.getInstance().level!!.registryAccess().registry(Registries.ITEM).get().get(ResourceLocation.parse(id))
     EFFECTS[item] = effects
   }
 

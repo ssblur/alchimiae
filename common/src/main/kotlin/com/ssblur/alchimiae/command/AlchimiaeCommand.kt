@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player
 
 object AlchimiaeCommand {
   fun register(
-    dispatcher: CommandDispatcher<CommandSourceStack?>,
+    dispatcher: CommandDispatcher<CommandSourceStack>,
     registry: CommandBuildContext?,
     selection: Commands.CommandSelection?
   ) {

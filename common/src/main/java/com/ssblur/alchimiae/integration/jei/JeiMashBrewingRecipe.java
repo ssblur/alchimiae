@@ -1,8 +1,9 @@
 package com.ssblur.alchimiae.integration.jei;
 
-import com.ssblur.alchimiae.item.AlchimiaeItems;
 import mezz.jei.api.recipe.vanilla.IJeiBrewingRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -68,6 +69,6 @@ public class JeiMashBrewingRecipe implements IJeiBrewingRecipe {
   }
 
   ResourceLocation itemId() {
-    return Objects.requireNonNull(AlchimiaeItems.INSTANCE.getITEMS().getRegistrar().getId(mash.getItem()));
+    return Objects.requireNonNull(Minecraft.getInstance().level.registryAccess().registry(Registries.ITEM).get().getKey(mash.getItem()));
   }
 }
