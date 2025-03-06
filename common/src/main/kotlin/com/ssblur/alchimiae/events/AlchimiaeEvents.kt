@@ -1,30 +1,30 @@
-package com.ssblur.alchimiae.events;
+package com.ssblur.alchimiae.events
 
-import com.ssblur.alchimiae.events.network.AlchimiaeNetwork;
-import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener;
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener;
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener;
-import dev.architectury.event.events.client.ClientPlayerEvent;
-import dev.architectury.event.events.client.ClientTooltipEvent;
-import dev.architectury.event.events.common.PlayerEvent;
-import dev.architectury.platform.Platform;
-import dev.architectury.registry.ReloadListenerRegistry;
-import net.fabricmc.api.EnvType;
-import net.minecraft.server.packs.PackType;
+import com.ssblur.alchimiae.events.network.AlchimiaeNetwork
+import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener
+import dev.architectury.event.events.client.ClientPlayerEvent
+import dev.architectury.event.events.client.ClientTooltipEvent
+import dev.architectury.event.events.common.PlayerEvent
+import dev.architectury.platform.Platform
+import dev.architectury.registry.ReloadListenerRegistry
+import net.fabricmc.api.EnvType
+import net.minecraft.server.packs.PackType
 
-public class AlchimiaeEvents {
-  public static void register() {
-    ReloadListenerRegistry.register(PackType.SERVER_DATA, EffectReloadListener.INSTANCE);
-    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientReloadListener.INSTANCE);
-    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientGroupReloadListener.INSTANCE);
-    PlayerEvent.CRAFT_ITEM.register(new PlayerCraftedMashEvent());
-    PlayerEvent.PLAYER_JOIN.register(new PlayerJoinedEvent());
+object AlchimiaeEvents {
+  fun register() {
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, EffectReloadListener.Companion.INSTANCE)
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientReloadListener.Companion.INSTANCE)
+    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientGroupReloadListener.Companion.INSTANCE)
+    PlayerEvent.CRAFT_ITEM.register(PlayerCraftedMashEvent())
+    PlayerEvent.PLAYER_JOIN.register(PlayerJoinedEvent())
 
-    if(Platform.getEnv() == EnvType.CLIENT) {
-      ClientTooltipEvent.ITEM.register(new AddTooltipEvent());
-      ClientPlayerEvent.CLIENT_PLAYER_QUIT.register(new ClientQuitEvent());
+    if (Platform.getEnv() == EnvType.CLIENT) {
+      ClientTooltipEvent.ITEM.register(AddTooltipEvent())
+      ClientPlayerEvent.CLIENT_PLAYER_QUIT.register(ClientQuitEvent())
     }
 
-    AlchimiaeNetwork.register();
+    AlchimiaeNetwork.register()
   }
 }

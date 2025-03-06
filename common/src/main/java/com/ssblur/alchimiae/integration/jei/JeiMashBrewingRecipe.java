@@ -68,6 +68,6 @@ public class JeiMashBrewingRecipe implements IJeiBrewingRecipe {
   }
 
   ResourceLocation itemId() {
-    return Objects.requireNonNull(AlchimiaeItems.ITEMS.getRegistrar().getId(mash.getItem()));
+    return Objects.requireNonNull(AlchimiaeItems.INSTANCE.getITEMS().getRegistrar().getId(mash.getItem()));
   }
 }

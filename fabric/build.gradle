@@ -1,5 +1,6 @@
 plugins {
     id 'com.github.johnrengelman.shadow'
+  id 'org.jetbrains.kotlin.jvm'
 }
 
 architectury {
@@ -25,10 +26,11 @@ configurations {
 }
 
 dependencies {
+  modImplementation "net.fabricmc:fabric-language-kotlin:1.10.8+kotlin.1.9.0"
   modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-
-  // Fabric API. This is technically optional, but you probably want it anyway.
   modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+
+  modImplementation("com.ssblur.unfocused:unfocused-fabric:${rootProject.unfocused_version}")
 
   // Architectury API. This is optional, and you can comment it out if you don't need it.
   modImplementation "dev.architectury:architectury-fabric:$rootProject.architectury_api_version"
@@ -37,6 +39,7 @@ dependencies {
   shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
   modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 processResources {
@@ -54,4 +57,10 @@ shadowJar {
 
 remapJar {
     input.set shadowJar.archiveFile
+}
+repositories {
+  mavenCentral()
+}
+kotlin {
+  jvmToolchain(21)
 }

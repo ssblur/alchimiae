@@ -1,7 +1,6 @@
-package com.ssblur.alchimiae.data;
+package com.ssblur.alchimiae.data
 
-public class AlchimiaeDataComponents {
-  public static void register() {
-
+object AlchimiaeDataComponents {
+  fun register() {
   }
 }

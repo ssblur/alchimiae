@@ -1,151 +1,155 @@
-package com.ssblur.alchimiae.data;
+package com.ssblur.alchimiae.data
 
-import com.google.common.base.MoreObjects;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.ssblur.alchimiae.events.network.client.ReceiveIngredientsNetwork;
-import com.ssblur.alchimiae.item.AlchimiaeItems;
-import com.ssblur.alchimiae.mixin.DimensionDataStorageAccessor;
-import dev.architectury.networking.NetworkManager;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.util.datafix.DataFixTypes;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.saveddata.SavedData;
-import org.jetbrains.annotations.Nullable;
+import com.google.common.base.MoreObjects
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
+import com.ssblur.alchimiae.events.network.client.ReceiveIngredientsNetwork
+import com.ssblur.alchimiae.item.AlchimiaeItems
+import com.ssblur.alchimiae.mixin.DimensionDataStorageAccessor
+import dev.architectury.networking.NetworkManager
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtOps
+import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.ExtraCodecs
+import net.minecraft.util.datafix.DataFixTypes
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.item.Item
+import net.minecraft.world.level.Level
+import net.minecraft.world.level.saveddata.SavedData
+import java.io.IOException
+import java.nio.file.Files
+import java.util.*
+import java.util.stream.Stream
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.*;
-import java.util.stream.Stream;
+class IngredientMemorySavedData : SavedData {
+  var data: MutableMap<ResourceLocation, List<String>>
 
-public class IngredientMemorySavedData extends SavedData {
-  public static final Codec<IngredientMemorySavedData> CODEC = RecordCodecBuilder.create(instance ->
-    instance.group(
-      ExtraCodecs.strictUnboundedMap(
-        ResourceLocation.CODEC,
-        Codec.STRING.listOf()
-      ).fieldOf("data").forGetter(IngredientMemorySavedData::getData)
-    ).apply(instance, IngredientMemorySavedData::new)
-  );
-
-  Map<ResourceLocation, List<String>> data;
-
-  public IngredientMemorySavedData(Map<ResourceLocation, List<String>> data) {
-    this.data = new HashMap<>(data);
+  constructor(data: Map<ResourceLocation, List<String>>) {
+    this.data = HashMap(data)
   }
 
-  public IngredientMemorySavedData() {
-    this.data = new HashMap<>();
+  constructor() {
+    this.data = HashMap()
   }
 
-  public void fill(ServerLevel level) {
-    var effects = IngredientEffectsSavedData.computeIfAbsent(level);
-    for(var key: effects.getData().keySet())
-      if(!this.data.containsKey(key))
-        this.data.put(key, new ArrayList<>());
-    setDirty();
+  fun fill(level: ServerLevel) {
+    val effects = IngredientEffectsSavedData.computeIfAbsent(level)
+    for (key in effects.data.keys) if (!data.containsKey(key)) data[key] = arrayListOf()
+    setDirty()
   }
 
-  public void learnAll(ServerLevel level) {
-    var effects = IngredientEffectsSavedData.computeIfAbsent(level);
-    for(var key: effects.getData().keySet())
-      this.data.put(key, effects.getData().get(key).effectsLanguageKeys());
-    setDirty();
+  fun learnAll(level: ServerLevel) {
+    val effects: IngredientEffectsSavedData = IngredientEffectsSavedData.Companion.computeIfAbsent(level)
+    for (key in effects.data.keys) data[key] = effects.data[key]?.effectsLanguageKeys()!!
+    setDirty()
   }
 
-  public void reset(ServerLevel level) {
-    this.data.clear();
-    fill(level);
+  fun reset(level: ServerLevel) {
+    data.clear()
+    fill(level)
   }
 
-  public Map<ResourceLocation, List<String>> getData() {
-    return this.data;
+  override fun save(tag: CompoundTag, provider: HolderLookup.Provider): CompoundTag {
+    CODEC.encodeStart(NbtOps.INSTANCE, this).ifSuccess { value ->
+      tag.put("alchimiae:memory", value)
+    }
+    return tag
   }
 
-  @Override
-  public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
-    CODEC.encodeStart(NbtOps.INSTANCE, this).ifSuccess(value -> tag.put("alchimiae:memory", value));
-    return tag;
-  }
+  fun add(player: ServerPlayer, item: Item?, effects: List<MobEffectInstance>) {
+    val key = AlchimiaeItems.ITEMS.registrar.getId(item)!!
+    val ingredientEffectsData: IngredientEffectsSavedData =
+      IngredientEffectsSavedData.Companion.computeIfAbsent(player.serverLevel())
 
-  public void add(ServerPlayer player, Item item, List<MobEffectInstance> effects) {
-    var key = Objects.requireNonNull(AlchimiaeItems.ITEMS.getRegistrar().getId(item));
-    var ingredientEffectsData = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel());
+    var checksumA = 0
+    val data = ArrayList(data.getOrDefault(key, listOf<String>()))
+    for (effect in data) checksumA += effect.hashCode()
 
-    int checksumA = 0;
-    var data = new ArrayList<>(this.data.getOrDefault(key, List.of()));
-    for(var effect: data) checksumA += effect.hashCode();
-
-    int checksumB = 0;
-    var updatedData = new ArrayList<String>();
-    for(var languageKey: Stream.concat(
-      effects.stream().map(MobEffectInstance::getDescriptionId),
+    var checksumB = 0
+    val updatedData = arrayListOf<String>()
+    for (languageKey in Stream.concat<String>(
+      effects.stream().map { obj -> obj.descriptionId },
       data.stream()
-    ).filter(
-      effect -> ingredientEffectsData.getData().get(key).effectsLanguageKeys().contains(effect)
-    ).distinct().toList()) {
-      checksumB += languageKey.hashCode();
-      updatedData.add(languageKey);
+    ).filter { effect: String? -> ingredientEffectsData.data[key]!!.effectsLanguageKeys().contains(effect) }
+      .distinct().toList()) {
+      checksumB += languageKey.hashCode()
+      updatedData.add(languageKey)
     }
 
-    if(checksumA != checksumB) {
-      this.data.put(key, updatedData);
-      NetworkManager.sendToPlayer(player, new ReceiveIngredientsNetwork.Payload(key.toString(), updatedData));
-      setDirty();
-    }
-  }
-
-  public void sync(ServerPlayer player) {
-    fill(player.serverLevel());
-    for(var entry: data.entrySet()) {
-      NetworkManager.sendToPlayer(player, new ReceiveIngredientsNetwork.Payload(entry.getKey().toString(), entry.getValue()));
+    if (checksumA != checksumB) {
+      this.data[key] = updatedData
+      NetworkManager.sendToPlayer(player, ReceiveIngredientsNetwork.Payload(key.toString(), updatedData))
+      setDirty()
     }
   }
 
-  @Nullable
-  public static IngredientMemorySavedData load(CompoundTag tag, HolderLookup.Provider provider) {
-    var input = tag.get("alchimiae:memory");
-    if(input != null) {
-      var result = CODEC.decode(NbtOps.INSTANCE, input).result();
-      if(result.isPresent() && result.get().getFirst() != null)
-        return result.get().getFirst();
+  fun sync(player: ServerPlayer) {
+    fill(player.serverLevel())
+    for ((key, value) in data) {
+      NetworkManager.sendToPlayer(
+        player, ReceiveIngredientsNetwork.Payload(key.toString(), value)
+      )
     }
-    return null;
   }
 
-  public static IngredientMemorySavedData computeIfAbsent(ServerPlayer player) {
-    var level = player.serverLevel();
-    var server = Objects.requireNonNull(level.getServer().getLevel(Level.OVERWORLD));
-    var id = player.getStringUUID();
-    if(id.isEmpty()) id = MoreObjects.firstNonNull(player.getDisplayName(), Component.literal("player")).getString();
-    return computeIfAbsent(server, id);
-  }
+  companion object {
+    val CODEC: Codec<IngredientMemorySavedData?> =
+      RecordCodecBuilder.create { instance: RecordCodecBuilder.Instance<IngredientMemorySavedData?> ->
+        instance.group(
+          ExtraCodecs.strictUnboundedMap(
+            ResourceLocation.CODEC,
+            Codec.STRING.listOf()
+          ).fieldOf("data")
+            .forGetter { obj: IngredientMemorySavedData? -> obj!!.data }
+        ).apply(
+          instance
+        ) { data -> IngredientMemorySavedData(data) }
+      }
 
-  public static IngredientMemorySavedData computeIfAbsent(ServerLevel level, String uuid) {
-    try {
-      var storage = (DimensionDataStorageAccessor) level.getDataStorage();
-
-      if(!Files.exists(storage.getDataFolder().toPath().resolve("alchimiae_players")))
-        Files.createDirectory(storage.getDataFolder().toPath().resolve("alchimiae_players"));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    fun load(tag: CompoundTag, provider: HolderLookup.Provider?): IngredientMemorySavedData? {
+      val input = tag["alchimiae:memory"]
+      if (input != null) {
+        val result = CODEC.decode(NbtOps.INSTANCE, input).result()
+        if (result.isPresent && result.get().first != null) return result.get().first
+      }
+      return null
     }
 
-    Objects.requireNonNull(level);
-    var data = level.getDataStorage().computeIfAbsent(
-      new Factory<>(IngredientMemorySavedData::new, IngredientMemorySavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA),
-      "alchimiae_players/memory_" + uuid
-    );
-    data.fill(level);
-    return data;
+    fun computeIfAbsent(player: ServerPlayer): IngredientMemorySavedData {
+      val level = player.serverLevel()
+      val server = level.server.getLevel(Level.OVERWORLD)!!
+      var id = player.stringUUID
+      if (id.isEmpty()) id = MoreObjects.firstNonNull(player.displayName, Component.literal("player")).string
+      return computeIfAbsent(server, id)
+    }
+
+    fun computeIfAbsent(level: ServerLevel, uuid: String): IngredientMemorySavedData {
+      try {
+        val storage = level.dataStorage as DimensionDataStorageAccessor
+
+        if (!Files.exists(
+            storage.dataFolder.toPath().resolve("alchimiae_players")
+          )
+        ) Files.createDirectory(storage.dataFolder.toPath().resolve("alchimiae_players"))
+      } catch (e: IOException) {
+        throw RuntimeException(e)
+      }
+
+      Objects.requireNonNull(level)
+      val data = level.dataStorage.computeIfAbsent(
+        Factory(
+          { IngredientMemorySavedData() },
+          { tag, provider -> load(tag, provider) },
+          DataFixTypes.SAVED_DATA_MAP_DATA
+        ),
+        "alchimiae_players/memory_$uuid"
+      )!!
+      data.fill(level)
+      return data
+    }
   }
 }

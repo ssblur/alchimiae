@@ -1,27 +1,33 @@
-package com.ssblur.alchimiae.command;
+package com.ssblur.alchimiae.command
 
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
-import com.ssblur.alchimiae.data.IngredientEffectsSavedData;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.player.Player;
+import com.mojang.brigadier.Command
+import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import com.mojang.brigadier.context.CommandContext
+import com.ssblur.alchimiae.data.IngredientEffectsSavedData
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands
+import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.player.Player
 
-public class DumpEffectsCommand {
-  public static void register(LiteralArgumentBuilder<CommandSourceStack> command){
+object DumpEffectsCommand {
+  fun register(command: LiteralArgumentBuilder<CommandSourceStack?>) {
     command.then(
       Commands.literal("dump_effects")
-        .requires(s -> s.hasPermission(4))
-        .executes(DumpEffectsCommand::execute)
-    );
+        .requires { s: CommandSourceStack -> s.hasPermission(4) }
+        .executes(::execute)
+    )
   }
-  private static int execute(CommandContext<CommandSourceStack> command){
-    if(command.getSource().getEntity() instanceof Player player) {
-        player.sendSystemMessage(Component.literal(IngredientEffectsSavedData.computeIfAbsent((ServerLevel) player.level()).toString()));
+
+  private fun execute(command: CommandContext<CommandSourceStack>): Int {
+    if (command.source.entity is Player) {
+      val player = command.source.entity as Player
+      player.sendSystemMessage(
+        Component.literal(
+          IngredientEffectsSavedData.Companion.computeIfAbsent(player.level() as ServerLevel).toString()
+        )
+      )
     }
-    return Command.SINGLE_SUCCESS;
+    return Command.SINGLE_SUCCESS
   }
 }

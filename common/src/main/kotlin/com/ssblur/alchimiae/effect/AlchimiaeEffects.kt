@@ -1,40 +1,54 @@
-package com.ssblur.alchimiae.effect;
+package com.ssblur.alchimiae.effect
 
-import com.ssblur.alchimiae.AlchimiaeMod;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffect;
+import com.ssblur.alchimiae.AlchimiaeMod
+import dev.architectury.registry.registries.DeferredRegister
+import dev.architectury.registry.registries.RegistrySupplier
+import net.minecraft.core.Holder
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.effect.MobEffect
 
-@SuppressWarnings("unused")
-public class AlchimiaeEffects {
-  public static final String MOD_ID = AlchimiaeMod.MOD_ID;
-  public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MOD_ID, Registries.MOB_EFFECT);
+@Suppress("unused")
+object AlchimiaeEffects {
+  const val MOD_ID: String = AlchimiaeMod.MOD_ID
+  val EFFECTS: DeferredRegister<MobEffect> = DeferredRegister.create(
+    MOD_ID, Registries.MOB_EFFECT
+  )
 
-  public static final RegistrySupplier<MobEffect> FAMINE = EFFECTS.register("famine", () -> new FoodMobEffect(false));
-  public static final RegistrySupplier<MobEffect> FEAST = EFFECTS.register("feast", () -> new FoodMobEffect(true));
-  public static final RegistrySupplier<MobEffect> IMMUNE = EFFECTS.register("immune", () -> new EffectModMobEffect(true));
-  public static final RegistrySupplier<MobEffect> AFFLICTED = EFFECTS.register("afflicted", () -> new EffectModMobEffect(false));
-  public static final RegistrySupplier<MobEffect> STRIDE = EFFECTS.register("stride", () -> new StrideMobEffect(AlchimiaeMod.location("stride")));
-  public static final RegistrySupplier<MobEffect> FUSE = EFFECTS.register("fuse", FuseMobEffect::new);
-  public static final RegistrySupplier<MobEffect> LILIPUTIAN = EFFECTS.register("liliputian",
-    () -> new ScaleMobEffect(-0.25, AlchimiaeMod.location("liliputian"))
-  );
-  public static final RegistrySupplier<MobEffect> ALICIAN = EFFECTS.register("alician",
-    () -> new ScaleMobEffect(1, AlchimiaeMod.location("alician"))
-  );
+  val FAMINE: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "famine"
+  ) { FoodMobEffect(false) }
+  val FEAST: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "feast"
+  ) { FoodMobEffect(true) }
+  val IMMUNE: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "immune"
+  ) { EffectModMobEffect(true) }
+  val AFFLICTED: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "afflicted"
+  ) { EffectModMobEffect(false) }
+  val STRIDE: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "stride"
+  ) { StrideMobEffect(AlchimiaeMod.location("stride")) }
+  val FUSE: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "fuse"
+  ) { FuseMobEffect() }
+  val LILIPUTIAN: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "liliputian"
+  ) { ScaleMobEffect(-0.25, AlchimiaeMod.location("liliputian")) }
+  val ALICIAN: RegistrySupplier<MobEffect> = EFFECTS.register(
+    "alician"
+  ) { ScaleMobEffect(1.0, AlchimiaeMod.location("alician")) }
 
-  public static void register() {
-    EFFECTS.register();
+  fun register() {
+    EFFECTS.register()
   }
 
-  public static Holder<MobEffect> get(RegistrySupplier<MobEffect> effect) {
-    return EFFECTS.getRegistrar().getHolder(effect.getId());
+  fun get(effect: RegistrySupplier<MobEffect?>): Holder<MobEffect>? {
+    return EFFECTS.registrar.getHolder(effect.id)
   }
 
-  public static Holder<MobEffect> get(ResourceLocation effect) {
-    return EFFECTS.getRegistrar().getHolder(effect);
+  fun get(effect: ResourceLocation?): Holder<MobEffect>? {
+    return EFFECTS.registrar.getHolder(effect)
   }
 }

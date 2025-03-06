@@ -1,72 +1,70 @@
-package com.ssblur.alchimiae.alchemy;
+package com.ssblur.alchimiae.alchemy
 
-import com.ssblur.alchimiae.data.IngredientEffectsSavedData;
-import com.ssblur.alchimiae.item.AlchimiaeItems;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionContents;
-import org.jetbrains.annotations.Nullable;
+import com.ssblur.alchimiae.data.IngredientEffectsSavedData
+import com.ssblur.alchimiae.item.AlchimiaeItems
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.alchemy.PotionContents
+import java.util.*
+import kotlin.math.floor
+import kotlin.math.sqrt
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
-public class AlchemyHelper {
-  public static AlchemyPotion getEffects(List<AlchemyIngredient> ingredients, float efficiency) {
-    HashMap<ResourceLocation, Float> potency = new HashMap<>();
-    int duration = 0;
-    for(var ingredient: ingredients) {
-      for (var effect : ingredient.effects()) {
-        potency.put(effect.effect(), potency.getOrDefault(effect.effect(), 0f) + effect.potency());
-        duration += ingredient.duration();
+object AlchemyHelper {
+  fun getEffects(ingredients: List<AlchemyIngredient>, efficiency: Float): AlchemyPotion {
+    val potency = HashMap<ResourceLocation, Float>()
+    var duration = 0
+    for (ingredient in ingredients) {
+      for (effect in ingredient.effects) {
+        potency[effect.effect] = potency.getOrDefault(effect.effect, 0f) + effect.potency
+        duration += ingredient.duration
       }
     }
 
-    duration /= ingredients.size();
-    duration *= ingredients.size() + 1;
-    duration = Math.round(((float) duration) * efficiency);
-    HashMap<ResourceLocation, Integer> output = new HashMap<>();
-    potency.entrySet().stream()
-      .filter(e -> e.getValue() >= 2)
-      .forEach(e -> output.put(e.getKey(), ((int) Math.floor(Math.sqrt(e.getValue()))) - 1));
-    return new AlchemyPotion(output, duration);
+    duration /= ingredients.size
+    duration *= ingredients.size + 1
+    duration = Math.round((duration.toFloat()) * efficiency)
+    val output = HashMap<ResourceLocation, Int>()
+    potency.entries.stream()
+      .filter { e: Map.Entry<ResourceLocation, Float> -> e.value >= 2 }
+      .forEach { e: Map.Entry<ResourceLocation, Float> ->
+        output[e.key] = (floor(sqrt(e.value.toDouble())).toInt()) - 1
+      }
+    return AlchemyPotion(output, duration)
   }
 
-  @Nullable
-  public static AlchemyPotion getEffects(List<ItemStack> items, ServerLevel level, float efficiency) {
-    if(items.size() <= 1) return null;
+  fun getEffects(items: List<ItemStack>, level: ServerLevel, efficiency: Float): AlchemyPotion? {
+    if (items.size <= 1) return null
 
-    var ingredients = items.stream().filter(item -> !item.isEmpty()).map(
-      ingredient -> IngredientEffectsSavedData.computeIfAbsent(level).getData().get(AlchimiaeItems.ITEMS.getRegistrar().getId(ingredient.getItem()))
-    ).toList();
+    val ingredients = items.stream().filter { item: ItemStack -> !item.isEmpty }
+      .map<AlchemyIngredient> { ingredient: ItemStack ->
+        IngredientEffectsSavedData.computeIfAbsent(level).data
+          .get(AlchimiaeItems.ITEMS.registrar.getId(ingredient.item))
+      }.toList()
 
-    if(ingredients.stream().anyMatch(Objects::isNull)) {
-      return null;
+    if (ingredients.stream().anyMatch { obj: AlchemyIngredient? -> Objects.isNull(obj) }) {
+      return null
     }
 
-    for(int i = 0; i < items.size(); i++)
-      for(int j = 0; j < items.size(); j++)
-        if(j != i && !items.get(i).isEmpty() && !items.get(j).isEmpty() && items.get(i).getItem() == items.get(j).getItem()) {
-          return null;
-        }
+    for (i in items.indices) for (j in items.indices) if (j != i && !items[i].isEmpty && !items[j].isEmpty && items[i].item === items[j].item) {
+      return null
+    }
 
-    return getEffects(ingredients, efficiency);
+    return getEffects(ingredients, efficiency)
   }
 
-  public static List<MobEffectInstance> getPotion(List<ItemStack> items, ServerLevel level, float efficiency) {
-    var effects = getEffects(items, level, efficiency);
-    if(effects == null) return List.of();
-    return effects.toPotion();
+  fun getPotion(items: List<ItemStack>, level: ServerLevel, efficiency: Float): List<MobEffectInstance?> {
+    val effects = getEffects(items, level, efficiency)
+      ?: return listOf<MobEffectInstance>()
+    return effects.toPotion()
   }
 
-  public static PotionContents getPotionContents(List<ItemStack> items, ServerLevel level) {
-    return getPotionContents(items, level, 1.0f);
+  fun getPotionContents(items: List<ItemStack>, level: ServerLevel): PotionContents {
+    return getPotionContents(items, level, 1.0f)
   }
 
-  public static PotionContents getPotionContents(List<ItemStack> items, ServerLevel level, float efficiency) {
-    return new PotionContents(Optional.empty(), Optional.empty(), getPotion(items, level, efficiency));
+  fun getPotionContents(items: List<ItemStack>, level: ServerLevel, efficiency: Float): PotionContents {
+    return PotionContents(Optional.empty(), Optional.empty(), getPotion(items, level, efficiency))
   }
 }

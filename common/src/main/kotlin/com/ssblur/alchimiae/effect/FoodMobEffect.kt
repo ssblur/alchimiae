@@ -1,30 +1,27 @@
-package com.ssblur.alchimiae.effect;
+package com.ssblur.alchimiae.effect
 
-import net.minecraft.world.effect.InstantenousMobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.effect.InstantenousMobEffect
+import net.minecraft.world.effect.MobEffectCategory
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 
-public class FoodMobEffect extends InstantenousMobEffect {
-  int signum;
-  public FoodMobEffect(boolean refill) {
-    super(refill ? MobEffectCategory.BENEFICIAL : MobEffectCategory.HARMFUL, 10);
+class FoodMobEffect(refill: Boolean) :
+  InstantenousMobEffect(if (refill) MobEffectCategory.BENEFICIAL else MobEffectCategory.HARMFUL, 10) {
+  var signum: Int = if (refill) 1 else -1
 
-    this.signum = refill ? 1 : -1;
+  override fun applyEffectTick(livingEntity: LivingEntity, i: Int): Boolean {
+    if (livingEntity is Player) livingEntity.foodData.eat((i + 1) * signum * 3, 0f)
+    return true
   }
 
-  @Override
-  public boolean applyEffectTick(LivingEntity livingEntity, int i) {
-    if(livingEntity instanceof Player player)
-      player.getFoodData().eat((i + 1) * signum * 3, 0f);
-    return true;
-  }
-
-  @Override
-  public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int i, double d) {
-    if (livingEntity instanceof Player player)
-      player.getFoodData().eat((i + 1) * signum * 3, 0f);
+  override fun applyInstantenousEffect(
+    entity: Entity?,
+    entity2: Entity?,
+    livingEntity: LivingEntity,
+    i: Int,
+    d: Double
+  ) {
+    if (livingEntity is Player) livingEntity.foodData.eat((i + 1) * signum * 3, 0f)
   }
 }

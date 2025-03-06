@@ -1,39 +1,47 @@
-package com.ssblur.alchimiae.events.reloadlisteners;
+package com.ssblur.alchimiae.events.reloadlisteners
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.JsonElement;
-import com.ssblur.alchimiae.AlchimiaeMod;
-import net.minecraft.resources.ResourceLocation;
+import com.google.common.reflect.TypeToken
+import com.google.gson.JsonElement
+import com.ssblur.alchimiae.AlchimiaeMod
+import net.minecraft.resources.ResourceLocation
+import java.lang.reflect.Type
 
-import java.lang.reflect.Type;
-import java.util.HashMap;
+class IngredientReloadListener : AlchimiaeReloadListener("alchimiae/ingredients") {
+  @JvmRecord
+  data class IngredientResource(
+    val item: String,
+    val guaranteedEffects: Array<String>,
+    val ingredientClasses: Array<String>,
+    val rarity: Float,
+    val duration: Int,
+    val noEffects: Boolean
+  )
 
-public class IngredientReloadListener extends AlchimiaeReloadListener {
-  public record IngredientResource(String item, String[] guaranteedEffects, String[] ingredientClasses, float rarity, int duration, boolean noEffects){}
-  static Type EFFECT_TYPE = new TypeToken<IngredientResource>() {}.getType();
-  public static final IngredientReloadListener INSTANCE = new IngredientReloadListener();
+  var ingredients: HashMap<ResourceLocation?, IngredientResource> = HashMap()
 
-  public HashMap<ResourceLocation, IngredientResource> ingredients = new HashMap<>();
-
-  public IngredientReloadListener() {
-    super("alchimiae/ingredients");
-  }
-
-  @Override
-  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
-    IngredientResource resource = GSON.fromJson(jsonElement, EFFECT_TYPE);
-    if(resourceLocation.getNamespace().equals("alchimiae") && !resourceLocation.getPath().endsWith(resource.item.split(":")[1]))
-      AlchimiaeMod.LOGGER.warn(
-        "Ingredient {} was loaded with item {}! This is probably not intentional",
-        resourceLocation,
-        resource.item
-      );
+  override fun loadResource(resourceLocation: ResourceLocation, jsonElement: JsonElement?) {
+    val resource: IngredientResource =
+      AlchimiaeReloadListener.Companion.GSON.fromJson<IngredientResource>(jsonElement, EFFECT_TYPE)
+    if (resourceLocation.namespace == "alchimiae" && !resourceLocation.path.endsWith(
+        resource.item.split(":".toRegex())
+          .dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+      )
+    ) AlchimiaeMod.LOGGER.warn(
+      "Ingredient {} was loaded with item {}! This is probably not intentional",
+      resourceLocation,
+      resource.item
+    )
     AlchimiaeMod.LOGGER.debug(
       "Loaded ingredient {} with:\n\tGuaranteed Effects: {}\n\tIngredient Classes: {}",
       resourceLocation,
       resource.guaranteedEffects,
       resource.ingredientClasses
-    );
-    ingredients.put(resourceLocation, resource);
+    )
+    ingredients[resourceLocation] = resource
+  }
+
+  companion object {
+    var EFFECT_TYPE: Type = object : TypeToken<IngredientResource?>() {}.type
+    val INSTANCE: IngredientReloadListener = IngredientReloadListener()
   }
 }

@@ -1,22 +1,32 @@
-package com.ssblur.alchimiae.blockentity;
+package com.ssblur.alchimiae.blockentity
 
-import com.ssblur.alchimiae.AlchimiaeMod;
-import com.ssblur.alchimiae.block.AlchimiaeBlocks;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import com.ssblur.alchimiae.AlchimiaeMod
+import com.ssblur.alchimiae.block.AlchimiaeBlocks
+import dev.architectury.registry.registries.DeferredRegister
+import dev.architectury.registry.registries.RegistrySupplier
+import net.minecraft.core.BlockPos
+import net.minecraft.core.registries.Registries
+import net.minecraft.world.level.block.entity.BlockEntityType
+import net.minecraft.world.level.block.state.BlockState
 
-@SuppressWarnings("ConstantConditions")
-public class AlchimiaeBlockEntities {
-  public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(AlchimiaeMod.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
+object AlchimiaeBlockEntities {
+  val BLOCK_ENTITIES: DeferredRegister<BlockEntityType<*>> =
+    DeferredRegister.create(AlchimiaeMod.MOD_ID, Registries.BLOCK_ENTITY_TYPE)
 
-  public static final RegistrySupplier<BlockEntityType<BoilerBlockEntity>> BOILER = BLOCK_ENTITIES.register(
-    "boiler",
-    () -> BlockEntityType.Builder.of(BoilerBlockEntity::new, AlchimiaeBlocks.BOILER.get()).build(null)
-  );
+  val BOILER: RegistrySupplier<BlockEntityType<BoilerBlockEntity>> = BLOCK_ENTITIES.register(
+    "boiler"
+  ) {
+    BlockEntityType.Builder.of(
+      { blockPos: BlockPos?, blockState: BlockState? ->
+        BoilerBlockEntity(
+          blockPos,
+          blockState
+        )
+      }, AlchimiaeBlocks.BOILER.get()
+    ).build(null)
+  }
 
-  public static void register() {
-    BLOCK_ENTITIES.register();
+  fun register() {
+    BLOCK_ENTITIES.register()
   }
 }

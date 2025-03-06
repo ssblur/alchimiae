@@ -1,157 +1,174 @@
-package com.ssblur.alchimiae.data;
+package com.ssblur.alchimiae.data
 
-import com.google.common.base.MoreObjects;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.ssblur.alchimiae.alchemy.AlchemyIngredient;
-import com.ssblur.alchimiae.alchemy.IngredientEffect;
-import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener;
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener;
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.util.datafix.DataFixTypes;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.saveddata.SavedData;
+import com.google.common.base.MoreObjects
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
+import com.ssblur.alchimiae.alchemy.AlchemyIngredient
+import com.ssblur.alchimiae.alchemy.IngredientEffect
+import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener
+import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener.EffectResource
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener
+import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener.IngredientResource
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtOps
+import net.minecraft.nbt.Tag
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.util.ExtraCodecs
+import net.minecraft.util.datafix.DataFixTypes
+import net.minecraft.world.level.Level
+import net.minecraft.world.level.saveddata.SavedData
+import java.util.*
 
-import java.util.*;
+class IngredientEffectsSavedData : SavedData {
+  var data: MutableMap<ResourceLocation, AlchemyIngredient> = HashMap()
+  var groups: Map<ResourceLocation, List<ResourceLocation>> = HashMap()
 
-public class IngredientEffectsSavedData extends SavedData {
-  public static final Codec<IngredientEffectsSavedData> CODEC = RecordCodecBuilder.create(instance ->
-    instance.group(
-      ExtraCodecs.strictUnboundedMap(ResourceLocation.CODEC, AlchemyIngredient.CODEC).fieldOf("data").forGetter(IngredientEffectsSavedData::getData),
-      ExtraCodecs.strictUnboundedMap(ResourceLocation.CODEC, ResourceLocation.CODEC.listOf()).fieldOf("groups").forGetter(IngredientEffectsSavedData::getGroups)
-    ).apply(instance, IngredientEffectsSavedData::new)
-  );
-  Map<ResourceLocation, AlchemyIngredient> data = new HashMap<>();
-  Map<ResourceLocation, List<ResourceLocation>> groups = new HashMap<>();
-
-  public IngredientEffectsSavedData(Map<ResourceLocation, AlchemyIngredient> data, Map<ResourceLocation, List<ResourceLocation>> groups) {
-    this.data = new HashMap<>(data);
-    this.groups = new HashMap<>(groups);
-    generate();
+  constructor(
+    data: Map<ResourceLocation?, AlchemyIngredient>,
+    groups: Map<ResourceLocation, List<ResourceLocation>>
+  ) {
+    this.data = HashMap(data)
+    this.groups = HashMap(groups)
+    generate()
   }
 
-  public IngredientEffectsSavedData() {
-    generate();
+  constructor() {
+    generate()
   }
 
-  public void generate() {
-    HashMap<ResourceLocation, IngredientReloadListener.IngredientResource> ingredients = new HashMap<>();
-    HashMap<ResourceLocation, List<ResourceLocation>> effects = new HashMap<>();
-    HashMap<ResourceLocation, List<ResourceLocation>> groups = new HashMap<>();
-    var random = new Random();
+  fun generate() {
+    val ingredients = HashMap<ResourceLocation, IngredientResource>()
+    val effects = HashMap<ResourceLocation, List<ResourceLocation>>()
+    val groups = HashMap<ResourceLocation, List<ResourceLocation>>()
+    val random = Random()
 
-    for(var resource: IngredientGroupReloadListener.INSTANCE.groups.entrySet()) {
-      var group = resource.getValue();
-      var key = resource.getKey();
-      var list = new ArrayList<>(MoreObjects.firstNonNull(this.groups.get(key), List.of()));
-      for(var effect: group.guaranteedEffects())
-        if(!list.contains(ResourceLocation.parse(effect)))
-          list.add(ResourceLocation.parse(effect));
+    for ((key, group) in IngredientGroupReloadListener.Companion.INSTANCE.groups.entries) {
+      val list = ArrayList(
+        MoreObjects.firstNonNull(
+          this.groups[key], listOf()
+        )
+      )
+      for (effect in group.guaranteedEffects) if (!list.contains(ResourceLocation.parse(effect))) list.add(
+        ResourceLocation.parse(effect)
+      )
 
-      if(list.isEmpty()) {
-        var valid = EffectReloadListener.INSTANCE.effects.entrySet().stream()
-          .filter(effect -> effect.getValue().rarity() <= group.rarity())
-          .toList();
-        if(!valid.isEmpty()) {
-          var any = valid.get(random.nextInt(valid.size()));
-          list.add(ResourceLocation.parse(any.getValue().effect()));
-        }
-      }
-
-      groups.put(key, list);
-    }
-    this.groups = groups;
-
-    for(var ingredient: IngredientReloadListener.INSTANCE.ingredients.entrySet()) {
-      var item = ResourceLocation.parse(ingredient.getValue().item());
-      var list = new ArrayList<ResourceLocation>();
-      effects.put(item, list);
-      ingredients.put(item, ingredient.getValue());
-      for(var group: ingredient.getValue().ingredientClasses())
-        list.addAll(groups.getOrDefault(ResourceLocation.parse(group), List.of()));
-      for(var effect: ingredient.getValue().guaranteedEffects())
-        list.add(ResourceLocation.parse(effect));
-    }
-
-    boolean looping = true;
-    while(looping) {
-      looping = false;
-      for (var effect : EffectReloadListener.INSTANCE.effects.entrySet()) {
-        var key = ResourceLocation.parse(effect.getValue().effect());
-        var valid = effects.entrySet().stream().filter(
-          entry ->
-            ingredients.get(entry.getKey()).rarity() >= effect.getValue().rarity()
-              && !effects.get(entry.getKey()).contains(key)
-              && entry.getValue().size() < 4
-        ).toList();
-
+      if (list.isEmpty()) {
+        val valid: List<Map.Entry<ResourceLocation, EffectResource>> =
+          EffectReloadListener.INSTANCE.effects.entries.stream()
+            .filter { effect: Map.Entry<ResourceLocation, EffectResource> -> effect.value.rarity <= group.rarity }
+            .toList()
         if (!valid.isEmpty()) {
-          var any = valid.get(random.nextInt(valid.size()));
-          looping = true;
-          any.getValue().add(key);
+          val any = valid[random.nextInt(valid.size)]
+          list.add(ResourceLocation.parse(any.value.effect))
+        }
+      }
+
+      groups[key] = list
+    }
+    this.groups = groups
+
+    for ((_, value) in IngredientReloadListener.Companion.INSTANCE.ingredients.entries) {
+      val item = ResourceLocation.parse(value.item)
+      val list = ArrayList<ResourceLocation>()
+      effects[item] = list
+      ingredients[item] = value
+      for (group in value.ingredientClasses) list.addAll(groups.getOrDefault(ResourceLocation.parse(group), listOf()))
+      for (effect in value.guaranteedEffects) list.add(ResourceLocation.parse(effect))
+    }
+
+    var looping = true
+    while (looping) {
+      looping = false
+      for ((_, value) in EffectReloadListener.Companion.INSTANCE.effects.entries) {
+        val key = ResourceLocation.parse(value.effect)
+        val valid = effects.entries.stream().filter { entry ->
+          ingredients[entry.key]!!.rarity >= value.rarity && !effects[entry.key]!!
+            .contains(key) && entry.value.size < 4
+        }.toList()
+
+        if (valid.isNotEmpty()) {
+          val any = valid[random.nextInt(valid.size)]
+          looping = true
+          effects[any.key] = listOf(listOf(key), any.value).flatten()
         }
       }
     }
 
-    for(var key: ingredients.keySet())
-      if(!data.containsKey(key))
-        data.put(key, new AlchemyIngredient(
-          ingredients.get(key).duration(),
-          effects.get(key).stream().map(value -> new IngredientEffect(value, 1.0f + random.nextFloat() * 0.4f)).toList()
-        ));
+    for (key in ingredients.keys) if (!data.containsKey(key)) data[key] =
+      AlchemyIngredient(
+        ingredients[key]!!.duration,
+        effects[key]!!.stream()
+          .map { value: ResourceLocation -> IngredientEffect(value, 1.0f + random.nextFloat() * 0.4f) }.toList()
+      )
 
-    setDirty();
+    setDirty()
   }
 
-  public Map<ResourceLocation, AlchemyIngredient> getData() {
-    return data;
-  }
-
-  public Map<ResourceLocation, List<ResourceLocation>> getGroups() {
-    return groups;
-  }
-
-  @Override
-  public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
-    CODEC.encodeStart(NbtOps.INSTANCE, this).ifSuccess(value -> tag.put("alchimiae:effects", value));
-    return tag;
-  }
-
-  public static IngredientEffectsSavedData load(CompoundTag tag, HolderLookup.Provider provider) {
-    var input = tag.get("alchimiae:effects");
-    if(input != null) {
-      var result = CODEC.decode(NbtOps.INSTANCE, input).result();
-      if(result.isPresent() && result.get().getFirst() != null)
-        return result.get().getFirst();
+  override fun save(tag: CompoundTag, provider: HolderLookup.Provider): CompoundTag {
+    CODEC.encodeStart(
+      NbtOps.INSTANCE,
+      this
+    ).ifSuccess { value: Tag? ->
+      tag.put(
+        "alchimiae:effects",
+        value
+      )
     }
-    return null;
+    return tag
   }
 
-  public static IngredientEffectsSavedData computeIfAbsent(ServerLevel level) {
-    ServerLevel server = level.getServer().getLevel(Level.OVERWORLD);
-    Objects.requireNonNull(server);
-    return server.getDataStorage().computeIfAbsent(
-      new Factory<>(IngredientEffectsSavedData::new, IngredientEffectsSavedData::load, DataFixTypes.SAVED_DATA_MAP_DATA),
-      "alchimiae_ingredients"
-    );
-  }
-
-  @Override
-  public String toString() {
-    var builder = new StringBuilder();
-    builder.append("IngredientEffectsSavedData:");
-    for(var entry: data.entrySet()) {
-      builder.append("\n - ");
-      builder.append(entry.getKey());
-      builder.append(": ");
-      builder.append(entry.getValue());
+  override fun toString(): String {
+    val builder = StringBuilder()
+    builder.append("IngredientEffectsSavedData:")
+    for ((key, value) in data) {
+      builder.append("\n - ")
+      builder.append(key)
+      builder.append(": ")
+      builder.append(value)
     }
-    return builder.toString();
+    return builder.toString()
+  }
+
+  companion object {
+    val CODEC: Codec<IngredientEffectsSavedData?> =
+      RecordCodecBuilder.create<IngredientEffectsSavedData?> { instance: RecordCodecBuilder.Instance<IngredientEffectsSavedData?> ->
+        instance.group<Map<ResourceLocation?, AlchemyIngredient>, Map<ResourceLocation, List<ResourceLocation>>>(
+          ExtraCodecs.strictUnboundedMap<ResourceLocation?, AlchemyIngredient>(
+            ResourceLocation.CODEC,
+            AlchemyIngredient.Companion.CODEC
+          ).fieldOf("data").forGetter<IngredientEffectsSavedData?> { obj: IngredientEffectsSavedData? -> obj!!.data },
+          ExtraCodecs.strictUnboundedMap<ResourceLocation, List<ResourceLocation>>(
+            ResourceLocation.CODEC,
+            ResourceLocation.CODEC.listOf()
+          ).fieldOf("groups").forGetter<IngredientEffectsSavedData> { obj: IngredientEffectsSavedData -> obj.groups }
+        ).apply<IngredientEffectsSavedData?>(
+          instance
+        ) { data, groups -> IngredientEffectsSavedData(data, groups) }
+      }
+
+    fun load(tag: CompoundTag, provider: HolderLookup.Provider?): IngredientEffectsSavedData? {
+      val input = tag["alchimiae:effects"]
+      if (input != null) {
+        val result = CODEC.decode(NbtOps.INSTANCE, input).result()
+        if (result.isPresent && result.get().first != null) return result.get().first
+      }
+      return null
+    }
+
+    fun computeIfAbsent(level: ServerLevel): IngredientEffectsSavedData {
+      val server = level.server.getLevel(Level.OVERWORLD)
+      Objects.requireNonNull(server)
+      return server!!.dataStorage.computeIfAbsent(
+        Factory(
+          { IngredientEffectsSavedData() },
+          { tag: CompoundTag, provider: HolderLookup.Provider? -> load(tag, provider) },
+          DataFixTypes.SAVED_DATA_MAP_DATA
+        ),
+        "alchimiae_ingredients"
+      )
+    }
   }
 }

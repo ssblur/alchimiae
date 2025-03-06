@@ -37,7 +37,7 @@ public class AlchimiaeJEIIntegration implements IModPlugin {
 
   @Override
   public ResourceLocation getPluginUid() {
-    return AlchimiaeMod.location("jei_base");
+    return AlchimiaeMod.INSTANCE.location("jei_base");
   }
 
   @Override
@@ -91,10 +91,10 @@ public class AlchimiaeJEIIntegration implements IModPlugin {
       );
     }));
 
-    var potions = AlchimiaeMod.REGISTRIES.get().get(Registries.POTION);
+    var potions = AlchimiaeMod.INSTANCE.getREGISTRIES().get().get(Registries.POTION);
     potions.entrySet().forEach(entry -> {
       var key = entry.getKey();
-      var mash = PotionContents.createItemStack(AlchimiaeItems.MASH.get(), Objects.requireNonNull(potions.getHolder(key)));
+      var mash = PotionContents.createItemStack(AlchimiaeItems.INSTANCE.getMASH().get(), Objects.requireNonNull(potions.getHolder(key)));
       registration.addRecipes(RecipeTypes.BREWING, List.of(new JeiMashBrewingRecipe(mash, key.location().getPath())));
     });
   }

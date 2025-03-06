@@ -1,33 +1,31 @@
-package com.ssblur.alchimiae.events.reloadlisteners;
+package com.ssblur.alchimiae.events.reloadlisteners
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.JsonElement;
-import com.ssblur.alchimiae.AlchimiaeMod;
-import net.minecraft.resources.ResourceLocation;
+import com.google.common.reflect.TypeToken
+import com.google.gson.JsonElement
+import com.ssblur.alchimiae.AlchimiaeMod
+import net.minecraft.resources.ResourceLocation
+import java.lang.reflect.Type
 
-import java.lang.reflect.Type;
-import java.util.HashMap;
+class EffectReloadListener : AlchimiaeReloadListener("alchimiae/effects") {
+  @JvmRecord
+  data class EffectResource(val effect: String, val rarity: Float)
 
-public class EffectReloadListener extends AlchimiaeReloadListener {
-  public record EffectResource(String effect, float rarity){}
-  static Type EFFECT_TYPE = new TypeToken<EffectResource>() {}.getType();
-  public static final EffectReloadListener INSTANCE = new EffectReloadListener();
+  var effects: HashMap<ResourceLocation, EffectResource> = HashMap()
 
-  public HashMap<ResourceLocation, EffectResource> effects = new HashMap<>();
-
-  public EffectReloadListener() {
-    super("alchimiae/effects");
-  }
-
-  @Override
-  public void loadResource(ResourceLocation resourceLocation, JsonElement jsonElement) {
-    EffectResource resource = GSON.fromJson(jsonElement, EFFECT_TYPE);
+  override fun loadResource(resourceLocation: ResourceLocation, jsonElement: JsonElement?) {
+    val resource: EffectResource =
+      AlchimiaeReloadListener.Companion.GSON.fromJson<EffectResource>(jsonElement, EFFECT_TYPE)
     AlchimiaeMod.LOGGER.debug(
       "Loaded effect {} with potion effect {} and rarity {}",
       resourceLocation,
       resource.effect,
       resource.rarity
-    );
-    effects.put(resourceLocation, resource);
+    )
+    effects[resourceLocation] = resource
+  }
+
+  companion object {
+    var EFFECT_TYPE: Type = object : TypeToken<EffectResource?>() {}.type
+    val INSTANCE: EffectReloadListener = EffectReloadListener()
   }
 }

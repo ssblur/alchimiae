@@ -1,29 +1,30 @@
-package com.ssblur.alchimiae.command;
+package com.ssblur.alchimiae.command
 
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
-import com.ssblur.alchimiae.data.IngredientMemorySavedData;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import net.minecraft.server.level.ServerPlayer;
+import com.mojang.brigadier.Command
+import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import com.mojang.brigadier.context.CommandContext
+import com.ssblur.alchimiae.data.IngredientMemorySavedData
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands
+import net.minecraft.server.level.ServerPlayer
 
-public class LearnEffectsCommand {
-  public static void register(LiteralArgumentBuilder<CommandSourceStack> command){
+object LearnEffectsCommand {
+  fun register(command: LiteralArgumentBuilder<CommandSourceStack?>) {
     command.then(
       Commands.literal("learn_effects")
-        .requires(s -> s.hasPermission(4))
-        .executes(LearnEffectsCommand::execute)
-    );
+        .requires { s: CommandSourceStack -> s.hasPermission(4) }
+        .executes(::execute)
+    )
   }
 
-  private static int execute(CommandContext<CommandSourceStack> command){
-    if(command.getSource().getEntity() instanceof ServerPlayer player) {
-      var level = command.getSource().getLevel();
-      var data = IngredientMemorySavedData.computeIfAbsent(player);
-      data.learnAll(level);
-      data.sync(player);
+  private fun execute(command: CommandContext<CommandSourceStack>): Int {
+    if (command.source.entity is ServerPlayer) {
+      val player = command.source.entity as ServerPlayer
+      val level = command.source.level
+      val data: IngredientMemorySavedData = IngredientMemorySavedData.computeIfAbsent(player)
+      data.learnAll(level)
+      data.sync(player)
     }
-    return Command.SINGLE_SUCCESS;
+    return Command.SINGLE_SUCCESS
   }
 }
