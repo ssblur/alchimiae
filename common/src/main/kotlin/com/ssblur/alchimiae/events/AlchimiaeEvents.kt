@@ -1,30 +1,71 @@
 package com.ssblur.alchimiae.events
 
-import com.ssblur.alchimiae.events.network.AlchimiaeNetwork
-import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener
-import dev.architectury.event.events.client.ClientPlayerEvent
-import dev.architectury.event.events.client.ClientTooltipEvent
-import dev.architectury.event.events.common.PlayerEvent
-import dev.architectury.platform.Platform
-import dev.architectury.registry.ReloadListenerRegistry
-import net.fabricmc.api.EnvType
-import net.minecraft.server.packs.PackType
+import com.ssblur.alchimiae.alchemy.ClientAlchemyHelper
+import com.ssblur.alchimiae.data.IngredientEffectsSavedData
+import com.ssblur.alchimiae.data.IngredientMemorySavedData
+import com.ssblur.alchimiae.item.AlchimiaeItems
+import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
+import com.ssblur.alchimiae.network.server.AlchimiaeNetworkC2S
+import com.ssblur.unfocused.event.client.ClientDisconnectEvent
+import com.ssblur.unfocused.event.client.ClientLoreEvent
+import com.ssblur.unfocused.event.common.PlayerCraftEvent
+import com.ssblur.unfocused.event.common.PlayerJoinedEvent
+import net.minecraft.ChatFormatting
+import net.minecraft.client.gui.screens.Screen
+import net.minecraft.core.component.DataComponents
+import net.minecraft.core.registries.Registries
+import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 
 object AlchimiaeEvents {
   fun register() {
-    ReloadListenerRegistry.register(PackType.SERVER_DATA, EffectReloadListener.Companion.INSTANCE)
-    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientReloadListener.Companion.INSTANCE)
-    ReloadListenerRegistry.register(PackType.SERVER_DATA, IngredientGroupReloadListener.Companion.INSTANCE)
-    PlayerEvent.CRAFT_ITEM.register(PlayerCraftedMashEvent())
-    PlayerEvent.PLAYER_JOIN.register(PlayerJoinedEvent())
+    AlchimiaeNetworkS2C
+    AlchimiaeNetworkC2S
 
-    if (Platform.getEnv() == EnvType.CLIENT) {
-      ClientTooltipEvent.ITEM.register(AddTooltipEvent())
-      ClientPlayerEvent.CLIENT_PLAYER_QUIT.register(ClientQuitEvent())
+    PlayerJoinedEvent.register{ player ->
+      val data: IngredientMemorySavedData = IngredientMemorySavedData.computeIfAbsent(player)
+      data.sync(player)
     }
 
-    AlchimiaeNetwork.register()
+    ClientLoreEvent.register{ (stack, lines, _, _) ->
+      val data = ClientAlchemyHelper.get(stack)
+      if (data != null) {
+        if (Screen.hasShiftDown()) {
+          lines.add(Component.translatable("lore.alchimiae.ingredient").withStyle(ChatFormatting.AQUA))
+          for (item in data)
+            lines.add(
+              Component.literal(" - ").append(Component.translatable(item).withStyle(ChatFormatting.BLUE))
+            )
+        } else {
+          lines.add(
+            Component.translatable("lore.alchimiae.ingredient").withStyle(ChatFormatting.AQUA)
+              .append(" ")
+              .append(Component.translatable("lore.alchimiae.hold_shift").withStyle(ChatFormatting.GRAY))
+          )
+        }
+      }
+    }
+
+    ClientDisconnectEvent.register{
+      ClientAlchemyHelper.reset()
+    }
+
+    PlayerCraftEvent.register{ (player, constructed, inventory) ->
+      if (player is ServerPlayer && constructed.`is`(AlchimiaeItems.MASH.get())) {
+        val level = player.serverLevel()
+        val effects = constructed.get(DataComponents.POTION_CONTENTS)
+
+        val memory: IngredientMemorySavedData = IngredientMemorySavedData.computeIfAbsent(player)
+        val data: IngredientEffectsSavedData = IngredientEffectsSavedData.computeIfAbsent(level)
+
+        effects?.let {
+          for (i in 0..<inventory.containerSize) {
+            val id = player.level().registryAccess().registry(Registries.ITEM).get().getKey(inventory.getItem(i).item)!!
+            data.data[id] ?: continue
+            memory.add(player, inventory.getItem(i).item, it.customEffects())
+          }
+        }
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
 package com.ssblur.alchimiae.alchemy
 
 import com.ssblur.alchimiae.data.IngredientEffectsSavedData
-import com.ssblur.alchimiae.item.AlchimiaeItems
+import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffectInstance
@@ -39,8 +39,9 @@ object AlchemyHelper {
 
     val ingredients = items.stream().filter { item: ItemStack -> !item.isEmpty }
       .map<AlchemyIngredient> { ingredient: ItemStack ->
-        IngredientEffectsSavedData.computeIfAbsent(level).data
-          .get(AlchimiaeItems.ITEMS.registrar.getId(ingredient.item))
+        IngredientEffectsSavedData.computeIfAbsent(level).data.get(
+            level.registryAccess().registry(Registries.ITEM).get().getKey(ingredient.item)
+        )
       }.toList()
 
     if (ingredients.stream().anyMatch { obj: AlchemyIngredient? -> Objects.isNull(obj) }) {
@@ -54,10 +55,10 @@ object AlchemyHelper {
     return getEffects(ingredients, efficiency)
   }
 
-  fun getPotion(items: List<ItemStack>, level: ServerLevel, efficiency: Float): List<MobEffectInstance?> {
+  fun getPotion(items: List<ItemStack>, level: ServerLevel, efficiency: Float): List<MobEffectInstance> {
     val effects = getEffects(items, level, efficiency)
-      ?: return listOf<MobEffectInstance>()
-    return effects.toPotion()
+      ?: return listOf()
+    return effects.toPotion(level)
   }
 
   fun getPotionContents(items: List<ItemStack>, level: ServerLevel): PotionContents {

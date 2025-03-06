@@ -3,6 +3,7 @@ package com.ssblur.alchimiae.integration.recipes;
 import com.ssblur.alchimiae.AlchimiaeMod;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
 import com.ssblur.alchimiae.recipe.MashPotionCraftingRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -16,7 +17,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
-import java.util.Objects;
 
 public class RecipeIntegration {
   public interface InformationRegistrar {
@@ -55,14 +55,14 @@ public class RecipeIntegration {
   }
 
   public static void registerRecipes(RecipesHolder recipesHolder, ShapelessRecipeRegistrar shapelessRecipeRegistrar) {
-    var registrar = AlchimiaeItems.INSTANCE.getITEMS().getRegistrar();
     recipesHolder.recipes().forEach(holder -> {
       switch (holder.value()) {
         case MashPotionCraftingRecipe ignored -> {
-          var potions = AlchimiaeMod.INSTANCE.getREGISTRIES().get().get(Registries.POTION);
+          var potions = Minecraft.getInstance().level.registryAccess().registry(Registries.POTION).get();
+
           potions.entrySet().forEach(entry -> {
             var key = entry.getKey();
-            var mash = PotionContents.createItemStack(AlchimiaeItems.INSTANCE.getMASH().get(), Objects.requireNonNull(potions.getHolder(key)));
+            var mash = PotionContents.createItemStack(AlchimiaeItems.INSTANCE.getMASH().get(), potions.getHolder(key).get());
             var potion = new ItemStack(Items.POTION);
             potion.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
             potion.set(DataComponents.POTION_CONTENTS, mash.get(DataComponents.POTION_CONTENTS));

@@ -1,9 +1,8 @@
 package com.ssblur.alchimiae.blockentity
 
-import com.ssblur.alchimiae.events.network.client.ParticleNetwork
 import com.ssblur.alchimiae.item.AlchimiaeItems
+import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.screen.menu.BoilerMenu
-import dev.architectury.networking.NetworkManager
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -192,10 +191,8 @@ class BoilerBlockEntity(blockPos: BlockPos?, blockState: BlockState?) :
         val x = blockPos.x + (10.0 / 16.0) + level!!.random.nextDouble() / 10.0
         val y = blockPos.y + (5.0 / 16.0)
         val z = blockPos.z + (5.0 / 16.0) + level!!.random.nextDouble() / 10.0
-        if (level is ServerLevel) NetworkManager.sendToPlayers(
-          (level as ServerLevel).players(),
-          ParticleNetwork.Payload(Vec3(x, y, z), ParticleNetwork.TYPE.FLAME)
-        )
+        if (level is ServerLevel)
+          AlchimiaeNetworkS2C.flameParticle(Vec3(x, y, z), (level as ServerLevel).players())
       }
       litTime--
     }

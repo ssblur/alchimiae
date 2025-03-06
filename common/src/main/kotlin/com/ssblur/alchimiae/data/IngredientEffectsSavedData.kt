@@ -5,11 +5,9 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.ssblur.alchimiae.alchemy.AlchemyIngredient
 import com.ssblur.alchimiae.alchemy.IngredientEffect
-import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener
-import com.ssblur.alchimiae.events.reloadlisteners.EffectReloadListener.EffectResource
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientGroupReloadListener
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener
-import com.ssblur.alchimiae.events.reloadlisteners.IngredientReloadListener.IngredientResource
+import com.ssblur.alchimiae.resource.Effects
+import com.ssblur.alchimiae.resource.IngredientClasses
+import com.ssblur.alchimiae.resource.Ingredients
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
@@ -40,12 +38,12 @@ class IngredientEffectsSavedData : SavedData {
   }
 
   fun generate() {
-    val ingredients = HashMap<ResourceLocation, IngredientResource>()
+    val ingredients = HashMap<ResourceLocation, Ingredients.IngredientResource>()
     val effects = HashMap<ResourceLocation, List<ResourceLocation>>()
     val groups = HashMap<ResourceLocation, List<ResourceLocation>>()
     val random = Random()
 
-    for ((key, group) in IngredientGroupReloadListener.Companion.INSTANCE.groups.entries) {
+    for ((key, group) in IngredientClasses.groups.entries) {
       val list = ArrayList(
         MoreObjects.firstNonNull(
           this.groups[key], listOf()
@@ -56,10 +54,7 @@ class IngredientEffectsSavedData : SavedData {
       )
 
       if (list.isEmpty()) {
-        val valid: List<Map.Entry<ResourceLocation, EffectResource>> =
-          EffectReloadListener.INSTANCE.effects.entries.stream()
-            .filter { effect: Map.Entry<ResourceLocation, EffectResource> -> effect.value.rarity <= group.rarity }
-            .toList()
+        val valid = Effects.effects.entries.stream().filter { effect -> effect.value.rarity <= group.rarity }.toList()
         if (!valid.isEmpty()) {
           val any = valid[random.nextInt(valid.size)]
           list.add(ResourceLocation.parse(any.value.effect))
@@ -70,7 +65,7 @@ class IngredientEffectsSavedData : SavedData {
     }
     this.groups = groups
 
-    for ((_, value) in IngredientReloadListener.Companion.INSTANCE.ingredients.entries) {
+    for ((_, value) in Ingredients.ingredients.entries) {
       val item = ResourceLocation.parse(value.item)
       val list = ArrayList<ResourceLocation>()
       effects[item] = list
@@ -82,7 +77,7 @@ class IngredientEffectsSavedData : SavedData {
     var looping = true
     while (looping) {
       looping = false
-      for ((_, value) in EffectReloadListener.Companion.INSTANCE.effects.entries) {
+      for ((_, value) in Effects.effects.entries) {
         val key = ResourceLocation.parse(value.effect)
         val valid = effects.entries.stream().filter { entry ->
           ingredients[entry.key]!!.rarity >= value.rarity && !effects[entry.key]!!
