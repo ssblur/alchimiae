@@ -62,10 +62,9 @@ object AlchimiaeItems {
   val GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("grinder"))
 
   fun register() {
-    try {
-      clientInit()
-    } catch (_: NoSuchMethodError) {}
+    try { clientInit() } catch (_: NoSuchMethodError) {}
   }
+
   @Environment(EnvType.CLIENT)
   fun clientInit() {
     MASH.registerColor(Mash::getColor)

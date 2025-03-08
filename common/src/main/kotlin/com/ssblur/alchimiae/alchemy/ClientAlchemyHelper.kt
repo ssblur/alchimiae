@@ -1,7 +1,6 @@
 package com.ssblur.alchimiae.alchemy
 
-import net.minecraft.client.Minecraft
-import net.minecraft.core.registries.Registries
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
@@ -19,8 +18,7 @@ object ClientAlchemyHelper {
   }
 
   fun update(id: String, effects: List<String>) {
-    val item = Minecraft.getInstance().level!!.registryAccess().registry(Registries.ITEM).get().get(ResourceLocation.parse(id))
-    EFFECTS[item] = effects
+    update(BuiltInRegistries.ITEM.get(ResourceLocation.parse(id)), effects)
   }
 
   fun get(item: Item?): List<String>? {
@@ -32,6 +30,8 @@ object ClientAlchemyHelper {
   }
 
   fun decorate(itemStack: ItemStack, lines: MutableList<Component?>) {
-    for (line in get(itemStack.item)!!) lines.add(Component.translatable(line))
+    get(itemStack.item)?.let{
+      for (line in it) lines.add(Component.translatable(line))
+    }
   }
 }

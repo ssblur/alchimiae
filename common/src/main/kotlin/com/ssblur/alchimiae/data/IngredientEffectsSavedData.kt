@@ -11,7 +11,6 @@ import com.ssblur.alchimiae.resource.Ingredients
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
-import net.minecraft.nbt.Tag
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.ExtraCodecs
@@ -106,11 +105,8 @@ class IngredientEffectsSavedData : SavedData {
     CODEC.encodeStart(
       NbtOps.INSTANCE,
       this
-    ).ifSuccess { value: Tag? ->
-      tag.put(
-        "alchimiae:effects",
-        value
-      )
+    ).ifSuccess { value ->
+      tag.put("alchimiae:effects", value)
     }
     return tag
   }
@@ -133,7 +129,7 @@ class IngredientEffectsSavedData : SavedData {
         instance.group<Map<ResourceLocation?, AlchemyIngredient>, Map<ResourceLocation, List<ResourceLocation>>>(
           ExtraCodecs.strictUnboundedMap<ResourceLocation?, AlchemyIngredient>(
             ResourceLocation.CODEC,
-            AlchemyIngredient.Companion.CODEC
+            AlchemyIngredient.CODEC
           ).fieldOf("data").forGetter<IngredientEffectsSavedData?> { obj: IngredientEffectsSavedData? -> obj!!.data },
           ExtraCodecs.strictUnboundedMap<ResourceLocation, List<ResourceLocation>>(
             ResourceLocation.CODEC,
@@ -144,7 +140,7 @@ class IngredientEffectsSavedData : SavedData {
         ) { data, groups -> IngredientEffectsSavedData(data, groups) }
       }
 
-    fun load(tag: CompoundTag, provider: HolderLookup.Provider?): IngredientEffectsSavedData? {
+    fun load(tag: CompoundTag): IngredientEffectsSavedData? {
       val input = tag["alchimiae:effects"]
       if (input != null) {
         val result = CODEC.decode(NbtOps.INSTANCE, input).result()
@@ -155,11 +151,10 @@ class IngredientEffectsSavedData : SavedData {
 
     fun computeIfAbsent(level: ServerLevel): IngredientEffectsSavedData {
       val server = level.server.getLevel(Level.OVERWORLD)
-      Objects.requireNonNull(server)
       return server!!.dataStorage.computeIfAbsent(
         Factory(
           { IngredientEffectsSavedData() },
-          { tag: CompoundTag, provider: HolderLookup.Provider? -> load(tag, provider) },
+          { tag: CompoundTag, _: HolderLookup.Provider? -> load(tag) },
           DataFixTypes.SAVED_DATA_MAP_DATA
         ),
         "alchimiae_ingredients"

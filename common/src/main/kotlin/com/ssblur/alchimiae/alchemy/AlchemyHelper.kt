@@ -1,7 +1,7 @@
 package com.ssblur.alchimiae.alchemy
 
 import com.ssblur.alchimiae.data.IngredientEffectsSavedData
-import net.minecraft.core.registries.Registries
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffectInstance
@@ -39,18 +39,13 @@ object AlchemyHelper {
 
     val ingredients = items.stream().filter { item: ItemStack -> !item.isEmpty }
       .map<AlchemyIngredient> { ingredient: ItemStack ->
-        IngredientEffectsSavedData.computeIfAbsent(level).data.get(
-            level.registryAccess().registry(Registries.ITEM).get().getKey(ingredient.item)
-        )
+        IngredientEffectsSavedData.computeIfAbsent(level).data.get(BuiltInRegistries.ITEM.getKey(ingredient.item))
       }.toList()
 
-    if (ingredients.stream().anyMatch { obj: AlchemyIngredient? -> Objects.isNull(obj) }) {
-      return null
-    }
-
-    for (i in items.indices) for (j in items.indices) if (j != i && !items[i].isEmpty && !items[j].isEmpty && items[i].item === items[j].item) {
-      return null
-    }
+    if (ingredients.stream().anyMatch { obj: AlchemyIngredient? -> Objects.isNull(obj) }) return null
+    for (i in items.indices)
+      for (j in items.indices)
+        if (j != i && !items[i].isEmpty && !items[j].isEmpty && items[i].item === items[j].item) return null
 
     return getEffects(ingredients, efficiency)
   }
@@ -58,14 +53,10 @@ object AlchemyHelper {
   fun getPotion(items: List<ItemStack>, level: ServerLevel, efficiency: Float): List<MobEffectInstance> {
     val effects = getEffects(items, level, efficiency)
       ?: return listOf()
-    return effects.toPotion(level)
+    return effects.toPotion()
   }
 
-  fun getPotionContents(items: List<ItemStack>, level: ServerLevel): PotionContents {
-    return getPotionContents(items, level, 1.0f)
-  }
-
-  fun getPotionContents(items: List<ItemStack>, level: ServerLevel, efficiency: Float): PotionContents {
+  fun getPotionContents(items: List<ItemStack>, level: ServerLevel, efficiency: Float = 1.0f): PotionContents {
     return PotionContents(Optional.empty(), Optional.empty(), getPotion(items, level, efficiency))
   }
 }

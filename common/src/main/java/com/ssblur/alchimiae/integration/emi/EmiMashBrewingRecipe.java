@@ -6,10 +6,9 @@ import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements EmiRecipe {
@@ -29,7 +27,7 @@ public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements
   static EmiStack BLAZE_POWDER = EmiStack.of(Items.BLAZE_POWDER);
 
   ResourceLocation itemId() {
-    return Objects.requireNonNull(Minecraft.getInstance().level.registryAccess().registry(Registries.ITEM).get().getKey(mash.getItem()));
+    return BuiltInRegistries.ITEM.getKey(mash.getItem());
   }
 
   EmiStack potionResult() {

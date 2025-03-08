@@ -13,7 +13,7 @@ import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.component.DataComponents
-import net.minecraft.core.registries.Registries
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 
@@ -60,7 +60,7 @@ object AlchimiaeEvents {
 
         effects?.let {
           for (i in 0..<inventory.containerSize) {
-            val id = player.level().registryAccess().registry(Registries.ITEM).get().getKey(inventory.getItem(i).item)!!
+            val id = BuiltInRegistries.ITEM.getKey(inventory.getItem(i).item)
             data.data[id] ?: continue
             memory.add(player, inventory.getItem(i).item, it.customEffects())
           }

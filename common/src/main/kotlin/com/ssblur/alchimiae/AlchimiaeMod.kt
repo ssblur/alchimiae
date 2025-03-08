@@ -7,6 +7,7 @@ import com.ssblur.alchimiae.effect.AlchimiaeEffects
 import com.ssblur.alchimiae.events.AlchimiaeEvents
 import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.recipe.AlchimiaeRecipes
+import com.ssblur.alchimiae.resource.AlchimiaeResources
 import com.ssblur.alchimiae.screen.menu.AlchimiaeMenus
 import com.ssblur.alchimiae.screen.screen.AlchimiaeScreens
 import com.ssblur.unfocused.ModInitializer
@@ -27,6 +28,7 @@ object AlchimiaeMod: ModInitializer("alchimiae") {
     AlchimiaeEffects.register()
     AlchimiaeBlockEntities.register()
     AlchimiaeMenus.register()
+    AlchimiaeResources.register()
 
     registerCommand{ dispatcher, registry, selection ->
       AlchimiaeCommand.register(dispatcher, registry, selection)
