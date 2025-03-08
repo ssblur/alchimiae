@@ -2,9 +2,12 @@ package com.ssblur.alchimiae.network.client
 
 import com.ssblur.alchimiae.AlchimiaeMod.location
 import com.ssblur.alchimiae.alchemy.ClientAlchemyHelper
+import com.ssblur.alchimiae.resource.CustomEffects
+import com.ssblur.alchimiae.resource.CustomEffects.customEffects
 import com.ssblur.unfocused.network.NetworkManager
 import net.minecraft.client.Minecraft
 import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 
@@ -15,6 +18,26 @@ object AlchimiaeNetworkS2C {
     SendIngredients::class
   ) { (key, effects) ->
     ClientAlchemyHelper.update(key, effects)
+  }
+
+  data class SyncCustomEffects(val effects: Map<String, CustomEffects.CustomEffect>)
+  val syncCustomEffects = NetworkManager.registerS2C(
+    location("client_sync_effects"),
+    SyncCustomEffects::class
+  ) { (effects) ->
+    customEffects = effects.mapKeys { ResourceLocation.parse(it.key) }.toMutableMap()
+  }
+
+  data class SendCustomEffects(val effects: Map<String, Long>)
+  val sendCustomEffects = NetworkManager.registerS2C(
+    location("client_send_effects"),
+    SendCustomEffects::class
+  ) { (effects) ->
+    Minecraft.getInstance().player?.let {
+      it.customEffects = effects.map{ (key, value) ->
+        Pair(customEffects[ResourceLocation.parse(key)]!!, value)
+      }.toMap().toMutableMap()
+    }
   }
 
   enum class ParticleType { FLAME, SMOKE }

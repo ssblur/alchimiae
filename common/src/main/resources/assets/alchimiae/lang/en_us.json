@@ -28,6 +28,13 @@
   "effect.alchimiae.alician": "Alician",
   "effect.alchimiae.stride": "Stride",
   "effect.alchimiae.fuse": "Fuse",
+  "effect.alchimiae.custom_effect_beneficial": "Custom",
+  "effect.alchimiae.custom_effect_harmful": "Custom",
+  "effect.alchimiae.custom_effect_neutral": "Custom",
+  "effect.null": "Custom",
+
+  "effect.alchimiae.test": "Test Effect",
+  "effect.alchimiae.test_2": "Other Test",
 
   "command.alchimiae.debug": "No sub-command provided! Available commands:",
   "command.alchimiae.reset_desc": "Resets all alchimiae data in this world.",

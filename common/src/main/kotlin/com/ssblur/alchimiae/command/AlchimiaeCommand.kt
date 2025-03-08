@@ -12,8 +12,8 @@ import net.minecraft.world.entity.player.Player
 object AlchimiaeCommand {
   fun register(
     dispatcher: CommandDispatcher<CommandSourceStack>,
-    registry: CommandBuildContext?,
-    selection: Commands.CommandSelection?
+    @Suppress("unused_parameter") registry: CommandBuildContext?,
+    @Suppress("unused_parameter") selection: Commands.CommandSelection?
   ) {
     val command = Commands.literal("alchimiae")
       .requires { s: CommandSourceStack -> s.hasPermission(4) }
@@ -23,6 +23,7 @@ object AlchimiaeCommand {
     DumpEffectsCommand.register(command)
     LearnEffectsCommand.register(command)
     ForgetEffectsCommand.register(command)
+    GiveCustomEffectCommand.register(command)
 
     dispatcher.register(command)
   }

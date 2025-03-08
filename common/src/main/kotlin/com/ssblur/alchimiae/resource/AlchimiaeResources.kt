@@ -5,5 +5,6 @@ object AlchimiaeResources {
     Effects
     IngredientClasses
     Ingredients
+    CustomEffects
   }
 }

@@ -4,6 +4,7 @@ import com.ssblur.alchimiae.AlchimiaeMod
 import com.ssblur.unfocused.registry.RegistrySupplier
 import net.minecraft.core.Holder
 import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.effect.MobEffectCategory
 
 @Suppress("unused")
 object AlchimiaeEffects {
@@ -21,6 +22,17 @@ object AlchimiaeEffects {
   val ALICIAN = AlchimiaeMod.registerEffect("alician") {
     ScaleMobEffect(1.0, AlchimiaeMod.location("alician"))
   }
+
+  val CUSTOM_EFFECT_BENEFICIAL = AlchimiaeMod.registerEffect("custom_effect_beneficial") {
+    CustomMobEffect(MobEffectCategory.BENEFICIAL, 0x00ff00)
+  }
+  val CUSTOM_EFFECT_HARMFUL = AlchimiaeMod.registerEffect("custom_effect_harmful") {
+    CustomMobEffect(MobEffectCategory.HARMFUL, 0xff0000)
+  }
+  val CUSTOM_EFFECT_NEUTRAL = AlchimiaeMod.registerEffect("custom_effect_neutral") {
+    CustomMobEffect(MobEffectCategory.NEUTRAL, 0x0000ff)
+  }
+
 
   fun register() {}
 

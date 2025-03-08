@@ -6,6 +6,7 @@ import com.ssblur.alchimiae.data.IngredientMemorySavedData
 import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.network.server.AlchimiaeNetworkC2S
+import com.ssblur.alchimiae.resource.CustomEffects
 import com.ssblur.unfocused.event.client.ClientDisconnectEvent
 import com.ssblur.unfocused.event.client.ClientLoreEvent
 import com.ssblur.unfocused.event.common.PlayerCraftEvent
@@ -17,6 +18,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 
+
 object AlchimiaeEvents {
   fun register() {
     AlchimiaeNetworkS2C
@@ -25,6 +27,10 @@ object AlchimiaeEvents {
     PlayerJoinedEvent.register{ player ->
       val data: IngredientMemorySavedData = IngredientMemorySavedData.computeIfAbsent(player)
       data.sync(player)
+
+      AlchimiaeNetworkS2C.syncCustomEffects(
+        AlchimiaeNetworkS2C.SyncCustomEffects(CustomEffects.customEffects.mapKeys { it.key.toString() }), listOf(player)
+      )
     }
 
     ClientLoreEvent.register{ (stack, lines, _, _) ->
