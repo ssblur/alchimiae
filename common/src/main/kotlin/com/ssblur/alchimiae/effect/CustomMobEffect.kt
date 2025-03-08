@@ -1,5 +1,6 @@
 package com.ssblur.alchimiae.effect
 
+import com.ssblur.alchimiae.resource.CustomEffects
 import com.ssblur.alchimiae.resource.CustomEffects.customEffects
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -64,14 +65,20 @@ class CustomMobEffect(mobEffectCategory: MobEffectCategory, i: Int) :
 
   @Environment(EnvType.CLIENT)
   override fun getDisplayName(): Component {
+    val effect = getCurrentEffect()
+    return Component.translatable(effect?.name ?: "effect.${effect?.location?.toShortLanguageKey()}")
+  }
+
+  @Environment(EnvType.CLIENT)
+  fun getCurrentEffect(): CustomEffects.CustomEffect? {
     val effects = Minecraft.getInstance().player?.customEffects?.filter {
       it.key.category == this.category
     }
-    if(effects == null) return Component.empty()
+    if(effects == null || effects.isEmpty()) return null
     val time = Minecraft.getInstance().level?.gameTime ?: 0L
     val index = (time / 60L) % effects.size
     val effect = effects.keys.toList()[index.toInt()]
-    return Component.translatable(effect.name ?: "effect.${effect.location?.toShortLanguageKey()}")
+    return effect
   }
 
   companion object {

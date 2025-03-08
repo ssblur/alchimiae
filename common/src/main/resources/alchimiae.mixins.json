@@ -3,9 +3,13 @@
   "package": "com.ssblur.alchimiae.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "client": [],
+  "client": [
+    "MobEffectTextureManagerMixin",
+    "TextureAtlasHolderAccessor"
+  ],
   "mixins": [
     "DimensionDataStorageAccessor",
+    "LivingEntityMixin",
     "PotionBrewingMixin"
   ],
   "injectors": {

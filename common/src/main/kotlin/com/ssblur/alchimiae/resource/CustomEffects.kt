@@ -6,7 +6,9 @@ import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.unfocused.data.DataLoaderRegistry.registerDataLoader
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.effect.MobEffectInstance
@@ -51,20 +53,22 @@ object CustomEffects {
   }
 
   val entityCustomEffectData: MutableMap<LivingEntity, MutableMap<CustomEffect, Long>> = mutableMapOf()
+
   var LivingEntity.customEffects: MutableMap<CustomEffect, Long>
     get() {
       if(entityCustomEffectData[this] == null) entityCustomEffectData[this] = mutableMapOf()
       return entityCustomEffectData[this]!!
     }
     set(effects) {
-      if(this is Player) {
+      if(this is ServerPlayer) {
         entityCustomEffectData[this]?.mapKeys { (key, _) -> key.location.toString() }?.let {
           AlchimiaeNetworkS2C.sendCustomEffects(AlchimiaeNetworkS2C.SendCustomEffects(it), listOf(this))
         }
       }
       entityCustomEffectData[this] = effects
     }
-  fun LivingEntity.getCustomEffect(customEffect: CustomEffect) = this.customEffects[customEffect] ?: 0
+
+  @Suppress("unused") fun LivingEntity.getCustomEffect(customEffect: CustomEffect) = this.customEffects[customEffect] ?: 0
   fun LivingEntity.setCustomEffect(customEffect: CustomEffect, time: Long?) {
     if(time == null) this.customEffects.remove(customEffect)
     else this.customEffects[customEffect] = time
@@ -73,5 +77,25 @@ object CustomEffects {
         AlchimiaeNetworkS2C.sendCustomEffects(AlchimiaeNetworkS2C.SendCustomEffects(it), listOf(this))
       }
     }
+  }
+
+  fun readFromCompoundTag(livingEntity: LivingEntity, compoundTag: CompoundTag) {
+    val tag = compoundTag.getCompound("alchimiae:custom_effects")
+    val effects = livingEntity.customEffects
+    for((key, value) in customEffects)
+      if(tag.contains(key.toString()))
+        effects[value] = tag.getLong(key.toString())
+  }
+
+  fun writeToCompoundTag(livingEntity: LivingEntity, compoundTag: CompoundTag) {
+    val tag = CompoundTag()
+    for((key, value) in livingEntity.customEffects) {
+      tag.putLong(key.location.toString(), value)
+    }
+    compoundTag.put("alchimiae:custom_effects", tag)
+  }
+
+  fun remove(livingEntity: LivingEntity) {
+    entityCustomEffectData.remove(livingEntity)
   }
 }
