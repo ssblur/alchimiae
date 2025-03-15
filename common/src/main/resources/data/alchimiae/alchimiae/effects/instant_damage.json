@@ -1,4 +1,5 @@
 {
   "effect": "minecraft:instant_damage",
-  "rarity": 0
+  "rarity": 0,
+  "instant": true
 }

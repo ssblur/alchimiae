@@ -1,4 +1,5 @@
 {
   "effect": "alchimiae:stride",
-  "rarity": 1
+  "rarity": 1,
+  "duration_multiplier": 0.6
 }

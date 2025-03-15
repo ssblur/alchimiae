@@ -1,4 +1,5 @@
 {
   "effect": "alchimiae:immune",
-  "rarity": 2.0
+  "rarity": 2.0,
+  "duration_multiplier": 0.9
 }

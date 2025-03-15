@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 
 object AlchimiaeNetworkS2C {
-  data class SendIngredients(val key: String, val effects: List<String>)
+  data class SendIngredients(val key: ResourceLocation, val effects: List<ResourceLocation>)
   val sendIngredients = NetworkManager.registerS2C(
     location("client_ingredients"),
     SendIngredients::class
@@ -20,22 +20,22 @@ object AlchimiaeNetworkS2C {
     ClientAlchemyHelper.update(key, effects)
   }
 
-  data class SyncCustomEffects(val effects: Map<String, CustomEffects.CustomEffect>)
+  data class SyncCustomEffects(val effects: Map<ResourceLocation, CustomEffects.CustomEffect>)
   val syncCustomEffects = NetworkManager.registerS2C(
     location("client_sync_effects"),
     SyncCustomEffects::class
   ) { (effects) ->
-    customEffects = effects.mapKeys { ResourceLocation.parse(it.key) }.toMutableMap()
+    customEffects = effects.toMutableMap()
   }
 
-  data class SendCustomEffects(val effects: Map<String, Long>)
+  data class SendCustomEffects(val effects: Map<ResourceLocation, Long>)
   val sendCustomEffects = NetworkManager.registerS2C(
     location("client_send_effects"),
     SendCustomEffects::class
   ) { (effects) ->
     Minecraft.getInstance().player?.let {
       it.customEffects = effects.map{ (key, value) ->
-        Pair(customEffects[ResourceLocation.parse(key)]!!, value)
+        Pair(customEffects[key]!!, value)
       }.toMap().toMutableMap()
     }
   }

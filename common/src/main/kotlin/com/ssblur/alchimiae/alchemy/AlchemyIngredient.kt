@@ -2,11 +2,13 @@ package com.ssblur.alchimiae.alchemy
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import com.ssblur.alchimiae.AlchimiaeMod
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.ExtraCodecs
 
 data class AlchemyIngredient(val duration: Int, val effects: List<IngredientEffect>) {
-  fun effectsLanguageKeys(): List<String> {
-    return effects.stream().map { effect -> "effect." + (effect?.effect?.toLanguageKey() ?: "") }.toList()
+  fun effectKeys(): List<ResourceLocation> {
+    return effects.stream().map { effect -> effect?.effect ?: AlchimiaeMod.location("error") }.toList()
   }
 
   companion object {

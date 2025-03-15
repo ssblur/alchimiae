@@ -1,4 +1,5 @@
 {
   "effect": "minecraft:luck",
-  "rarity": 3.0
+  "rarity": 3.0,
+  "duration_multiplier": 3.0
 }

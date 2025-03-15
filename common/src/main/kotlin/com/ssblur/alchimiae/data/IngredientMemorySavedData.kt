@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.ssblur.alchimiae.mixin.DimensionDataStorageAccessor
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
+import com.ssblur.alchimiae.resource.Effects
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
@@ -15,7 +16,6 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.ExtraCodecs
 import net.minecraft.util.datafix.DataFixTypes
-import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.saveddata.SavedData
@@ -24,9 +24,9 @@ import java.nio.file.Files
 import java.util.stream.Stream
 
 class IngredientMemorySavedData : SavedData {
-  var data: MutableMap<ResourceLocation, List<String>>
+  var data: MutableMap<ResourceLocation?, List<ResourceLocation>>
 
-  constructor(data: Map<ResourceLocation, List<String>>) {
+  constructor(data: Map<ResourceLocation, List<ResourceLocation>>) {
     this.data = HashMap(data)
   }
 
@@ -42,7 +42,7 @@ class IngredientMemorySavedData : SavedData {
 
   fun learnAll(level: ServerLevel) {
     val effects: IngredientEffectsSavedData = IngredientEffectsSavedData.computeIfAbsent(level)
-    for (key in effects.data.keys) data[key] = effects.data[key]?.effectsLanguageKeys()!!
+    for (key in effects.data.keys) data[key] = effects.data[key]?.effectKeys()!!
     setDirty()
   }
 
@@ -58,7 +58,7 @@ class IngredientMemorySavedData : SavedData {
     return tag
   }
 
-  fun add(player: ServerPlayer, item: Item, effects: List<MobEffectInstance>) {
+  fun add(player: ServerPlayer, item: Item, effects: List<ResourceLocation>) {
     val key = BuiltInRegistries.ITEM.getKey(item)
     val ingredientEffectsData: IngredientEffectsSavedData =
       IngredientEffectsSavedData.computeIfAbsent(player.serverLevel())
@@ -68,19 +68,31 @@ class IngredientMemorySavedData : SavedData {
     for (effect in data) checksumA += effect.hashCode()
 
     var checksumB = 0
-    val updatedData = arrayListOf<String>()
-    for (languageKey in Stream.concat(
-      effects.stream().map { obj -> obj.descriptionId },
+    val updatedData = arrayListOf<ResourceLocation>()
+    for (location in Stream.concat(
+      effects.stream(),
       data.stream()
-    ).filter { effect: String? -> ingredientEffectsData.data[key]!!.effectsLanguageKeys().contains(effect) }
+    ).filter { effect -> ingredientEffectsData.data[key]!!.effectKeys().contains(effect) }
       .distinct().toList()) {
-      checksumB += languageKey.hashCode()
-      updatedData.add(languageKey)
+      checksumB += location.hashCode()
+      updatedData.add(location)
     }
 
     if (checksumA != checksumB) {
       this.data[key] = updatedData
-      AlchimiaeNetworkS2C.sendIngredients(AlchimiaeNetworkS2C.SendIngredients(key.toString(), updatedData), listOf(player))
+      val syncData = updatedData.map {
+        Effects.effects[it]?.effect ?: ResourceLocation.parse("alchimiae:null")
+      }.toMutableList()
+      val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
+      ingredient?.let {
+        if(syncData.size < it.effects.size)
+          for(i in 0..<(it.effects.size-updatedData.size)) {
+            syncData.add(ResourceLocation.parse("alchimiae:unknown"))
+          }
+      }
+      AlchimiaeNetworkS2C.sendIngredients(
+        AlchimiaeNetworkS2C.SendIngredients(key, syncData), listOf(player)
+      )
       setDirty()
     }
   }
@@ -88,7 +100,19 @@ class IngredientMemorySavedData : SavedData {
   fun sync(player: ServerPlayer) {
     fill(player.serverLevel())
     for ((key, value) in data) {
-      AlchimiaeNetworkS2C.sendIngredients(AlchimiaeNetworkS2C.SendIngredients(key.toString(), value), listOf(player))
+      if(key == null) continue
+      val items = value.map {
+        Effects.effects[it]?.effect ?: ResourceLocation.parse("alchimiae:null.${it.toLanguageKey()}")
+      }.toMutableList()
+      val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
+      ingredient?.let {
+        if(items.size < it.effects.size)
+          for(i in 0..<(it.effects.size-items.size)) {
+            items.add(ResourceLocation.parse("alchimiae:unknown"))
+          }
+      }
+
+      AlchimiaeNetworkS2C.sendIngredients(AlchimiaeNetworkS2C.SendIngredients(key, items), listOf(player))
     }
   }
 
@@ -98,7 +122,7 @@ class IngredientMemorySavedData : SavedData {
         instance.group(
           ExtraCodecs.strictUnboundedMap(
             ResourceLocation.CODEC,
-            Codec.STRING.listOf()
+            ResourceLocation.CODEC.listOf()
           ).fieldOf("data")
             .forGetter { obj: IngredientMemorySavedData? -> obj!!.data }
         ).apply(

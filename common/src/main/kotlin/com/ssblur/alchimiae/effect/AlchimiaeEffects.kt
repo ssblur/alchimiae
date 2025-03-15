@@ -32,6 +32,9 @@ object AlchimiaeEffects {
   val CUSTOM_EFFECT_NEUTRAL = AlchimiaeMod.registerEffect("custom_effect_neutral") {
     CustomMobEffect(MobEffectCategory.NEUTRAL, 0x0000ff)
   }
+  val MISSING = AlchimiaeMod.registerEffect("missing") {
+    CustomMobEffect(MobEffectCategory.NEUTRAL, 0x0000ff)
+  }
 
 
   fun register() {}

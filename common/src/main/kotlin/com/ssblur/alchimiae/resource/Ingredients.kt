@@ -11,9 +11,9 @@ import net.minecraft.world.item.Item
 
 object Ingredients {
   data class IngredientResource(
-    val item: String,
-    val guaranteedEffects: List<String>,
-    val ingredientClasses: List<String>,
+    val item: ResourceLocation,
+    val guaranteedEffects: List<ResourceLocation>,
+    val ingredientClasses: List<ResourceLocation>,
     val rarity: Float,
     val duration: Int,
     val noEffects: Boolean
@@ -25,10 +25,11 @@ object Ingredients {
     val set = mutableSetOf<Holder<Item>>()
     AlchimiaeMod.registerDataLoader(
       "alchimiae/ingredients",
-      IngredientResource::class
+      IngredientResource::class,
+      false
     ) { ingredient, location ->
       ingredients[location] = ingredient
-      val option = BuiltInRegistries.ITEM.getHolder(ResourceLocation.parse(ingredient.item))
+      val option = BuiltInRegistries.ITEM.getHolder(ingredient.item)
       if(option.isPresent) {
         set.add(option.get())
         BuiltInRegistries.ITEM.bindTags(mapOf(Pair(INGREDIENTS, set.toList())))

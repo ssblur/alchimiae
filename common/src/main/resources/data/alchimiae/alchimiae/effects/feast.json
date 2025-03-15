@@ -1,4 +1,5 @@
 {
   "effect": "alchimiae:feast",
-  "rarity": 0.0
+  "rarity": 0.0,
+  "instant": true
 }

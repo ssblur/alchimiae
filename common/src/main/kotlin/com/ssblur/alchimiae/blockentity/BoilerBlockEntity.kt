@@ -1,5 +1,8 @@
 package com.ssblur.alchimiae.blockentity
 
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents
+import com.ssblur.alchimiae.data.CustomEffect
+import com.ssblur.alchimiae.data.CustomPotionEffects
 import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.screen.menu.BoilerMenu
@@ -7,13 +10,11 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
-import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.WorldlyContainer
-import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.player.StackedContents
@@ -21,7 +22,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.StackedContentsCompatible
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity
@@ -32,7 +32,7 @@ import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
-class BoilerBlockEntity(blockPos: BlockPos?, blockState: BlockState?) :
+class BoilerBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   BaseContainerBlockEntity(AlchimiaeBlockEntities.BOILER.get(), blockPos, blockState),
   WorldlyContainer, StackedContentsCompatible {
   var litTime: Int = 0
@@ -214,25 +214,18 @@ class BoilerBlockEntity(blockPos: BlockPos?, blockState: BlockState?) :
 
       if (processTime >= PROCESS_TIME) {
         val ingredient = inventory[INGREDIENT_SLOT]
-        val data = ingredient.get(DataComponents.POTION_CONTENTS)
+        val data = ingredient[AlchimiaeDataComponents.CUSTOM_POTION]
         if (data != null) {
-          val effects: MutableList<MobEffectInstance> = ArrayList()
-          for (effect in data.allEffects) {
-            if (effect.isInfiniteDuration || effect.duration == 0) {
-              effects.add(effect)
+          val effects: MutableList<CustomEffect> = ArrayList()
+          for ((location, duration, strength) in data.effects) {
+            if(duration <= 1) {
+              effects.add(CustomEffect(location, duration, strength))
             } else {
-              effects.add(
-                MobEffectInstance(
-                  effect.effect,
-                  effect.duration / 4,
-                  effect.amplifier + 1
-                )
-              )
+              effects.add(CustomEffect(location, duration / 4, strength + 1))
             }
           }
-          val outputData = PotionContents(data.potion(), data.customColor(), effects)
           val outputStack = ItemStack(AlchimiaeItems.CONCENTRATE)
-          outputStack.set(DataComponents.POTION_CONTENTS, outputData)
+          outputStack[AlchimiaeDataComponents.CUSTOM_POTION] = CustomPotionEffects(effects, data.customColor)
 
           if (inventory[RESULT_SLOT].isEmpty) {
             inventory[RESULT_SLOT] = outputStack

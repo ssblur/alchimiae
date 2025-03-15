@@ -2,7 +2,8 @@
   "itemGroup.alchimiae.tab": "Alchimiae Magicae",
 
   "lore.alchimiae.ingredient": "Ingredient",
-  "lore.alchimiae.hold_shift": "(Hold Shift)",
+  "lore.alchimiae.hold_shift": "(Hold Sneak)",
+  "lore.alchimiae.no_effects": "No Effects",
 
   "tag.item.alchimiae.grinder": "Grinder",
   "tag.item.alchimiae.ingredients": "Mash Ingredients",
@@ -15,8 +16,8 @@
   "item.alchimiae.mash": "Mash",
   "item.alchimiae.concentrate": "Concentrate",
   "item.alchimiae.potion": "Brew",
-  "item.alchimiae.splash_potion": "Splash Brew",
-  "item.alchimiae.lingering_potion": "Lingering Brew",
+  "item.alchimiae.splash_potion": "Splash %s",
+  "item.alchimiae.lingering_potion": "Lingering %s",
 
   "block.alchimiae.boiler": "Boiler",
 
@@ -32,6 +33,7 @@
   "effect.alchimiae.custom_effect_harmful": "Custom",
   "effect.alchimiae.custom_effect_neutral": "Custom",
   "effect.null": "Custom",
+  "effect.alchimiae.unknown": "Undiscovered Effect",
 
   "effect.alchimiae.test": "Test Effect",
   "effect.alchimiae.test_2": "Other Test",

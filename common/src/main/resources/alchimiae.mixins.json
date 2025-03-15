@@ -4,13 +4,17 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
+    "ClientTooltipComponentMixin",
+    "ItemStackMixin",
     "MobEffectTextureManagerMixin",
     "TextureAtlasHolderAccessor"
   ],
   "mixins": [
     "DimensionDataStorageAccessor",
     "LivingEntityMixin",
-    "PotionBrewingMixin"
+    "PotionBrewingMixin",
+    "PotionSlotMixin",
+    "ThrownPotionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

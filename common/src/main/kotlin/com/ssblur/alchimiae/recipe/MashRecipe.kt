@@ -1,11 +1,11 @@
 package com.ssblur.alchimiae.recipe
 
 import com.ssblur.alchimiae.alchemy.AlchemyHelper
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.item.GrinderItem
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
-import net.minecraft.core.component.DataComponents
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CraftingBookCategory
@@ -39,8 +39,8 @@ class MashRecipe(craftingBookCategory: CraftingBookCategory?) : CustomRecipe(cra
       efficiency = (grinder.get().item as GrinderItem).efficiency
     val items = recipeInput.items().stream().filter { item: ItemStack -> !item.`is`(AlchimiaeItems.GRINDER) }.toList()
     output.set(
-      DataComponents.POTION_CONTENTS,
-      AlchemyHelper.getPotionContents(items, server!!, efficiency)
+      AlchimiaeDataComponents.CUSTOM_POTION,
+      AlchemyHelper.getCustomPotionEffects(items, server!!, efficiency)
     )
     return output
   }
@@ -49,7 +49,7 @@ class MashRecipe(craftingBookCategory: CraftingBookCategory?) : CustomRecipe(cra
     return i + j >= 1
   }
 
-  override fun getSerializer(): RecipeSerializer<*>? {
+  override fun getSerializer(): RecipeSerializer<*> {
     return AlchimiaeRecipes.MASH.get()
   }
 

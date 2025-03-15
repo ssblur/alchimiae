@@ -13,10 +13,8 @@ object AlchimiaeRecipes {
     }
   }
   val MASH_POTION = AlchimiaeMod.registerRecipeSerializer("mash_potion") {
-    SimpleCraftingRecipeSerializer { craftingBookCategory: CraftingBookCategory? ->
-      MashPotionCraftingRecipe(
-        craftingBookCategory
-      )
+    SimpleCraftingRecipeSerializer { craftingBookCategory: CraftingBookCategory ->
+      MashPotionCraftingRecipe(craftingBookCategory)
     }
   }
 

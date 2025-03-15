@@ -1,6 +1,7 @@
 package com.ssblur.alchimiae.events
 
 import com.ssblur.alchimiae.alchemy.ClientAlchemyHelper
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.data.IngredientEffectsSavedData
 import com.ssblur.alchimiae.data.IngredientMemorySavedData
 import com.ssblur.alchimiae.item.AlchimiaeItems
@@ -8,14 +9,9 @@ import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.network.server.AlchimiaeNetworkC2S
 import com.ssblur.alchimiae.resource.CustomEffects
 import com.ssblur.unfocused.event.client.ClientDisconnectEvent
-import com.ssblur.unfocused.event.client.ClientLoreEvent
 import com.ssblur.unfocused.event.common.PlayerCraftEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
-import net.minecraft.ChatFormatting
-import net.minecraft.client.gui.screens.Screen
-import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 
 
@@ -29,27 +25,8 @@ object AlchimiaeEvents {
       data.sync(player)
 
       AlchimiaeNetworkS2C.syncCustomEffects(
-        AlchimiaeNetworkS2C.SyncCustomEffects(CustomEffects.customEffects.mapKeys { it.key.toString() }), listOf(player)
+        AlchimiaeNetworkS2C.SyncCustomEffects(CustomEffects.customEffects), listOf(player)
       )
-    }
-
-    ClientLoreEvent.register{ (stack, lines, _, _) ->
-      val data = ClientAlchemyHelper.get(stack)
-      if (data != null) {
-        if (Screen.hasShiftDown()) {
-          lines.add(Component.translatable("lore.alchimiae.ingredient").withStyle(ChatFormatting.AQUA))
-          for (item in data)
-            lines.add(
-              Component.literal(" - ").append(Component.translatable(item).withStyle(ChatFormatting.BLUE))
-            )
-        } else {
-          lines.add(
-            Component.translatable("lore.alchimiae.ingredient").withStyle(ChatFormatting.AQUA)
-              .append(" ")
-              .append(Component.translatable("lore.alchimiae.hold_shift").withStyle(ChatFormatting.GRAY))
-          )
-        }
-      }
     }
 
     ClientDisconnectEvent.register{
@@ -59,7 +36,7 @@ object AlchimiaeEvents {
     PlayerCraftEvent.register{ (player, constructed, inventory) ->
       if (player is ServerPlayer && constructed.`is`(AlchimiaeItems.MASH.get())) {
         val level = player.serverLevel()
-        val effects = constructed.get(DataComponents.POTION_CONTENTS)
+        val effects = constructed[AlchimiaeDataComponents.CUSTOM_POTION]
 
         val memory: IngredientMemorySavedData = IngredientMemorySavedData.computeIfAbsent(player)
         val data: IngredientEffectsSavedData = IngredientEffectsSavedData.computeIfAbsent(level)
@@ -68,7 +45,7 @@ object AlchimiaeEvents {
           for (i in 0..<inventory.containerSize) {
             val id = BuiltInRegistries.ITEM.getKey(inventory.getItem(i).item)
             data.data[id] ?: continue
-            memory.add(player, inventory.getItem(i).item, it.customEffects())
+            memory.add(player, inventory.getItem(i).item, it.effects.map { (key, _, _) -> key })
           }
         }
       }

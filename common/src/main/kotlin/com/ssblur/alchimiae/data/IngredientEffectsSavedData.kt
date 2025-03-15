@@ -1,6 +1,5 @@
 package com.ssblur.alchimiae.data
 
-import com.google.common.base.MoreObjects
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.ssblur.alchimiae.alchemy.AlchemyIngredient
@@ -17,17 +16,17 @@ import net.minecraft.util.ExtraCodecs
 import net.minecraft.util.datafix.DataFixTypes
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.saveddata.SavedData
-import java.util.*
+import kotlin.random.Random
 
 class IngredientEffectsSavedData : SavedData {
-  var data: MutableMap<ResourceLocation, AlchemyIngredient> = HashMap()
+  var data: MutableMap<ResourceLocation?, AlchemyIngredient> = HashMap()
   var groups: Map<ResourceLocation, List<ResourceLocation>> = HashMap()
 
   constructor(
     data: Map<ResourceLocation?, AlchemyIngredient>,
     groups: Map<ResourceLocation, List<ResourceLocation>>
   ) {
-    this.data = HashMap(data)
+    this.data = data.toMutableMap()
     this.groups = HashMap(groups)
     generate()
   }
@@ -37,66 +36,57 @@ class IngredientEffectsSavedData : SavedData {
   }
 
   fun generate() {
-    val ingredients = HashMap<ResourceLocation, Ingredients.IngredientResource>()
-    val effects = HashMap<ResourceLocation, List<ResourceLocation>>()
-    val groups = HashMap<ResourceLocation, List<ResourceLocation>>()
-    val random = Random()
+    val ingredients = data.toMutableMap()
+    val groups = groups.toMutableMap()
+    val effects = Effects.effects.filter{ it.value.rarity != null }
 
-    for ((key, group) in IngredientClasses.groups.entries) {
-      val list = ArrayList(
-        MoreObjects.firstNonNull(
-          this.groups[key], listOf()
-        )
-      )
-      for (effect in group.guaranteedEffects) if (!list.contains(ResourceLocation.parse(effect))) list.add(
-        ResourceLocation.parse(effect)
-      )
-
-      if (list.isEmpty()) {
-        val valid = Effects.effects.entries.stream().filter { effect -> effect.value.rarity <= group.rarity }.toList()
-        if (!valid.isEmpty()) {
-          val any = valid[random.nextInt(valid.size)]
-          list.add(ResourceLocation.parse(any.value.effect))
+    IngredientClasses.groups.filter{ !groups.containsKey(it.key) }.forEach{ (key, group) ->
+      if(group.guaranteedEffects.isNotEmpty()) {
+        groups[key] = group.guaranteedEffects
+      } else {
+        val valid = effects.filter { (_, effect) ->
+          effect.rarity!! <= group.rarity
+        }.toList()
+        if(valid.isNotEmpty()) {
+          groups[key] = listOf(valid[Random.nextInt(valid.size)].first)
         }
       }
-
-      groups[key] = list
     }
-    this.groups = groups
 
-    for ((_, value) in Ingredients.ingredients.entries) {
-      val item = ResourceLocation.parse(value.item)
-      val list = ArrayList<ResourceLocation>()
-      effects[item] = list
-      ingredients[item] = value
-      for (group in value.ingredientClasses) list.addAll(groups.getOrDefault(ResourceLocation.parse(group), listOf()))
-      for (effect in value.guaranteedEffects) list.add(ResourceLocation.parse(effect))
+    val rarity = Ingredients.ingredients.mapKeys { it.value.item }.mapValues { it.value.rarity }
+    Ingredients.ingredients.forEach{ (key, value) ->
+      if(!ingredients.containsKey(value.item)) {
+        if(value.guaranteedEffects.isNotEmpty())
+          ingredients[value.item] = AlchemyIngredient(
+            value.duration,
+            value.guaranteedEffects.map{ IngredientEffect(it, Random.nextFloat() + 1f) }
+          )
+        ingredients[value.item] = AlchemyIngredient(value.duration, listOf())
+      }
     }
 
     var looping = true
-    while (looping) {
+    while(looping) {
       looping = false
-      for ((_, value) in Effects.effects.entries) {
-        val key = ResourceLocation.parse(value.effect)
-        val valid = effects.entries.stream().filter { entry ->
-          ingredients[entry.key]!!.rarity >= value.rarity && !effects[entry.key]!!
-            .contains(key) && entry.value.size < 4
-        }.toList()
-
-        if (valid.isNotEmpty()) {
-          val any = valid[random.nextInt(valid.size)]
+      effects.forEach{ (effectKey, effectValue) ->
+        val validIngredients = ingredients.filter{ (key, value) ->
+          value.effects.size < 4
+              && (rarity[key] ?: 0f) >= effectValue.rarity!!
+              && value.effects.none { it.effect == effectKey }
+        }
+        if(validIngredients.isNotEmpty()) {
+          val ingredient = validIngredients.entries.toList()[Random.nextInt(validIngredients.size)]
+          ingredients[ingredient.key] = AlchemyIngredient(
+            ingredient.value.duration,
+            listOf(listOf(IngredientEffect(effectKey, Random.nextFloat() + 1f)), ingredient.value.effects).flatten()
+          )
           looping = true
-          effects[any.key] = listOf(listOf(key), any.value).flatten()
         }
       }
     }
 
-    for (key in ingredients.keys) if (!data.containsKey(key)) data[key] =
-      AlchemyIngredient(
-        ingredients[key]!!.duration,
-        effects[key]!!.stream()
-          .map { value: ResourceLocation -> IngredientEffect(value, 1.0f + random.nextFloat() * 0.4f) }.toList()
-      )
+    this.data = ingredients
+    this.groups = groups
 
     setDirty()
   }

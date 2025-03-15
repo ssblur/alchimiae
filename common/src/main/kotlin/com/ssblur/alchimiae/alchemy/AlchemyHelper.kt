@@ -1,10 +1,14 @@
 package com.ssblur.alchimiae.alchemy
 
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents
+import com.ssblur.alchimiae.data.CustomPotionEffects
 import com.ssblur.alchimiae.data.IngredientEffectsSavedData
+import com.ssblur.alchimiae.resource.CustomEffects
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.alchemy.PotionContents
 import java.util.*
@@ -39,10 +43,10 @@ object AlchemyHelper {
 
     val ingredients = items.stream().filter { item: ItemStack -> !item.isEmpty }
       .map<AlchemyIngredient> { ingredient: ItemStack ->
-        IngredientEffectsSavedData.computeIfAbsent(level).data.get(BuiltInRegistries.ITEM.getKey(ingredient.item))
+        IngredientEffectsSavedData.computeIfAbsent(level).data[BuiltInRegistries.ITEM.getKey(ingredient.item)]
       }.toList()
 
-    if (ingredients.stream().anyMatch { obj: AlchemyIngredient? -> Objects.isNull(obj) }) return null
+    if (ingredients.stream().anyMatch { it == null }) return null
     for (i in items.indices)
       for (j in items.indices)
         if (j != i && !items[i].isEmpty && !items[j].isEmpty && items[i].item === items[j].item) return null
@@ -51,12 +55,29 @@ object AlchemyHelper {
   }
 
   fun getPotion(items: List<ItemStack>, level: ServerLevel, efficiency: Float): List<MobEffectInstance> {
-    val effects = getEffects(items, level, efficiency)
-      ?: return listOf()
+    val effects = getEffects(items, level, efficiency) ?: return listOf()
     return effects.toPotion()
   }
 
   fun getPotionContents(items: List<ItemStack>, level: ServerLevel, efficiency: Float = 1.0f): PotionContents {
     return PotionContents(Optional.empty(), Optional.empty(), getPotion(items, level, efficiency))
+  }
+
+  fun getCustomPotionEffects(items: List<ItemStack>, level: ServerLevel, efficiency: Float = 1.0f): CustomPotionEffects {
+    val effects = getEffects(items, level, efficiency) ?: return CustomPotionEffects(listOf())
+    return effects.toCustomPotion()
+  }
+
+  fun applyEffects(item: ItemStack, livingEntity: LivingEntity, durationMultiplier: Float = 1.0f) {
+    item[AlchimiaeDataComponents.CUSTOM_POTION]?.let {
+      for((key, duration, level) in it.effects) {
+        if(BuiltInRegistries.MOB_EFFECT.containsKey(key)) {
+          val effect = BuiltInRegistries.MOB_EFFECT.getHolder(key).get()
+          livingEntity.addEffect(MobEffectInstance(effect, (duration * durationMultiplier).toInt(), level))
+        } else if(CustomEffects.customEffects.containsKey(key)) {
+          CustomEffects.applyEffect(key, livingEntity, (duration * durationMultiplier).toInt())
+        }
+      }
+    }
   }
 }

@@ -58,9 +58,15 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
 }
+
 repositories {
   mavenCentral()
 }
+
 kotlin {
   jvmToolchain(21)
+}
+
+loom {
+  accessWidenerPath = project(":common").loom.accessWidenerPath
 }

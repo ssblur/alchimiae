@@ -26,3 +26,7 @@ repositories {
 kotlin {
   jvmToolchain(21)
 }
+
+loom {
+  accessWidenerPath = file("src/main/resources/alchimiae.accesswidener")
+}

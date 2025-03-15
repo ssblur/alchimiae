@@ -1,4 +1,5 @@
 {
   "effect": "alchimiae:afflicted",
-  "rarity": 1.5
+  "rarity": 1.5,
+  "duration_multiplier": 0.9
 }

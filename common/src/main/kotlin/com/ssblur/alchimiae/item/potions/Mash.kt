@@ -1,6 +1,6 @@
-package com.ssblur.alchimiae.item
+package com.ssblur.alchimiae.item.potions
 
-import net.minecraft.core.component.DataComponents
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents.CUSTOM_POTION
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -14,19 +14,13 @@ class Mash(properties: Properties) : Item(properties) {
     tooltipFlag: TooltipFlag
   ) {
     super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag)
-    val potionContents = itemStack.get(DataComponents.POTION_CONTENTS)
-    potionContents?.addPotionTooltip({ e: Component ->
-      list.add(
-        e
-      )
-    }, 1.0f, tooltipContext.tickRate())
+    itemStack[CUSTOM_POTION]?.decorate(list)
   }
 
   companion object {
     fun getColor(item: ItemStack, layer: Int): Int {
-      val data = item.get(DataComponents.POTION_CONTENTS)
-      if (data != null) return data.color
-      return -0x1
+      val data = item[CUSTOM_POTION]
+      return data?.color ?: -0x1
     }
   }
 }

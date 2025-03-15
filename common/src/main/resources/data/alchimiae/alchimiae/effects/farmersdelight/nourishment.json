@@ -1,5 +1,6 @@
 {
   "effect": "farmersdelight:nourishment",
   "required": "farmersdelight",
-  "rarity": 3.0
+  "rarity": 3.0,
+  "duration_multiplier": 1.2
 }

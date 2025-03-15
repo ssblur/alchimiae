@@ -1,4 +1,5 @@
 {
   "effect": "minecraft:instant_health",
-  "rarity": 2.0
+  "rarity": 2.0,
+  "instant": true
 }

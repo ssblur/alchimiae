@@ -3,6 +3,7 @@ package com.ssblur.alchimiae
 import com.ssblur.alchimiae.block.AlchimiaeBlocks
 import com.ssblur.alchimiae.blockentity.AlchimiaeBlockEntities
 import com.ssblur.alchimiae.command.AlchimiaeCommand
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.effect.AlchimiaeEffects
 import com.ssblur.alchimiae.events.AlchimiaeEvents
 import com.ssblur.alchimiae.item.AlchimiaeItems
@@ -29,6 +30,7 @@ object AlchimiaeMod: ModInitializer("alchimiae") {
     AlchimiaeBlockEntities.register()
     AlchimiaeMenus.register()
     AlchimiaeResources.register()
+    AlchimiaeDataComponents.register()
 
     registerCommand{ dispatcher, registry, selection ->
       AlchimiaeCommand.register(dispatcher, registry, selection)
