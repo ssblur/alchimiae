@@ -22,3 +22,4 @@ classes/
 .env.ps1
 
 *~
+**/*autosave.kra
