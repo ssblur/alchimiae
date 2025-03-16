@@ -1,4 +1,6 @@
 {
   "rarity": 1.0,
-  "guaranteed_effects": []
+  "guaranteed_effects": [
+    "alchimiae:feast"
+  ]
 }

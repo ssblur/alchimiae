@@ -28,9 +28,9 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.alchimiae]]
-modId = "architectury"
+modId = "unfocused"
 type = "required"
-versionRange = "[13.0.2,)"
+versionRange = "[${unfocused_version},)"
 ordering = "AFTER"
 side = "BOTH"
 

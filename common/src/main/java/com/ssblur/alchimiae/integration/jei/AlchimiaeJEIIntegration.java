@@ -21,7 +21,6 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @JeiPlugin
 public class AlchimiaeJEIIntegration implements IModPlugin {
@@ -37,7 +36,7 @@ public class AlchimiaeJEIIntegration implements IModPlugin {
 
   @Override
   public ResourceLocation getPluginUid() {
-    return AlchimiaeMod.location("jei_base");
+    return AlchimiaeMod.INSTANCE.location("jei_base");
   }
 
   @Override
@@ -91,10 +90,10 @@ public class AlchimiaeJEIIntegration implements IModPlugin {
       );
     }));
 
-    var potions = AlchimiaeMod.REGISTRIES.get().get(Registries.POTION);
+    var potions = Minecraft.getInstance().level.registryAccess().registry(Registries.POTION).get();
     potions.entrySet().forEach(entry -> {
       var key = entry.getKey();
-      var mash = PotionContents.createItemStack(AlchimiaeItems.MASH.get(), Objects.requireNonNull(potions.getHolder(key)));
+      var mash = PotionContents.createItemStack(AlchimiaeItems.INSTANCE.getMASH().get(), potions.getHolder(key).get());
       registration.addRecipes(RecipeTypes.BREWING, List.of(new JeiMashBrewingRecipe(mash, key.location().getPath())));
     });
   }

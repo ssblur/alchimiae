@@ -1,0 +1,7 @@
+{
+  "category": "HARMFUL",
+  "tick_frequency": 100,
+  "tick_commands": [
+    "say I am afflicted with another test effect"
+  ]
+}

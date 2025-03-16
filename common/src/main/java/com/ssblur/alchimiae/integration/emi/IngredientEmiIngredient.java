@@ -22,7 +22,7 @@ public record IngredientEmiIngredient(int frequency) implements EmiIngredient {
 
   @Override
   public List<EmiStack> getEmiStacks() {
-    return ClientAlchemyHelper.EFFECTS.keySet().stream().map(ItemStack::new).map(EmiStack::of).toList();
+    return ClientAlchemyHelper.INSTANCE.getEFFECTS().keySet().stream().map(ItemStack::new).map(EmiStack::of).toList();
   }
 
   @Override
@@ -56,8 +56,8 @@ public record IngredientEmiIngredient(int frequency) implements EmiIngredient {
     var second = 0L;
     if(level != null)
       second = level.getGameTime() / 20;
-    var random = new Random(second + frequency).nextInt(ClientAlchemyHelper.EFFECTS.size());
-    var item = (Item) ClientAlchemyHelper.EFFECTS.entrySet().toArray(new Map.Entry[] {})[random].getKey();
+    var random = new Random(second + frequency).nextInt(ClientAlchemyHelper.INSTANCE.getEFFECTS().size());
+    var item = (Item) ClientAlchemyHelper.INSTANCE.getEFFECTS().entrySet().toArray(new Map.Entry[] {})[random].getKey();
 
     if(second % MAX_FREQUENCY < frequency)
       draw.renderItem(new ItemStack(item), x, y);

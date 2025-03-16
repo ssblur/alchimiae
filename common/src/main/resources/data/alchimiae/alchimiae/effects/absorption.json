@@ -1,4 +1,5 @@
 {
   "effect": "minecraft:absorption",
-  "rarity": 6.0
+  "rarity": 6.0,
+  "duration_multiplier": 2.0
 }

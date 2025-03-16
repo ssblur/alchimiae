@@ -1,4 +1,5 @@
 {
   "effect": "minecraft:nausea",
-  "rarity": 0.0
+  "rarity": 0.0,
+  "duration_multiplier": 1.2
 }

@@ -1,5 +1,6 @@
 {
   "effect": "astral_arsenal:reduce",
   "required": "astral_arsenal",
-  "rarity": 4.0
+  "rarity": 4.0,
+  "duration_multiplier": 0.2
 }

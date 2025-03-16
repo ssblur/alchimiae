@@ -1,11 +1,15 @@
 package com.ssblur.alchimiae.integration.jei;
 
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents;
+import com.ssblur.alchimiae.data.CustomEffect;
+import com.ssblur.alchimiae.data.CustomPotionEffects;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
 import mezz.jei.api.recipe.vanilla.IJeiBrewingRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -16,7 +20,6 @@ import org.jetbrains.annotations.Unmodifiable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class JeiMashBrewingRecipe implements IJeiBrewingRecipe {
   final ResourceLocation location;
@@ -52,22 +55,22 @@ public class JeiMashBrewingRecipe implements IJeiBrewingRecipe {
   }
 
   ItemStack potionResult() {
-    var potion = mash.transmuteCopy(Items.POTION);
+    var potion = mash.transmuteCopy(AlchimiaeItems.INSTANCE.getPOTION().get());
     var contents = mash.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-    var effects = new ArrayList<MobEffectInstance>();
+    var effects = new ArrayList<CustomEffect>();
     contents.getAllEffects().forEach(effect ->
-      effects.add(new MobEffectInstance(effect.getEffect(), (int) Math.round(effect.getDuration() * 0.6666), effect.getAmplifier()))
+            effects.add(new CustomEffect(
+                    effect.getEffect().unwrapKey().get().location(),
+                    effect.getDuration(),
+                    effect.getAmplifier()
+            ))
     );
-    potion.set(DataComponents.POTION_CONTENTS, new PotionContents(
-      Optional.empty(),
-      contents.customColor(),
-      effects
-    ));
+    potion.set(AlchimiaeDataComponents.INSTANCE.getCUSTOM_POTION(), new CustomPotionEffects(effects, null));
     potion.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
     return potion;
   }
 
   ResourceLocation itemId() {
-    return Objects.requireNonNull(AlchimiaeItems.ITEMS.getRegistrar().getId(mash.getItem()));
+    return Objects.requireNonNull(Minecraft.getInstance().level.registryAccess().registry(Registries.ITEM).get().getKey(mash.getItem()));
   }
 }

@@ -9,40 +9,27 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements EmiRecipe {
   static ResourceLocation BACKGROUND = ResourceLocation.withDefaultNamespace("textures/gui/container/brewing_stand.png");
   static EmiStack BLAZE_POWDER = EmiStack.of(Items.BLAZE_POWDER);
 
   ResourceLocation itemId() {
-    return Objects.requireNonNull(AlchimiaeItems.ITEMS.getRegistrar().getId(mash.getItem()));
+    return BuiltInRegistries.ITEM.getKey(mash.getItem());
   }
 
   EmiStack potionResult() {
-    var potion = mash.transmuteCopy(Items.POTION);
-    var contents = mash.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-    var effects = new ArrayList<MobEffectInstance>();
-    contents.getAllEffects().forEach(effect ->
-      effects.add(new MobEffectInstance(effect.getEffect(), (int) Math.round(effect.getDuration() * 0.6666), effect.getAmplifier()))
-    );
-    potion.set(DataComponents.POTION_CONTENTS, new PotionContents(
-      Optional.empty(),
-      contents.customColor(),
-      effects
-    ));
+    var potion = mash.transmuteCopy(AlchimiaeItems.INSTANCE.getPOTION().get());
     potion.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
     return EmiStack.of(potion);
   }
