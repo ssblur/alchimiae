@@ -14,5 +14,11 @@ object AlchimiaeScreens {
         BoilerScreen(abstractContainerMenu, inventory, component)
       }
     }
+
+    AlchimiaeMenus.ALEMBIC.then {
+      AlchimiaeMod.registerScreen(it) { abstractContainerMenu, inventory, component ->
+        AlembicScreen(abstractContainerMenu, inventory, component)
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 package com.ssblur.alchimiae.integration.emi;
 
 import com.ssblur.alchimiae.AlchimiaeMod;
+import com.ssblur.alchimiae.block.AlchimiaeBlocks;
 import com.ssblur.alchimiae.data.AlchimiaeDataComponents;
 import com.ssblur.alchimiae.integration.recipes.RecipeIntegration;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
@@ -12,8 +13,7 @@ import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -27,7 +27,7 @@ public class AlchimiaeEMIIntegration implements EmiPlugin {
   public void register(EmiRegistry registry) {
     registry.addCategory(new EmiRecipeCategory(
             AlchimiaeMod.INSTANCE.location("boiler"),
-            EmiIngredient.of(Ingredient.of(AlchimiaeItems.INSTANCE.getBOILER().get())))
+            EmiIngredient.of(Ingredient.of(AlchimiaeBlocks.INSTANCE.getBOILER().component2().get())))
     );
 
     RecipeIntegration.registerItemInfo(((location, items, components) -> registry.addRecipe(new EmiInfoRecipe(
@@ -61,7 +61,7 @@ public class AlchimiaeEMIIntegration implements EmiPlugin {
       AlchimiaeMod.INSTANCE.location("mash_recipe")
     ));
 
-    var potions = Minecraft.getInstance().level.registryAccess().registry(Registries.POTION).get();
+    var potions = BuiltInRegistries.POTION;
     potions.entrySet().forEach(entry -> {
       var key = entry.getKey();
 

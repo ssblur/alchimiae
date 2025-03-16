@@ -13,5 +13,12 @@ object AlchimiaeMenus {
     )
   }
 
+  val ALEMBIC = AlchimiaeMod.registerMenu("alembic") {
+    MenuType(
+      { i: Int, inventory: Inventory -> AlembicMenu(i, inventory) },
+      FeatureFlagSet.of()
+    )
+  }
+
   fun register() {}
 }

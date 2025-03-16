@@ -24,7 +24,7 @@ object AlchimiaeEffects {
   }
   val CLEANSE = AlchimiaeMod.registerEffect("cleanse") { CleanseMobEffect(MobEffectCategory.HARMFUL) }
   val MUCK = AlchimiaeMod.registerEffect("muck") {
-    CleanseMobEffect(MobEffectCategory.BENEFICIAL, MobEffectCategory.NEUTRAL)
+    CleanseMobEffect(MobEffectCategory.HARMFUL, MobEffectCategory.NEUTRAL)
   }
 
   val CUSTOM_EFFECT_BENEFICIAL = AlchimiaeMod.registerEffect("custom_effect_beneficial") {

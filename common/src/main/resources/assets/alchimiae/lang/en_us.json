@@ -20,6 +20,7 @@
   "item.alchimiae.lingering_potion": "Lingering %s",
 
   "block.alchimiae.boiler": "Boiler",
+  "block.alchimiae.alembic": "Alembic",
 
   "effect.alchimiae.feast": "Feast",
   "effect.alchimiae.famine": "Famine",
@@ -58,5 +59,6 @@
   "info.alchimiae.mash_2": "The simplest of these is crafting them with a bottle of water, which makes one potion.",
   "info.alchimiae.mash_3": "You can also place them into the top slot of a Brewing Stand, though their duration will be reduced.",
 
-  "menu.alchimiae.boiler": "Boiler"
+  "menu.alchimiae.boiler": "Boiler",
+  "menu.alchimiae.alembic": "Alembic"
 }

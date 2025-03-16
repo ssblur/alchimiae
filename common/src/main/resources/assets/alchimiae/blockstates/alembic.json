@@ -1,0 +1,120 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic",
+        "y": 270
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic",
+        "y": 0
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic",
+        "y": 90
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic",
+        "y": 180
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_1",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "potion_1": true
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_1",
+        "y": 0
+      },
+      "when": {
+        "facing": "east",
+        "potion_1": true
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_1",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "potion_1": true
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_1",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "potion_1": true
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_2",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "potion_2": true
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_2",
+        "y": 0
+      },
+      "when": {
+        "facing": "east",
+        "potion_2": true
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_2",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "potion_2": true
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alembic_potion_2",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "potion_2": true
+      }
+    }
+  ]
+}

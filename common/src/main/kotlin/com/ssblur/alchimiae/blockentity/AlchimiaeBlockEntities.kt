@@ -12,7 +12,18 @@ object AlchimiaeBlockEntities {
           blockPos,
           blockState
         )
-      }, AlchimiaeBlocks.BOILER.get()
+      }, AlchimiaeBlocks.BOILER.first.get()
+    ).build(null)
+  }
+
+  val ALEMBIC = AlchimiaeMod.registerBlockEntity("alembic") {
+    BlockEntityType.Builder.of(
+      { blockPos, blockState ->
+        AlembicBlockEntity(
+          blockPos,
+          blockState
+        )
+      }, AlchimiaeBlocks.ALEMBIC.first.get()
     ).build(null)
   }
 

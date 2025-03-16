@@ -96,7 +96,7 @@ class BoilerMenu : AbstractContainerMenu {
   val burnProgress: Float
     get() = Mth.clamp(
       data[2]
-        .toFloat() / BoilerBlockEntity.Companion.PROCESS_TIME.toFloat(), 0.0f, 1.0f
+        .toFloat() / BoilerBlockEntity.PROCESS_TIME.toFloat(), 0.0f, 1.0f
     )
 
   val litProgress: Float

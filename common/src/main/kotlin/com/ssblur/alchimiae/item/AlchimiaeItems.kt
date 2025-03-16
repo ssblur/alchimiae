@@ -1,7 +1,6 @@
 package com.ssblur.alchimiae.item
 
 import com.ssblur.alchimiae.AlchimiaeMod
-import com.ssblur.alchimiae.block.AlchimiaeBlocks
 import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.data.CustomPotionEffects
 import com.ssblur.alchimiae.item.potions.CustomLingeringPoton
@@ -16,7 +15,6 @@ import net.fabricmc.api.Environment
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
-import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.item.alchemy.Potions
@@ -75,13 +73,6 @@ object AlchimiaeItems {
       CustomPotionEffects(listOf())
     ))
   }
-
-  val BOILER = AlchimiaeMod.registerItem("boiler") {
-    BlockItem(
-      AlchimiaeBlocks.BOILER.get(),
-      Item.Properties()
-    )
-  }.tab(TAB)
 
   val GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("grinder"))
 
