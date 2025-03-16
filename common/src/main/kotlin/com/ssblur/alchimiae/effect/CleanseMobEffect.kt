@@ -5,10 +5,14 @@ import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-class CleanseMobEffect: InstantenousMobEffect(MobEffectCategory.BENEFICIAL, 10) {
+class CleanseMobEffect(vararg val categoryToRemove: MobEffectCategory): InstantenousMobEffect(MobEffectCategory.BENEFICIAL, 10) {
   override fun applyEffectTick(livingEntity: LivingEntity, i: Int): Boolean {
-    for(effect in livingEntity.activeEffects) {
-      if(!effect.effect.value().isBeneficial) livingEntity.removeEffect(effect.effect)
+    livingEntity.activeEffects.filter {
+      categoryToRemove.contains(it.effect.value().category)
+    }.map{
+      it.effect
+    }.forEach{
+      livingEntity.removeEffect(it)
     }
     return true
   }

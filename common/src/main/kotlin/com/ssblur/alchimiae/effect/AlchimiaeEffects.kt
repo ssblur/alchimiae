@@ -22,7 +22,10 @@ object AlchimiaeEffects {
   val ALICIAN = AlchimiaeMod.registerEffect("alician") {
     ScaleMobEffect(1.0, AlchimiaeMod.location("alician"))
   }
-  val CLEANSE = AlchimiaeMod.registerEffect("cleanse") { CleanseMobEffect() }
+  val CLEANSE = AlchimiaeMod.registerEffect("cleanse") { CleanseMobEffect(MobEffectCategory.HARMFUL) }
+  val MUCK = AlchimiaeMod.registerEffect("muck") {
+    CleanseMobEffect(MobEffectCategory.BENEFICIAL, MobEffectCategory.NEUTRAL)
+  }
 
   val CUSTOM_EFFECT_BENEFICIAL = AlchimiaeMod.registerEffect("custom_effect_beneficial") {
     CustomMobEffect(MobEffectCategory.BENEFICIAL, 0x00ff00)
