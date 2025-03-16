@@ -68,16 +68,18 @@ object AlchemyHelper {
     return effects.toCustomPotion()
   }
 
-  fun applyEffects(item: ItemStack, livingEntity: LivingEntity, durationMultiplier: Float = 1.0f) {
-    item[AlchimiaeDataComponents.CUSTOM_POTION]?.let {
-      for((key, duration, level) in it.effects) {
-        if(BuiltInRegistries.MOB_EFFECT.containsKey(key)) {
-          val effect = BuiltInRegistries.MOB_EFFECT.getHolder(key).get()
-          livingEntity.addEffect(MobEffectInstance(effect, (duration * durationMultiplier).toInt(), level))
-        } else if(CustomEffects.customEffects.containsKey(key)) {
-          CustomEffects.applyEffect(key, livingEntity, (duration * durationMultiplier).toInt())
-        }
+  fun applyEffects(customPotionEffects: CustomPotionEffects, livingEntity: LivingEntity, durationMultiplier: Float = 1.0f) {
+    for((key, duration, level) in customPotionEffects.effects) {
+      if(BuiltInRegistries.MOB_EFFECT.containsKey(key)) {
+        val effect = BuiltInRegistries.MOB_EFFECT.getHolder(key).get()
+        livingEntity.addEffect(MobEffectInstance(effect, (duration * durationMultiplier).toInt(), level))
+      } else if(CustomEffects.customEffects.containsKey(key)) {
+        CustomEffects.applyEffect(key, livingEntity, (duration * durationMultiplier).toInt())
       }
     }
+  }
+
+  fun applyEffects(item: ItemStack, livingEntity: LivingEntity, durationMultiplier: Float = 1.0f) {
+    item[AlchimiaeDataComponents.CUSTOM_POTION]?.let { applyEffects(it, livingEntity, durationMultiplier) }
   }
 }

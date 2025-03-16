@@ -5,6 +5,8 @@ import com.ssblur.alchimiae.blockentity.AlchimiaeBlockEntities
 import com.ssblur.alchimiae.command.AlchimiaeCommand
 import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.effect.AlchimiaeEffects
+import com.ssblur.alchimiae.entity.AlchimiaeEntities
+import com.ssblur.alchimiae.events.AlchimiaeClientEvents
 import com.ssblur.alchimiae.events.AlchimiaeEvents
 import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.recipe.AlchimiaeRecipes
@@ -31,6 +33,7 @@ object AlchimiaeMod: ModInitializer("alchimiae") {
     AlchimiaeMenus.register()
     AlchimiaeResources.register()
     AlchimiaeDataComponents.register()
+    AlchimiaeEntities.register()
 
     registerCommand{ dispatcher, registry, selection ->
       AlchimiaeCommand.register(dispatcher, registry, selection)
@@ -40,5 +43,6 @@ object AlchimiaeMod: ModInitializer("alchimiae") {
   @Environment(EnvType.CLIENT)
   fun clientInit() {
     AlchimiaeScreens.register()
+    AlchimiaeClientEvents.register()
   }
 }

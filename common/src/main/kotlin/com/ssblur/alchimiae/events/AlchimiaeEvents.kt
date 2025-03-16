@@ -1,6 +1,5 @@
 package com.ssblur.alchimiae.events
 
-import com.ssblur.alchimiae.alchemy.ClientAlchemyHelper
 import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.data.IngredientEffectsSavedData
 import com.ssblur.alchimiae.data.IngredientMemorySavedData
@@ -8,7 +7,6 @@ import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.network.server.AlchimiaeNetworkC2S
 import com.ssblur.alchimiae.resource.CustomEffects
-import com.ssblur.unfocused.event.client.ClientDisconnectEvent
 import com.ssblur.unfocused.event.common.PlayerCraftEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import net.minecraft.core.registries.BuiltInRegistries
@@ -27,10 +25,6 @@ object AlchimiaeEvents {
       AlchimiaeNetworkS2C.syncCustomEffects(
         AlchimiaeNetworkS2C.SyncCustomEffects(CustomEffects.customEffects), listOf(player)
       )
-    }
-
-    ClientDisconnectEvent.register{
-      ClientAlchemyHelper.reset()
     }
 
     PlayerCraftEvent.register{ (player, constructed, inventory) ->
