@@ -12,7 +12,10 @@ import net.minecraft.world.item.crafting.CraftingBookCategory
 import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
+import net.minecraft.world.item.enchantment.EnchantmentHelper
+import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.Level
+import kotlin.random.Random
 
 class MashRecipe(craftingBookCategory: CraftingBookCategory?) : CustomRecipe(craftingBookCategory) {
   var server: ServerLevel? = null
@@ -57,8 +60,14 @@ class MashRecipe(craftingBookCategory: CraftingBookCategory?) : CustomRecipe(cra
     val list = NonNullList.withSize(recipeInput.size(), ItemStack.EMPTY)
     for (i in 0..<recipeInput.size()) {
       var item = recipeInput.getItem(i).copy()
+      var unbreaking = 0
+      EnchantmentHelper.getEnchantmentsForCrafting(item).entrySet().forEach {
+        if(it.key == Enchantments.UNBREAKING)
+          unbreaking += it.intValue
+      }
+
       if (item.`is`(AlchimiaeItems.GRINDER) && item.isDamageableItem) {
-        item.damageValue = item.damageValue + 1
+        if(Random.nextInt(10) > unbreaking) item.damageValue = item.damageValue + 1
         if (item.damageValue >= item.maxDamage) item = ItemStack.EMPTY
         list[i] = item
       }

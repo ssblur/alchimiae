@@ -30,19 +30,19 @@ object AlchimiaeItems {
   }
 
   val MORTAR_AND_PESTLE = AlchimiaeMod.registerItem("stone_mortar_and_pestle") {
-    GrinderItem(0.3f, Item.Properties().durability(16))
+    GrinderItem(0.3f, Item.Properties().durability(32))
   }
   val IRON_MORTAR_AND_PESTLE = AlchimiaeMod.registerItem("iron_mortar_and_pestle") {
-    GrinderItem(0.5f, Item.Properties().durability(24))
+    GrinderItem(0.5f, Item.Properties().durability(48))
   }.tab(TAB)
   val GOLD_MORTAR_AND_PESTLE = AlchimiaeMod.registerItem("gold_mortar_and_pestle") {
-    GrinderItem(0.8f, Item.Properties().durability(12))
+    GrinderItem(0.8f, Item.Properties().durability(24))
   }.tab(TAB)
   val DIAMOND_MORTAR_AND_PESTLE = AlchimiaeMod.registerItem("diamond_mortar_and_pestle") {
-    GrinderItem(0.7f, Item.Properties().durability(32))
+    GrinderItem(0.7f, Item.Properties().durability(64))
   }.tab(TAB)
   val NETHERITE_MORTAR_AND_PESTLE = AlchimiaeMod.registerItem("netherite_mortar_and_pestle") {
-    GrinderItem(1.0f, Item.Properties().durability(64))
+    GrinderItem(1.0f, Item.Properties().durability(128))
   }.tab(TAB)
 
   val MASH = AlchimiaeMod.registerItem("mash") {
