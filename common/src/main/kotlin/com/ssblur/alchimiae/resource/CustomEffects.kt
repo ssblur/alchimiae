@@ -44,8 +44,12 @@ object CustomEffects {
 
   fun applyEffect(location: ResourceLocation, entity: LivingEntity, ticks: Int = 600) {
     customEffects[location]?.let {
-      entity.setCustomEffect(it, entity.level().gameTime + ticks)
-      entity.addEffect(MobEffectInstance(getMobEffectFor(it), ticks))
+      if(ticks <= 1) {
+        AlchimiaeEffects.CUSTOM_EFFECT_HARMFUL.get().applyEffectTick(entity, 0)
+      } else {
+        entity.setCustomEffect(it, entity.level().gameTime + ticks)
+        entity.addEffect(MobEffectInstance(getMobEffectFor(it), ticks))
+      }
     }
   }
 
