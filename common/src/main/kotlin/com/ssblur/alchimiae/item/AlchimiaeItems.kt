@@ -92,8 +92,8 @@ object AlchimiaeItems {
 
   @Environment(EnvType.CLIENT)
   fun clientInit() {
-    MASH.registerColor(Mash::getColor)
-    CONCENTRATE.registerColor(Mash::getColor)
+    MASH.registerColor(Mash::mashGetColor)
+    CONCENTRATE.registerColor(Mash::concentrateGetColor)
     POTION.registerColor(CustomPotion::getColor)
     SPLASH_POTION.registerColor(CustomPotion::getColor)
     LINGERING_POTION.registerColor(CustomPotion::getColor)

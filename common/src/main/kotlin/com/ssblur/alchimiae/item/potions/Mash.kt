@@ -18,9 +18,17 @@ class Mash(properties: Properties) : Item(properties) {
   }
 
   companion object {
-    fun getColor(item: ItemStack, layer: Int): Int {
+    fun mashGetColor(item: ItemStack, layer: Int): Int {
       val data = item[CUSTOM_POTION]
-      return data?.color ?: -0x1
+      if(layer == 1) return data?.color ?: -0x1
+      return 0xffffffffu.toInt()
+    }
+
+
+    fun concentrateGetColor(item: ItemStack, layer: Int): Int {
+      val data = item[CUSTOM_POTION]
+      if(layer == 0) return data?.color ?: -0x1
+      return 0xffffffffu.toInt()
     }
   }
 }

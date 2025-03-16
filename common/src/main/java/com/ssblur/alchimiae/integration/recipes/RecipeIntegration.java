@@ -1,6 +1,9 @@
 package com.ssblur.alchimiae.integration.recipes;
 
 import com.ssblur.alchimiae.AlchimiaeMod;
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents;
+import com.ssblur.alchimiae.data.CustomEffect;
+import com.ssblur.alchimiae.data.CustomPotionEffects;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
 import com.ssblur.alchimiae.recipe.MashPotionCraftingRecipe;
 import net.minecraft.client.Minecraft;
@@ -10,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -62,10 +66,11 @@ public class RecipeIntegration {
 
           potions.entrySet().forEach(entry -> {
             var key = entry.getKey();
-            var mash = PotionContents.createItemStack(AlchimiaeItems.INSTANCE.getMASH().get(), potions.getHolder(key).get());
-            var potion = new ItemStack(Items.POTION);
+            var mash = new ItemStack(AlchimiaeItems.INSTANCE.getMASH().get());
+            mash.set(AlchimiaeDataComponents.INSTANCE.getCUSTOM_POTION(), convertPotion(entry.getValue()));
+            var potion = new ItemStack(AlchimiaeItems.INSTANCE.getPOTION());
             potion.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
-            potion.set(DataComponents.POTION_CONTENTS, mash.get(DataComponents.POTION_CONTENTS));
+            potion.set(AlchimiaeDataComponents.INSTANCE.getCUSTOM_POTION(), mash.get(AlchimiaeDataComponents.INSTANCE.getCUSTOM_POTION()));
             shapelessRecipeRegistrar.register(
               List.of(
                 Ingredient.of(mash),
@@ -79,5 +84,16 @@ public class RecipeIntegration {
         default -> {}
       }
     });
+  }
+
+  public static CustomPotionEffects convertPotion(Potion potion) {
+    var effects = potion.getEffects().stream().map(instance ->
+            new CustomEffect(
+                    instance.getEffect().unwrapKey().get().location(),
+                    instance.getDuration(),
+                    instance.getAmplifier()
+            )
+    ).toList();
+    return new CustomPotionEffects(effects, null);
   }
 }

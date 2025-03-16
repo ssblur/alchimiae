@@ -1,6 +1,7 @@
 package com.ssblur.alchimiae.integration.emi;
 
 import com.ssblur.alchimiae.AlchimiaeMod;
+import com.ssblur.alchimiae.data.AlchimiaeDataComponents;
 import com.ssblur.alchimiae.integration.recipes.RecipeIntegration;
 import com.ssblur.alchimiae.item.AlchimiaeItems;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -14,7 +15,6 @@ import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -64,8 +64,12 @@ public class AlchimiaeEMIIntegration implements EmiPlugin {
     var potions = Minecraft.getInstance().level.registryAccess().registry(Registries.POTION).get();
     potions.entrySet().forEach(entry -> {
       var key = entry.getKey();
-      var mash = PotionContents.createItemStack(AlchimiaeItems.INSTANCE.getMASH().get(), potions.getHolder(key).get());
+
+      var mash = new ItemStack(AlchimiaeItems.INSTANCE.getMASH().get());
+      mash.set(AlchimiaeDataComponents.INSTANCE.getCUSTOM_POTION(), RecipeIntegration.convertPotion(entry.getValue()));
       registry.addRecipe(new EmiMashBrewingRecipe(mash, key.location().getPath()));
     });
   }
+
+
 }

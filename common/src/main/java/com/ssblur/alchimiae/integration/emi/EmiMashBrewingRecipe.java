@@ -1,5 +1,6 @@
 package com.ssblur.alchimiae.integration.emi;
 
+import com.ssblur.alchimiae.item.AlchimiaeItems;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
@@ -11,16 +12,13 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements EmiRecipe {
   static ResourceLocation BACKGROUND = ResourceLocation.withDefaultNamespace("textures/gui/container/brewing_stand.png");
@@ -31,17 +29,7 @@ public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements
   }
 
   EmiStack potionResult() {
-    var potion = mash.transmuteCopy(Items.POTION);
-    var contents = mash.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-    var effects = new ArrayList<MobEffectInstance>();
-    contents.getAllEffects().forEach(effect ->
-      effects.add(new MobEffectInstance(effect.getEffect(), (int) Math.round(effect.getDuration() * 0.6666), effect.getAmplifier()))
-    );
-    potion.set(DataComponents.POTION_CONTENTS, new PotionContents(
-      Optional.empty(),
-      contents.customColor(),
-      effects
-    ));
+    var potion = mash.transmuteCopy(AlchimiaeItems.INSTANCE.getPOTION().get());
     potion.set(DataComponents.ITEM_NAME, Component.translatable("item.alchimiae.potion"));
     return EmiStack.of(potion);
   }

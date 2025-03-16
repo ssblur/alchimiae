@@ -1,14 +1,7 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "alchimiae:item/concentrate"
-  },
-  "display": {
-    "thirdperson_righthand": {
-      "scale": [0.6, 0.6, 0.6]
-    },
-    "thirdperson_lefthand": {
-      "scale": [0.6, 0.6, 0.6]
-    }
+    "layer0": "alchimiae:item/concentrate0",
+    "layer1": "alchimiae:item/concentrate1"
   }
 }
