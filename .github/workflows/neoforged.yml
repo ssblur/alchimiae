@@ -41,7 +41,7 @@ jobs:
           mod-loader: neoforge
           changelog: ${{ steps.changelog.outputs.changelog }}
           dependencies: |
-            architectury-api
+            unfocused
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
