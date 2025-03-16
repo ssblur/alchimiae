@@ -72,7 +72,9 @@ class IngredientMemorySavedData : SavedData {
     for (location in Stream.concat(
       effects.stream(),
       data.stream()
-    ).filter { effect -> ingredientEffectsData.data[key]!!.effectKeys().contains(effect) }
+    ).filter { effect ->
+      ingredientEffectsData.data[key]!!.effectKeys().map{ Effects.effects[it]?.effect }.contains(effect)
+    }
       .distinct().toList()) {
       checksumB += location.hashCode()
       updatedData.add(location)
@@ -80,9 +82,7 @@ class IngredientMemorySavedData : SavedData {
 
     if (checksumA != checksumB) {
       this.data[key] = updatedData
-      val syncData = updatedData.map {
-        Effects.effects[it]?.effect ?: ResourceLocation.parse("alchimiae:null")
-      }.toMutableList()
+      val syncData = updatedData.toMutableList()
       val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
       ingredient?.let {
         if(syncData.size < it.effects.size)

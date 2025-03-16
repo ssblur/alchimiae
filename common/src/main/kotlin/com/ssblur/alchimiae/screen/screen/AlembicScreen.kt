@@ -30,7 +30,7 @@ class AlembicScreen(abstractContainerMenu: AlembicMenu, inventory: Inventory, co
       }
 
       n = Mth.ceil(it.burnProgress * 21.0f)
-      guiGraphics.blitSprite(PROGRESS_SPRITE, 32, 32, 0, 0, k + 71, l + 34, 32, n)
+      guiGraphics.blitSprite(PROGRESS_SPRITE, 32, 32, 0, 0, k + 72, l + 34, 32, n)
 //      guiGraphics.blitSprite(PROGRESS_SPRITE, k + 72, l + 34, 32, n)
     }
   }

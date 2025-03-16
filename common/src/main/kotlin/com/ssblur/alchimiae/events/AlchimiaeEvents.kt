@@ -39,7 +39,7 @@ object AlchimiaeEvents {
           for (i in 0..<inventory.containerSize) {
             val id = BuiltInRegistries.ITEM.getKey(inventory.getItem(i).item)
             data.data[id] ?: continue
-            memory.add(player, inventory.getItem(i).item, it.effects.map { (key, _, _) -> key })
+            memory.add(player, inventory.getItem(i).item, it.effects.map { effect -> effect.location })
           }
         }
       }
