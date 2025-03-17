@@ -69,6 +69,7 @@ shadowJar {
 
 remapJar {
   input.set shadowJar.archiveFile
+  atAccessWideners.add("alchimiae.accesswidener")
 }
 kotlin {
   jvmToolchain(21)
