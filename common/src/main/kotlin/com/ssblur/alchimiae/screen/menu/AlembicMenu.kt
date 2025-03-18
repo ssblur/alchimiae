@@ -2,6 +2,7 @@ package com.ssblur.alchimiae.screen.menu
 
 import com.ssblur.alchimiae.blockentity.AlembicBlockEntity
 import net.minecraft.util.Mth
+import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -13,12 +14,18 @@ class AlembicMenu : AbstractContainerMenu {
   var alembicBlockEntity: AlembicBlockEntity? = null
   var data: ContainerData
 
+  class AlembicPotionSlot(container: Container, i: Int, j: Int, k: Int) : BrewingStandMenu.PotionSlot(container, i, j, k) {
+    override fun mayPlace(itemStack: ItemStack): Boolean {
+      return mayPlaceItem(itemStack)
+    }
+  }
+
   constructor(i: Int, inventory: Inventory) : super(AlchimiaeMenus.ALEMBIC.get(), i) {
     val container = SimpleContainer(4)
     this.addSlot(Slot(container, FUEL, 21, 51))
     this.addSlot(Slot(container, INGREDIENT, 79, 17))
-    this.addSlot(BrewingStandMenu.PotionSlot(container, POTION_1, 102, 51))
-    this.addSlot(BrewingStandMenu.PotionSlot(container, POTION_2, 56, 51))
+    this.addSlot(AlembicPotionSlot(container, POTION_1, 102, 51))
+    this.addSlot(AlembicPotionSlot(container, POTION_2, 56, 51))
 
     for (j in 0..2) {
       for (k in 0..8) {
@@ -40,8 +47,8 @@ class AlembicMenu : AbstractContainerMenu {
   ) {
     this.addSlot(Slot(alembicBlockEntity, FUEL, 21, 51))
     this.addSlot(Slot(alembicBlockEntity, INGREDIENT, 79, 17))
-    this.addSlot(BrewingStandMenu.PotionSlot(alembicBlockEntity, POTION_1, 102, 51))
-    this.addSlot(BrewingStandMenu.PotionSlot(alembicBlockEntity, POTION_2, 56, 51))
+    this.addSlot(AlembicPotionSlot(alembicBlockEntity, POTION_1, 102, 51))
+    this.addSlot(AlembicPotionSlot(alembicBlockEntity, POTION_2, 56, 51))
 
     for (j in 0..2) {
       for (k in 0..8) {
