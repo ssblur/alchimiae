@@ -1,0 +1,12 @@
+{
+  "requires": "festive_frenzy",
+  "item": "festive_frenzy:peppermint",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:festive"
+  ],
+  "rarity": 1.3,
+  "duration": 400,
+  "no_effects": false
+}

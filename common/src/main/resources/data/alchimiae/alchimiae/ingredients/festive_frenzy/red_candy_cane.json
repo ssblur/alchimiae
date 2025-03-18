@@ -1,0 +1,12 @@
+{
+  "requires": "festive_frenzy",
+  "item": "festive_frenzy:red_candy_cane",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:festive"
+  ],
+  "rarity": 1.7,
+  "duration": 400,
+  "no_effects": false
+}

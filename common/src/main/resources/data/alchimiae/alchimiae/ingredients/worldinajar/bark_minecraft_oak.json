@@ -1,0 +1,11 @@
+{
+  "requires": "worldinajar",
+  "item": "worldinajar:bark/minecraft/oak",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:bark"
+  ],
+  "rarity": 1.0,
+  "duration": 260,
+  "no_effects": false
+}

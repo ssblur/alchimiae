@@ -1,0 +1,13 @@
+{
+  "requires": "missingwilds",
+  "item": "missingwilds:pink_forget_me_not",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower",
+    "alchimiae:flower_2",
+    "alchimiae:forgetmenot"
+  ],
+  "rarity": 0.7,
+  "duration": 260,
+  "no_effects": false
+}

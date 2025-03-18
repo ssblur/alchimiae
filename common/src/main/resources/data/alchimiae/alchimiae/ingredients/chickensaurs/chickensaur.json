@@ -1,0 +1,11 @@
+{
+  "requires": "chickensaurs",
+  "item": "chickensaurs:chickensaur",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:meat"
+  ],
+  "rarity": 0.7,
+  "duration": 260,
+  "no_effects": false
+}

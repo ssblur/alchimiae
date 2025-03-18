@@ -1,0 +1,14 @@
+{
+  "requires": "mynethersdelight",
+  "item": "mynethersdelight:strider_slice",
+  "guaranteed_effects": [
+    "alchimiae:fire_resistance"
+  ],
+  "ingredient_classes": [
+    "alchimiae:meat",
+    "alchimiae:food"
+  ],
+  "rarity": 1.5,
+  "duration": 400,
+  "no_effects": false
+}

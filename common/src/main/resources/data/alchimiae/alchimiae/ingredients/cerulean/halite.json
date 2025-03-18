@@ -1,0 +1,11 @@
+{
+  "requires": "cerulean",
+  "item": "cerulean:halite",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:halite"
+  ],
+  "rarity": 1.8,
+  "duration": 400,
+  "no_effects": false
+}

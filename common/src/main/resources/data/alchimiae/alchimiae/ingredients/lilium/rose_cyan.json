@@ -1,0 +1,13 @@
+{
+  "requires": "lilium",
+  "item": "lilium:rose_cyan",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower",
+    "alchimiae:flower_3",
+    "alchimiae:lilium"
+  ],
+  "rarity": 1.8,
+  "duration": 400,
+  "no_effects": false
+}

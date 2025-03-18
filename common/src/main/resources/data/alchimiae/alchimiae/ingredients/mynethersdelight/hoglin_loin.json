@@ -1,0 +1,12 @@
+{
+  "requires": "mynethersdelight",
+  "item": "mynethersdelight:hoglin_loin",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:meat",
+    "alchimiae:food"
+  ],
+  "rarity": 1.2,
+  "duration": 400,
+  "no_effects": false
+}

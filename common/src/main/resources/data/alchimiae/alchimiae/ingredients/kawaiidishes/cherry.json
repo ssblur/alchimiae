@@ -1,0 +1,11 @@
+{
+  "requires": "kawaiidishes",
+  "item": "kawaiidishes:cherry",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 0.7,
+  "duration": 260,
+  "no_effects": false
+}

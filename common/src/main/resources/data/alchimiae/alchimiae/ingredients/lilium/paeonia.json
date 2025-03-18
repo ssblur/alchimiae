@@ -1,0 +1,13 @@
+{
+  "requires": "lilium",
+  "item": "lilium:paeonia",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower",
+    "alchimiae:flower_2",
+    "alchimiae:lilium"
+  ],
+  "rarity": 1.9,
+  "duration": 400,
+  "no_effects": false
+}

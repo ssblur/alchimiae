@@ -1,0 +1,11 @@
+{
+  "requires": "shrimpsicle",
+  "item": "shrimpsicle:pineapple",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.0,
+  "duration": 260,
+  "no_effects": false
+}

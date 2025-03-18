@@ -1,0 +1,11 @@
+{
+  "requires": "ubesdelight",
+  "item": "ubesdelight:lemongrass",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.1,
+  "duration": 260,
+  "no_effects": false
+}

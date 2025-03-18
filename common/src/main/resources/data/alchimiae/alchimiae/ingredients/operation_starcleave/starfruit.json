@@ -1,0 +1,11 @@
+{
+  "requires": "operation_starcleave",
+  "item": "operation_starcleave:starfruit",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 3.7,
+  "duration": 800,
+  "no_effects": false
+}

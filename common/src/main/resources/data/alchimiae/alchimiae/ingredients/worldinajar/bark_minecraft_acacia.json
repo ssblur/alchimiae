@@ -1,0 +1,11 @@
+{
+  "requires": "worldinajar",
+  "item": "worldinajar:bark/minecraft/acacia",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:bark"
+  ],
+  "rarity": 1.2,
+  "duration": 260,
+  "no_effects": false
+}

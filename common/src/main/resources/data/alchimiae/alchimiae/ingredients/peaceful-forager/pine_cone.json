@@ -1,0 +1,11 @@
+{
+  "requires": "peaceful-forager",
+  "item": "peaceful-forager:pine_cone",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plants"
+  ],
+  "rarity": 0.7,
+  "duration": 260,
+  "no_effects": false
+}

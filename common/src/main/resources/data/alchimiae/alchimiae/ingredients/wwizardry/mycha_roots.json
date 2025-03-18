@@ -1,0 +1,11 @@
+{
+  "requires": "wwizardry",
+  "item": "wwizardry:mycha_roots",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plants"
+  ],
+  "rarity": 2.0,
+  "duration": 400,
+  "no_effects": false
+}

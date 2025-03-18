@@ -1,0 +1,11 @@
+{
+  "requires": "wwizardry",
+  "item": "wwizardry:sculkflower",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower_2"
+  ],
+  "rarity": 1.1,
+  "duration": 400,
+  "no_effects": false
+}

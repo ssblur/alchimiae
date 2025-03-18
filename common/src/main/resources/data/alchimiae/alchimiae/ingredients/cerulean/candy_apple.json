@@ -1,0 +1,11 @@
+{
+  "requires": "cerulean",
+  "item": "cerulean:candy_apple",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.5,
+  "duration": 400,
+  "no_effects": false
+}

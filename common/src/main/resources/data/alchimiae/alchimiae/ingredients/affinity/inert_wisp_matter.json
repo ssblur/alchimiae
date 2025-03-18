@@ -1,0 +1,9 @@
+{
+  "requires": "affinity",
+  "item": "affinity:inert_wisp_matter",
+  "guaranteed_effects": [],
+  "ingredient_classes": [],
+  "rarity": 1.7,
+  "duration": 400,
+  "no_effects": false
+}

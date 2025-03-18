@@ -1,0 +1,11 @@
+{
+  "requires": "shrimpsicle",
+  "item": "shrimpsicle:shrub",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plants"
+  ],
+  "rarity": 0.8,
+  "duration": 260,
+  "no_effects": false
+}

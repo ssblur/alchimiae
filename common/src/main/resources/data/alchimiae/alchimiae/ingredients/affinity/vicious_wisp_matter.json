@@ -1,0 +1,9 @@
+{
+  "requires": "affinity",
+  "item": "affinity:vicious_wisp_matter",
+  "guaranteed_effects": [],
+  "ingredient_classes": [],
+  "rarity": 3.0,
+  "duration": 800,
+  "no_effects": false
+}

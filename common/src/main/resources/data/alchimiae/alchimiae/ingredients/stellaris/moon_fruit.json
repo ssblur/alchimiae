@@ -1,0 +1,11 @@
+{
+  "requires": "stellaris",
+  "item": "stellaris:moon_fruit",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.6,
+  "duration": 400,
+  "no_effects": false
+}

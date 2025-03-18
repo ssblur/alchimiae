@@ -1,0 +1,11 @@
+{
+  "requires": "stellaris",
+  "item": "stellaris:mars_fruit",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.7,
+  "duration": 400,
+  "no_effects": false
+}

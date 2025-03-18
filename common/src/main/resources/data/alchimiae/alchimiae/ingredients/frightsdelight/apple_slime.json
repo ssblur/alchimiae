@@ -1,0 +1,11 @@
+{
+  "requires": "frightsdelight",
+  "item": "frightsdelight:apple_slime",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:spooky"
+  ],
+  "rarity": 2.6,
+  "duration": 800,
+  "no_effects": false
+}

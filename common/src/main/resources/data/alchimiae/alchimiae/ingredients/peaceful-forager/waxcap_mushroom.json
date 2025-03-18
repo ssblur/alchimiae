@@ -1,0 +1,11 @@
+{
+  "requires": "peaceful-forager",
+  "item": "peaceful-forager:waxcap_mushroom",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:mushroom"
+  ],
+  "rarity": 1.1,
+  "duration": 260,
+  "no_effects": false
+}

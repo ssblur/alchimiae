@@ -1,0 +1,11 @@
+{
+  "requires": "borukva-food-exotic",
+  "item": "borukva-food-exotic:pear",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 0.8,
+  "duration": 260,
+  "no_effects": false
+}

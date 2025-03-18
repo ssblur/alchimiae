@@ -1,0 +1,14 @@
+{
+  "requires": "mynethersdelight",
+  "item": "mynethersdelight:strider_egg",
+  "guaranteed_effects": [
+    "alchimiae:instant_damage"
+  ],
+  "ingredient_classes": [
+    "alchimiae:egg",
+    "alchimiae:food"
+  ],
+  "rarity": 3.7,
+  "duration": 800,
+  "no_effects": false
+}

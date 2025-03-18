@@ -1,0 +1,11 @@
+{
+  "requires": "operation_starcleave",
+  "item": "operation_starcleave:short_holy_moss",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plants"
+  ],
+  "rarity": 1.1,
+  "duration": 400,
+  "no_effects": false
+}

@@ -1,0 +1,11 @@
+{
+  "requires": "peaceful-forager",
+  "item": "peaceful-forager:stinging_nettle",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plants"
+  ],
+  "rarity": 0.9,
+  "duration": 260,
+  "no_effects": false
+}

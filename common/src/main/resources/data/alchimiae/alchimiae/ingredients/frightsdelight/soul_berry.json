@@ -1,0 +1,11 @@
+{
+  "requires": "frightsdelight",
+  "item": "frightsdelight:soul_berry",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:spooky"
+  ],
+  "rarity": 1.9,
+  "duration": 400,
+  "no_effects": false
+}

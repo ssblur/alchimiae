@@ -1,0 +1,11 @@
+{
+  "requires": "shrimpsicle",
+  "item": "shrimpsicle:lush_plant",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plants"
+  ],
+  "rarity": 0.8,
+  "duration": 260,
+  "no_effects": false
+}

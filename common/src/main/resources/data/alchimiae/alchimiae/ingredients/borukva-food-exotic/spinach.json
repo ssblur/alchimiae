@@ -1,0 +1,11 @@
+{
+  "requires": "borukva-food-exotic",
+  "item": "borukva-food-exotic:spinach",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.3,
+  "duration": 260,
+  "no_effects": false
+}

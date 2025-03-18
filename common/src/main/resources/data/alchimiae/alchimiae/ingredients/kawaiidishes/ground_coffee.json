@@ -1,0 +1,14 @@
+{
+  "requires": "kawaiidishes",
+  "item": "kawaiidishes:ground_coffee",
+  "guaranteed_effects": [
+    "alchimiae:speed"
+  ],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:coffee"
+  ],
+  "rarity": 1.1,
+  "duration": 260,
+  "no_effects": false
+}

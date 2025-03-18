@@ -1,0 +1,11 @@
+{
+  "requires": "borukva-food",
+  "item": "borukva-food:salt",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:herbs"
+  ],
+  "rarity": 1.0,
+  "duration": 260,
+  "no_effects": false
+}

@@ -1,0 +1,12 @@
+{
+  "requires": "shrimpsicle",
+  "item": "shrimpsicle:crab",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food",
+    "alchimiae:meat"
+  ],
+  "rarity": 1.9,
+  "duration": 400,
+  "no_effects": false
+}

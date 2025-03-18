@@ -1,0 +1,11 @@
+{
+  "requires": "borukva-food",
+  "item": "borukva-food:cheese",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.4,
+  "duration": 400,
+  "no_effects": false
+}

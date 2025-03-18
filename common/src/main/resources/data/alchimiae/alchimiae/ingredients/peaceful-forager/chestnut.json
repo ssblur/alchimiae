@@ -1,0 +1,11 @@
+{
+  "requires": "peaceful-forager",
+  "item": "peaceful-forager:chestnut",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 0.7,
+  "duration": 260,
+  "no_effects": false
+}

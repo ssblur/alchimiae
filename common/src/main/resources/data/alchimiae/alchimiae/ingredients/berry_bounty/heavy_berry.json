@@ -1,0 +1,11 @@
+{
+  "requires": "berry_bounty",
+  "item": "berry_bounty:heavy_berry",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:berries"
+  ],
+  "rarity": 1.5,
+  "duration": 400,
+  "no_effects": false
+}

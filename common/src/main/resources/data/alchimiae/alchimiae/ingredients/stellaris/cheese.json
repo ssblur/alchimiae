@@ -1,0 +1,11 @@
+{
+  "requires": "stellaris",
+  "item": "stellaris:cheese",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.5,
+  "duration": 400,
+  "no_effects": false
+}

@@ -1,0 +1,11 @@
+{
+  "requires": "borukva-food",
+  "item": "borukva-food:lemon",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 0.9,
+  "duration": 260,
+  "no_effects": false
+}

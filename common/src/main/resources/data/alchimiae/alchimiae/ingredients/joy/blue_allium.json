@@ -1,0 +1,11 @@
+{
+  "requires": "joy",
+  "item": "joy:blue_allium",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower"
+  ],
+  "rarity": 1.1,
+  "duration": 260,
+  "no_effects": false
+}

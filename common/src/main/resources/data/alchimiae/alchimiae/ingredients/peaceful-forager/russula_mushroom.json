@@ -1,0 +1,11 @@
+{
+  "requires": "peaceful-forager",
+  "item": "peaceful-forager:russula_mushroom",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:mushroom"
+  ],
+  "rarity": 0.8,
+  "duration": 260,
+  "no_effects": false
+}

@@ -1,0 +1,12 @@
+{
+  "requires": "ubesdelight",
+  "item": "ubesdelight:ube",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:potato",
+    "alchimiae:food"
+  ],
+  "rarity": 0.9,
+  "duration": 260,
+  "no_effects": false
+}

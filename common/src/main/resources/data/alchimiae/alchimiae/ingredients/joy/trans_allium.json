@@ -1,0 +1,12 @@
+{
+  "requires": "joy",
+  "item": "joy:trans_allium",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower",
+    "alchimiae:flower_2"
+  ],
+  "rarity": 3.1,
+  "duration": 800,
+  "no_effects": false
+}

@@ -1,0 +1,9 @@
+{
+  "requires": "litavis",
+  "item": "litavis:earth_charge",
+  "guaranteed_effects": [],
+  "ingredient_classes": [],
+  "rarity": 2.5,
+  "duration": 800,
+  "no_effects": false
+}

@@ -1,0 +1,13 @@
+{
+  "requires": "ubesdelight",
+  "item": "ubesdelight:poisonous_ube",
+  "guaranteed_effects": [
+    "alchimiae:poison"
+  ],
+  "ingredient_classes": [
+    "alchimiae:potato"
+  ],
+  "rarity": 1.6,
+  "duration": 400,
+  "no_effects": false
+}

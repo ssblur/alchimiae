@@ -1,0 +1,12 @@
+{
+  "requires": "mirthdew_encore",
+  "item": "mirthdew_encore:magenta_foghair",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:plants",
+    "alchimiae:foghair"
+  ],
+  "rarity": 1.0,
+  "duration": 400,
+  "no_effects": false
+}

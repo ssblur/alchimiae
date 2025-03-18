@@ -1,0 +1,12 @@
+{
+  "requires": "missingwilds",
+  "item": "missingwilds:sweetspire",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:flower_2",
+    "alchimiae:flower_3"
+  ],
+  "rarity": 1.3,
+  "duration": 260,
+  "no_effects": false
+}

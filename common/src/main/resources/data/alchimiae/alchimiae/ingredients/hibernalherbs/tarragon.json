@@ -1,0 +1,11 @@
+{
+  "requires": "hibernalherbs",
+  "item": "hibernalherbs:tarragon",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:herbs"
+  ],
+  "rarity": 1.6,
+  "duration": 400,
+  "no_effects": false
+}

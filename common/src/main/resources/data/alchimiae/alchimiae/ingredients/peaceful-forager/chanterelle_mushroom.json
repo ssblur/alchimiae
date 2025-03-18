@@ -1,0 +1,11 @@
+{
+  "requires": "peaceful-forager",
+  "item": "peaceful-forager:chanterelle_mushroom",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:mushroom"
+  ],
+  "rarity": 1.2,
+  "duration": 260,
+  "no_effects": false
+}
