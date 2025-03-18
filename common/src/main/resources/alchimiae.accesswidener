@@ -1,2 +1,2 @@
 accessWidener v2 named
-accessible class net/minecraft/world/inventory/BrewingStandMenu$PotionSlot
+extendable class net/minecraft/world/inventory/BrewingStandMenu$PotionSlot
