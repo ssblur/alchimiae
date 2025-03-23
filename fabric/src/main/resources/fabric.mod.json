@@ -35,6 +35,5 @@
     "unfocused": ">=${unfocused_version}",
     "fabric-api": "*"
   },
-  "suggests": {},
-  "accessWidener": "alchimiae.accesswidener"
+  "suggests": {}
 }
