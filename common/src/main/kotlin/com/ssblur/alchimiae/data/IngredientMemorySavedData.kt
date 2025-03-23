@@ -42,7 +42,7 @@ class IngredientMemorySavedData : SavedData {
 
   fun learnAll(level: ServerLevel) {
     val effects: IngredientEffectsSavedData = IngredientEffectsSavedData.computeIfAbsent(level)
-    for (key in effects.data.keys) data[key] = effects.data[key]?.effectKeys()!!
+    for (key in effects.data.keys) data[key] = effects.data[key]?.effectKeys()?.map { Effects.effects[it]!!.effect }!!
     setDirty()
   }
 
@@ -101,9 +101,7 @@ class IngredientMemorySavedData : SavedData {
     fill(player.serverLevel())
     for ((key, value) in data) {
       if(key == null) continue
-      val items = value.map {
-        Effects.effects[it]?.effect ?: ResourceLocation.parse("alchimiae:null.${it.toLanguageKey()}")
-      }.toMutableList()
+      val items = value.toMutableList()
       val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
       ingredient?.let {
         if(items.size < it.effects.size)
