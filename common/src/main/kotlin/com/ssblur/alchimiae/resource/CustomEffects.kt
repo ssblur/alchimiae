@@ -14,6 +14,7 @@ import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import java.util.*
 
 object CustomEffects {
   data class CustomEffect(
@@ -61,7 +62,7 @@ object CustomEffects {
     }!!).get()
   }
 
-  private val entityCustomEffectData: MutableMap<LivingEntity, MutableMap<CustomEffect, Long>> = mutableMapOf()
+  private val entityCustomEffectData: WeakHashMap<LivingEntity, MutableMap<CustomEffect, Long>> = WeakHashMap()
 
   var LivingEntity.customEffects: MutableMap<CustomEffect, Long>
     get() {
