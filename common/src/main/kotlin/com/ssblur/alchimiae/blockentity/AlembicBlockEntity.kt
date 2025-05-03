@@ -159,15 +159,26 @@ class AlembicBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     litDuration = compoundTag.getInt("litDuration")
   }
 
+  fun getFlamePos(): Vec3 {
+    val xzPair = when (blockState.getValue(AlembicBlock.FACING)){
+      Direction.NORTH -> 7.0 to 8.0
+      Direction.SOUTH -> 9.0 to 8.0
+      Direction.WEST -> 8.0 to 9.0
+      Direction.EAST -> 8.0 to 7.0
+      null -> 0.0 to 0.0
+      else -> error("No Y Axs on Horizontal facing!")
+    }
+    val x = blockPos.x + (xzPair.first / 16.0) + level!!.random.nextDouble() / 10.0
+    val y = blockPos.y + (5.0 / 16.0)
+    val z = blockPos.z + (xzPair.second / 16.0) + level!!.random.nextDouble() / 10.0
+    return Vec3(x,y,z)
+  }
+
   fun tick() {
     if (level == null || level!!.isClientSide) return
     if (litTime > 0) {
-      if (litTime % 3 == 0) {
-        val x = blockPos.x + (10.0 / 16.0) + level!!.random.nextDouble() / 10.0
-        val y = blockPos.y + (5.0 / 16.0)
-        val z = blockPos.z + (5.0 / 16.0) + level!!.random.nextDouble() / 10.0
-        if (level is ServerLevel)
-          AlchimiaeNetworkS2C.flameParticle(Vec3(x, y, z), (level as ServerLevel).players())
+      if (litTime % 3 == 0 && level is ServerLevel) {
+          AlchimiaeNetworkS2C.flameParticle(getFlamePos(), (level as ServerLevel).players())
       }
       litTime--
     }
