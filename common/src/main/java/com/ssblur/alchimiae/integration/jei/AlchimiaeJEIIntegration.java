@@ -1,8 +1,8 @@
 package com.ssblur.alchimiae.integration.jei;
 
 import com.ssblur.alchimiae.AlchimiaeMod;
+import com.ssblur.alchimiae.block.AlchimiaeBlocks;
 import com.ssblur.alchimiae.integration.recipes.RecipeIntegration;
-import com.ssblur.alchimiae.item.AlchimiaeItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -13,11 +13,9 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.*;
 
 import java.util.List;
@@ -42,6 +40,7 @@ public class AlchimiaeJEIIntegration implements IModPlugin {
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
     IModPlugin.super.registerRecipeCatalysts(registration);
+    registration.addRecipeCatalyst(AlchimiaeBlocks.INSTANCE.getALEMBIC().component2().get().getDefaultInstance(), RecipeTypes.BREWING);
   }
 
   @Override
@@ -90,11 +89,6 @@ public class AlchimiaeJEIIntegration implements IModPlugin {
       );
     }));
 
-    var potions = Minecraft.getInstance().level.registryAccess().registry(Registries.POTION).get();
-    potions.entrySet().forEach(entry -> {
-      var key = entry.getKey();
-      var mash = PotionContents.createItemStack(AlchimiaeItems.INSTANCE.getMASH().get(), potions.getHolder(key).get());
-      registration.addRecipes(RecipeTypes.BREWING, List.of(new JeiMashBrewingRecipe(mash, key.location().getPath())));
-    });
+    registration.addRecipes(RecipeTypes.BREWING, List.of(new JeiMashBrewingRecipe(RecipeIntegration.defaultMash())));
   }
 }
