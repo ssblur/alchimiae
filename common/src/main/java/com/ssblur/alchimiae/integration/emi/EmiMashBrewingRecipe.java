@@ -20,7 +20,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
-public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements EmiRecipe {
+public record EmiMashBrewingRecipe(ItemStack mash) implements EmiRecipe {
   static ResourceLocation BACKGROUND = ResourceLocation.withDefaultNamespace("textures/gui/container/brewing_stand.png");
   static EmiStack BLAZE_POWDER = EmiStack.of(Items.BLAZE_POWDER);
 
@@ -50,7 +50,7 @@ public record EmiMashBrewingRecipe(ItemStack mash, String potionPath) implements
 
   @Override
   public ResourceLocation getId() {
-    return itemId().withSuffix("_brewing_").withSuffix(potionPath);
+    return itemId().withSuffix("_brewing").withPrefix("/");
   }
 
   @Override

@@ -48,6 +48,7 @@ dependencies {
 
   // JEI
   runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${rootProject.jei_version}"
+//  runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
