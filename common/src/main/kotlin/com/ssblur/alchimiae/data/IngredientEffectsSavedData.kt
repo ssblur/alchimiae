@@ -54,7 +54,7 @@ class IngredientEffectsSavedData : SavedData {
     }
 
     val rarity = Ingredients.ingredients.mapKeys { it.value.item }.mapValues { it.value.rarity }
-    Ingredients.ingredients.forEach{ (key, value) ->
+    Ingredients.ingredients.forEach{ (_, value) ->
       if(!ingredients.containsKey(value.item)) {
         if(value.guaranteedEffects.isNotEmpty())
           ingredients[value.item] = AlchemyIngredient(
@@ -65,8 +65,6 @@ class IngredientEffectsSavedData : SavedData {
           ingredients[value.item] = AlchemyIngredient(value.duration, listOf())
       }
     }
-    println(ingredients)
-    println(groups)
 
     var looping = true
     while(looping) {
