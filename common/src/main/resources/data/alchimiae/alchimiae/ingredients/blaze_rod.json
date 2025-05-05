@@ -1,7 +1,7 @@
 {
   "item": "minecraft:blaze_rod",
   "guaranteed_effects": [
-    "minecraft:strength"
+    "alchimiae:strength"
   ],
   "ingredient_classes": [],
   "rarity": 6.0,

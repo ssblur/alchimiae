@@ -1,7 +1,7 @@
 {
   "item": "minecraft:magma_cream",
   "guaranteed_effects": [
-    "minecraft:fire_resistance"
+    "alchimiae:fire_resistance"
   ],
   "ingredient_classes": [],
   "rarity": 2.0,

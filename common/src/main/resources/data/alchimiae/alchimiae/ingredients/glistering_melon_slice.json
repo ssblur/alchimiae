@@ -1,7 +1,7 @@
 {
   "item": "minecraft:glistering_melon_slice",
   "guaranteed_effects": [
-    "minecraft:instant_health"
+    "alchimiae:instant_health"
   ],
   "ingredient_classes": [
     "alchimiae:food"

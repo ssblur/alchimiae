@@ -1,6 +1,8 @@
 {
   "item": "minecraft:torchflower_seeds",
-  "guaranteed_effects": [],
+  "guaranteed_effects": [
+    "alchimiae:glowing"
+  ],
   "ingredient_classes": [
     "alchimiae:seeds"
   ],

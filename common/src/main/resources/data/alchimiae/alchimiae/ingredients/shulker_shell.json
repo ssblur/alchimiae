@@ -1,7 +1,7 @@
 {
   "item": "minecraft:shulker_shell",
   "guaranteed_effects": [
-    "minecraft:levitation"
+    "alchimiae:levitation"
   ],
   "ingredient_classes": [],
   "rarity": 6.0,

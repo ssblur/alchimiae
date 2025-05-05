@@ -1,7 +1,7 @@
 {
   "item": "minecraft:poisonous_potato",
   "guaranteed_effects": [
-    "minecraft:poison"
+    "alchimiae:poison"
   ],
   "ingredient_classes": [
     "alchimiae:food"

@@ -1,7 +1,7 @@
 {
   "item": "minecraft:ghast_tear",
   "guaranteed_effects": [
-    "minecraft:regeneration"
+    "alchimiae:regeneration"
   ],
   "ingredient_classes": [],
   "rarity": 5.0,

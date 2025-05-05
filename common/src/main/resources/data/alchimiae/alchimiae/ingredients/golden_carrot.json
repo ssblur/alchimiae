@@ -1,7 +1,7 @@
 {
   "item": "minecraft:golden_carrot",
   "guaranteed_effects": [
-    "minecraft:night_vision"
+    "alchimiae:night_vision"
   ],
   "ingredient_classes": [
     "alchimiae:food"

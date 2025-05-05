@@ -1,7 +1,7 @@
 {
   "item": "minecraft:cobweb",
   "guaranteed_effects": [
-    "minecraft:weaving"
+    "alchimiae:weaving"
   ],
   "ingredient_classes": [],
   "rarity": 3.0,

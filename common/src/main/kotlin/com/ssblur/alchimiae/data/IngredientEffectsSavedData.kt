@@ -61,9 +61,12 @@ class IngredientEffectsSavedData : SavedData {
             value.duration,
             value.guaranteedEffects.map{ IngredientEffect(it, Random.nextFloat() + 1f) }
           )
-        ingredients[value.item] = AlchemyIngredient(value.duration, listOf())
+        else
+          ingredients[value.item] = AlchemyIngredient(value.duration, listOf())
       }
     }
+    println(ingredients)
+    println(groups)
 
     var looping = true
     while(looping) {

@@ -1,7 +1,7 @@
 {
   "item": "minecraft:sugar",
   "guaranteed_effects": [
-    "minecraft:speed"
+    "alchimiae:speed"
   ],
   "ingredient_classes": [
     "alchimiae:food"

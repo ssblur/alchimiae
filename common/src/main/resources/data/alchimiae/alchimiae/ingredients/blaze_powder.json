@@ -1,7 +1,7 @@
 {
   "item": "minecraft:blaze_powder",
   "guaranteed_effects": [
-    "minecraft:strength"
+    "alchimiae:strength"
   ],
   "ingredient_classes": [],
   "rarity": 4.0,

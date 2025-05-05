@@ -1,7 +1,7 @@
 {
   "item": "minecraft:rabbit_foot",
   "guaranteed_effects": [
-    "minecraft:luck"
+    "alchimiae:luck"
   ],
   "ingredient_classes": [],
   "rarity": 7.0,

@@ -1,7 +1,7 @@
 {
   "item": "minecraft:wither_rose",
   "guaranteed_effects": [
-    "minecraft:wither"
+    "alchimiae:wither"
   ],
   "ingredient_classes": [
     "alchimiae:flower",

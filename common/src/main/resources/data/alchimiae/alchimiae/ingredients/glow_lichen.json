@@ -1,7 +1,7 @@
 {
   "item": "minecraft:glow_lichen",
   "guaranteed_effects": [
-    "minecraft:glowing"
+    "alchimiae:glowing"
   ],
   "ingredient_classes": [],
   "rarity": 3.0,
