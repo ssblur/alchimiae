@@ -63,6 +63,10 @@ class IngredientEffectsSavedData : SavedData {
           )
         else
           ingredients[value.item] = AlchemyIngredient(value.duration, listOf())
+
+        ingredients[value.item] = AlchemyIngredient(value.duration, ingredients[value.item]!!.effects + value.ingredientClasses.map{ group ->
+          groups[group]!!.map{ IngredientEffect(it, Random.nextFloat() + 1f) }
+        }.flatten())
       }
     }
 
