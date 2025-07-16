@@ -86,7 +86,7 @@ class IngredientMemorySavedData : SavedData {
       val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
       ingredient?.let {
         if(syncData.size < it.effects.size)
-          for(i in 0..<(it.effects.size-updatedData.size)) {
+          (0..<(it.effects.size-updatedData.size)).forEach {
             syncData.add(ResourceLocation.parse("alchimiae:unknown"))
           }
       }
@@ -105,7 +105,7 @@ class IngredientMemorySavedData : SavedData {
       val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
       ingredient?.let {
         if(items.size < it.effects.size)
-          for(i in 0..<(it.effects.size-items.size)) {
+          (0..<(it.effects.size-items.size)).forEach { ignored ->
             items.add(ResourceLocation.parse("alchimiae:unknown"))
           }
       }
@@ -162,7 +162,6 @@ class IngredientMemorySavedData : SavedData {
         ),
         "alchimiae_players/memory_$uuid"
       )
-      @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
       data!!.fill(level)
       return data
     }

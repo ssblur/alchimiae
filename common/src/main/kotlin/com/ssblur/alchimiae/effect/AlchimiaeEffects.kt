@@ -26,6 +26,12 @@ object AlchimiaeEffects {
   val MUCK = AlchimiaeMod.registerEffect("muck") {
     CleanseMobEffect(MobEffectCategory.HARMFUL, MobEffectCategory.NEUTRAL)
   }
+  val EXTEND = AlchimiaeMod.registerEffect("extend") {
+    ExtendMobEffect(1.3333)
+  }
+  val DIMINISH = AlchimiaeMod.registerEffect("diminish") {
+    ExtendMobEffect(0.6666)
+  }
 
   val CUSTOM_EFFECT_BENEFICIAL = AlchimiaeMod.registerEffect("custom_effect_beneficial") {
     CustomMobEffect(MobEffectCategory.BENEFICIAL, 0x00ff00)
