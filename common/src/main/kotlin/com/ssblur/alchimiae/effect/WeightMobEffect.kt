@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.phys.Vec3
 
 class WeightMobEffect(val modifier: Double, val location: ResourceLocation) :
-  MobEffect(if(modifier > 0) MobEffectCategory.HARMFUL else MobEffectCategory.BENEFICIAL, -0xaf78bd) {
+  MobEffect(if(modifier > 0) MobEffectCategory.HARMFUL else MobEffectCategory.BENEFICIAL, 0xff555555u.toInt()) {
   init {
     this.addAttributeModifier(
       Attributes.GRAVITY, location.withSuffix("_att_gravity"),

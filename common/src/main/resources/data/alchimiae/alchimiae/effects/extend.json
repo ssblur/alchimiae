@@ -1,4 +1,5 @@
 {
   "effect": "alchimiae:extend",
-  "rarity": 2
+  "rarity": 2,
+  "instant": true
 }

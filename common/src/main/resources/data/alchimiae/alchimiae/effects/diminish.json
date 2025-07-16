@@ -1,4 +1,5 @@
 {
   "effect": "alchimiae:diminish",
-  "rarity": 2
+  "rarity": 2,
+  "instant": true
 }
