@@ -15,13 +15,18 @@ class WeightMobEffect(val modifier: Double, val location: ResourceLocation) :
       Attributes.GRAVITY, location.withSuffix("_att_gravity"),
       modifier, AttributeModifier.Operation.ADD_MULTIPLIED_BASE
     )
+    this.addAttributeModifier(
+      Attributes.SAFE_FALL_DISTANCE, location.withSuffix("_att_fall_distance"),
+      -2*modifier, AttributeModifier.Operation.ADD_VALUE
+    )
   }
 
   override fun shouldApplyEffectTickThisTick(i: Int, j: Int) = true
 
   override fun applyEffectTick(livingEntity: LivingEntity, i: Int): Boolean {
     if(livingEntity.isInWater) {
-      livingEntity.addDeltaMovement(Vec3(0.0, modifier / -5, 0.0))
+      livingEntity.isSwimming = false
+      livingEntity.addDeltaMovement(Vec3(0.0, modifier / -10, 0.0))
     }
     return super.applyEffectTick(livingEntity, i)
   }
