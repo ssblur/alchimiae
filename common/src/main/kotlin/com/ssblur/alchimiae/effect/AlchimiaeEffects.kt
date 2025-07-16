@@ -32,6 +32,9 @@ object AlchimiaeEffects {
   val DIMINISH = AlchimiaeMod.registerEffect("diminish") {
     ExtendMobEffect(0.6666)
   }
+  val LEYDEN = AlchimiaeMod.registerEffect("leyden") {
+    WeightMobEffect(0.5, AlchimiaeMod.location("leyden"))
+  }
 
   val CUSTOM_EFFECT_BENEFICIAL = AlchimiaeMod.registerEffect("custom_effect_beneficial") {
     CustomMobEffect(MobEffectCategory.BENEFICIAL, 0x00ff00)
