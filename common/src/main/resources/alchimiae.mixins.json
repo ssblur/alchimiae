@@ -12,6 +12,7 @@
   "mixins": [
     "DimensionDataStorageAccessor",
     "LivingEntityMixin",
+    "PlayerMixin",
     "PotionBrewingMixin",
     "PotionSlotMixin",
     "ThrownPotionMixin"

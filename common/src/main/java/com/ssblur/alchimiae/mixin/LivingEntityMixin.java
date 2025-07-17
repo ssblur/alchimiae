@@ -1,10 +1,14 @@
 package com.ssblur.alchimiae.mixin;
 
 import com.ssblur.alchimiae.effect.ArachnidMobEffect;
+import com.ssblur.alchimiae.effect.ChrysopicMobEffect;
 import com.ssblur.alchimiae.resource.CustomEffects;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,5 +38,15 @@ public class LivingEntityMixin {
         if(cir.getReturnValue() == false && ArachnidMobEffect.Companion.isAffected(self)) {
             cir.setReturnValue(true);
         }
+    }
+
+    @Inject(method = "updateFallFlying", at = @At("HEAD"), cancellable = true)
+    private void alchimiae$updateFallFlying(CallbackInfo ci) {
+        var self = (LivingEntity) (Object) this;
+        if(self instanceof Player player)
+            if (!self.onGround() && !self.isInWater() && !self.hasEffect(MobEffects.LEVITATION)) {
+                if(ChrysopicMobEffect.Companion.isAffected(player)) ci.cancel();
+                self.gameEvent(GameEvent.ELYTRA_GLIDE);
+            }
     }
 }
