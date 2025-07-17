@@ -10,14 +10,16 @@ class ExtendMobEffect(val modifier: Double) :
   InstantenousMobEffect(if(modifier < 1) MobEffectCategory.HARMFUL else MobEffectCategory.BENEFICIAL, -0x10000) {
   override fun applyEffectTick(livingEntity: LivingEntity, i: Int): Boolean {
     livingEntity.activeEffects.map { effect ->
-      if(effect.effect.value() !is ExtendMobEffect)
+      if(effect.effect.value() !is ExtendMobEffect) {
+        livingEntity.removeEffect(effect.effect)
         livingEntity.addEffect(
           MobEffectInstance(
             effect.effect,
             (effect.duration * modifier.pow(i)).toInt(),
-          effect.amplifier
+            effect.amplifier
           )
         )
+      }
     }
     return true
   }
