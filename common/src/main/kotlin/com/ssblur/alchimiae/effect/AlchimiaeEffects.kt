@@ -38,6 +38,9 @@ object AlchimiaeEffects {
   val FICKLE = AlchimiaeMod.registerEffect("fickle") { FickleMobEffect() }
   val ARACHNID = AlchimiaeMod.registerEffect("arachnid") { ArachnidMobEffect() }
   val CHRYSOPIC = AlchimiaeMod.registerEffect("chrysopic") { ChrysopicMobEffect() }
+  val DIRE_FALL = AlchimiaeMod.registerEffect("dire_fall") {
+    DireFallMobEffect(AlchimiaeMod.location("dire_fall"))
+  }
 
   val CUSTOM_EFFECT_BENEFICIAL = AlchimiaeMod.registerEffect("custom_effect_beneficial") {
     CustomMobEffect(MobEffectCategory.BENEFICIAL, 0x00ff00)
