@@ -10,9 +10,7 @@ import net.minecraft.world.phys.Vec3
 
 class ChrysopicMobEffect() :
   MobEffect(MobEffectCategory.BENEFICIAL, 0xff5533aau.toInt()) {
-  override fun shouldApplyEffectTickThisTick(i: Int, j: Int): Boolean {
-    return true
-  }
+  override fun shouldApplyEffectTickThisTick(i: Int, j: Int) = true
 
   override fun applyEffectTick(livingEntity: LivingEntity, i: Int): Boolean {
     val modifier = i + if(livingEntity.getItemBySlot(EquipmentSlot.CHEST).`is`(Items.ELYTRA)) 3 else 0
@@ -22,10 +20,8 @@ class ChrysopicMobEffect() :
   }
 
   companion object {
-    fun isAffected(entity: Player): Boolean {
-      return entity.activeEffects.any {
-        it.effect.value() is ChrysopicMobEffect
-      }
+    fun isAffected(entity: Player) = entity.activeEffects.any {
+      it.effect.value() is ChrysopicMobEffect
     }
   }
 }
