@@ -24,7 +24,7 @@ object AlchimiaeEffects {
   }
   val CLEANSE = AlchimiaeMod.registerEffect("cleanse") { CleanseMobEffect(MobEffectCategory.HARMFUL) }
   val MUCK = AlchimiaeMod.registerEffect("muck") {
-    CleanseMobEffect(MobEffectCategory.HARMFUL, MobEffectCategory.NEUTRAL)
+    CleanseMobEffect(MobEffectCategory.BENEFICIAL, MobEffectCategory.NEUTRAL)
   }
   val EXTEND = AlchimiaeMod.registerEffect("extend") {
     ExtendMobEffect(1.3333)
