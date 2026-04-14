@@ -24,7 +24,7 @@ architectury {
 allprojects {
   group = rootProject.maven_group
   try {
-    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+(-\d+\.\d+\.\d+)?-?)?.*/
+    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+(-\d+\.\d+\.?\d*)?-?)?.*/
     matcher.find()
     version = matcher.group(1)
     if (version.endsWith("-")) {
