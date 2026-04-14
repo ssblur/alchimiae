@@ -1,7 +1,5 @@
-plugins {
-  id 'com.github.johnrengelman.shadow'
-  id 'org.jetbrains.kotlin.jvm'
-}
+plugins {}
+
 
 architectury {
     platformSetupLoomIde()
@@ -26,7 +24,7 @@ configurations {
 }
 
 dependencies {
-  modImplementation "net.fabricmc:fabric-language-kotlin:1.10.8+kotlin.1.9.0"
+  modImplementation "net.fabricmc:fabric-language-kotlin:$rootProject.flk_version"
   modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
   modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
@@ -61,6 +59,7 @@ shadowJar {
 remapJar {
   injectAccessWidener = true
   input.set shadowJar.archiveFile
+  dependsOn shadowJar
 }
 
 repositories {

@@ -1,7 +1,5 @@
-plugins {
-  id 'com.github.johnrengelman.shadow'
-  id 'org.jetbrains.kotlin.jvm'
-}
+plugins {}
+
 
 architectury {
   platformSetupLoomIde()

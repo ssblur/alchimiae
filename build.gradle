@@ -1,5 +1,7 @@
+import java.time.Instant
+
 buildscript {
-  ext.kotlin_version = '2.0.0'
+  ext.kotlin_version = rootProject.kotlin_version
   repositories {
     mavenCentral()
   }
@@ -8,9 +10,9 @@ buildscript {
   }
 }
 plugins {
-  id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
+  id 'dev.architectury.loom' version '1.13-SNAPSHOT' apply false
   id 'architectury-plugin' version '3.4-SNAPSHOT'
-  id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+  id 'com.gradleup.shadow' version '8.3.6' apply false
   id "com.palantir.git-version" version "0.15.0"
 }
 apply plugin: 'kotlin'
@@ -22,10 +24,15 @@ architectury {
 allprojects {
   group = rootProject.maven_group
   try {
-    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+.*)/
+    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+(-\d+\.\d+\.\d+)?-?)?.*/
     matcher.find()
     version = matcher.group(1)
-  } catch(Exception ignored) {
+    if (version.endsWith("-")) {
+      def instant = String.valueOf(System.getenv("VERSION_TIMESTAMP") ?: Instant.now().toEpochMilli())
+      version += "SNAPSHOT-" + instant
+    }
+  } catch(Exception e) {
+    e.printStackTrace()
     version = "1"
   }
 }
@@ -34,6 +41,8 @@ subprojects {
   apply plugin: 'dev.architectury.loom'
   apply plugin: 'architectury-plugin'
   apply plugin: 'maven-publish'
+  apply plugin: 'org.jetbrains.kotlin.jvm'
+  apply plugin: 'com.gradleup.shadow'
 
   base {
       // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
@@ -70,7 +79,6 @@ subprojects {
     // if it is present.
     // If you remove this line, sources will not be generated.
     withSourcesJar()
-
   }
 
   tasks.withType(JavaCompile).configureEach {
@@ -102,5 +110,5 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 kotlin {
-  jvmToolchain(8)
+  jvmToolchain(21)
 }

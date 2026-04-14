@@ -86,7 +86,7 @@ class IngredientMemorySavedData : SavedData {
       val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
       ingredient?.let {
         if(syncData.size < it.effects.size)
-          (0..<(it.effects.size-updatedData.size)).forEach {
+          (0..<(it.effects.size-updatedData.size)).forEach { _ ->
             syncData.add(ResourceLocation.parse("alchimiae:unknown"))
           }
       }

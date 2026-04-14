@@ -1,6 +1,4 @@
-plugins {
-  id 'org.jetbrains.kotlin.jvm'
-}
+plugins {}
 architectury {
     common rootProject.enabled_platforms.split(',')
 }

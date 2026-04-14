@@ -1,12 +1,14 @@
 pluginManagement {
     repositories {
-        maven { url "https://maven.fabricmc.net/" }
-        maven { url "https://maven.architectury.dev/" }
-        maven { url "https://files.minecraftforge.net/maven/" }
-        gradlePluginPortal()
+      maven { url "https://maven.fabricmc.net/" }
+      maven { url "https://maven.architectury.dev/" }
+      maven { url "https://files.minecraftforge.net/maven/" }
+      gradlePluginPortal()
+      maven { url "https://mvn.blur.lol/releases" }
+      mavenLocal()
     }
   plugins {
-    id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+    id 'org.jetbrains.kotlin.jvm' version kotlin_version
     id 'kotlinx-serialization-compiler-plugin'
   }
 }
