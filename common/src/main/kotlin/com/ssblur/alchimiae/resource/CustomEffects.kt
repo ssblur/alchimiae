@@ -32,7 +32,8 @@ object CustomEffects {
   init {
     AlchimiaeMod.registerDataLoader(
       "alchimiae/custom_effects",
-      CustomEffect::class
+      CustomEffect::class,
+      failEasy = true
     ) { effect, location ->
       effect.location = location
       customEffects[location] = effect

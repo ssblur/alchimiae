@@ -26,7 +26,7 @@ object Ingredients {
     AlchimiaeMod.registerDataLoader(
       "alchimiae/ingredients",
       IngredientResource::class,
-      false
+      failEasy = true
     ) { ingredient, location ->
       ingredients[location] = ingredient
       val option = BuiltInRegistries.ITEM.getHolder(ingredient.item)
