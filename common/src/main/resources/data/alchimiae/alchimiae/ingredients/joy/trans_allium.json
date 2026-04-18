@@ -1,5 +1,5 @@
 {
-  "requires": "joy",
+  "required": "joy",
   "item": "joy:trans_allium",
   "guaranteed_effects": [],
   "ingredient_classes": [

@@ -1,5 +1,5 @@
 {
-  "requires": "cerulean",
+  "required": "cerulean",
   "item": "cerulean:candy_apple",
   "guaranteed_effects": [],
   "ingredient_classes": [

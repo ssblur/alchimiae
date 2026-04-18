@@ -1,5 +1,5 @@
 {
-  "requires": "missingwilds",
+  "required": "missingwilds",
   "item": "missingwilds:pink_forget_me_not",
   "guaranteed_effects": [],
   "ingredient_classes": [

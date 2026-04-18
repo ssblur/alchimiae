@@ -1,5 +1,5 @@
 {
-  "requires": "ubesdelight",
+  "required": "ubesdelight",
   "item": "ubesdelight:lemongrass",
   "guaranteed_effects": [],
   "ingredient_classes": [

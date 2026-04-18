@@ -1,5 +1,5 @@
 {
-  "requires": "wwizardry",
+  "required": "wwizardry",
   "item": "wwizardry:indigo_caeruleum",
   "guaranteed_effects": [],
   "ingredient_classes": [

@@ -1,5 +1,5 @@
 {
-  "requires": "lilium",
+  "required": "lilium",
   "item": "lilium:paeonia",
   "guaranteed_effects": [],
   "ingredient_classes": [

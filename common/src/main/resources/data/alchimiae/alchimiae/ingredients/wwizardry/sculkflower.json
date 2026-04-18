@@ -1,5 +1,5 @@
 {
-  "requires": "wwizardry",
+  "required": "wwizardry",
   "item": "wwizardry:sculkflower",
   "guaranteed_effects": [],
   "ingredient_classes": [

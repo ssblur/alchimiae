@@ -1,5 +1,5 @@
 {
-  "requires": "stellaris",
+  "required": "stellaris",
   "item": "stellaris:cheese",
   "guaranteed_effects": [],
   "ingredient_classes": [

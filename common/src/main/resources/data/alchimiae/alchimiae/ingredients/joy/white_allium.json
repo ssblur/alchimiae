@@ -1,5 +1,5 @@
 {
-  "requires": "joy",
+  "required": "joy",
   "item": "joy:white_allium",
   "guaranteed_effects": [],
   "ingredient_classes": [

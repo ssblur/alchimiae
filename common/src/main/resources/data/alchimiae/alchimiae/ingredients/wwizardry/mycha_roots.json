@@ -1,5 +1,5 @@
 {
-  "requires": "wwizardry",
+  "required": "wwizardry",
   "item": "wwizardry:mycha_roots",
   "guaranteed_effects": [],
   "ingredient_classes": [

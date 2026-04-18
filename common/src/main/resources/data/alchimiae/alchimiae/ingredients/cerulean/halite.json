@@ -1,5 +1,5 @@
 {
-  "requires": "cerulean",
+  "required": "cerulean",
   "item": "cerulean:halite",
   "guaranteed_effects": [],
   "ingredient_classes": [

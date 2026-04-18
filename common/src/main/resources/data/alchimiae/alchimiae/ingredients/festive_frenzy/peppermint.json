@@ -1,5 +1,5 @@
 {
-  "requires": "festive_frenzy",
+  "required": "festive_frenzy",
   "item": "festive_frenzy:peppermint",
   "guaranteed_effects": [],
   "ingredient_classes": [

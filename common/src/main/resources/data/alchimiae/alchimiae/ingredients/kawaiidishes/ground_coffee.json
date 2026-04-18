@@ -1,5 +1,5 @@
 {
-  "requires": "kawaiidishes",
+  "required": "kawaiidishes",
   "item": "kawaiidishes:ground_coffee",
   "guaranteed_effects": [
     "alchimiae:speed"

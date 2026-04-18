@@ -1,5 +1,5 @@
 {
-  "requires": "missingwilds",
+  "required": "missingwilds",
   "item": "missingwilds:brown_polypore_mushroom",
   "guaranteed_effects": [],
   "ingredient_classes": [

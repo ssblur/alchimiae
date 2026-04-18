@@ -1,5 +1,5 @@
 {
-  "requires": "hibernalherbs",
+  "required": "hibernalherbs",
   "item": "hibernalherbs:sage",
   "guaranteed_effects": [],
   "ingredient_classes": [

@@ -1,5 +1,5 @@
 {
-  "requires": "berry_bounty",
+  "required": "berry_bounty",
   "item": "berry_bounty:red_berry",
   "guaranteed_effects": [],
   "ingredient_classes": [

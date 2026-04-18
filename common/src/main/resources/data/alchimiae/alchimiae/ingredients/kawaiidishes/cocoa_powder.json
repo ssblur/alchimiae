@@ -1,5 +1,5 @@
 {
-  "requires": "kawaiidishes",
+  "required": "kawaiidishes",
   "item": "kawaiidishes:cocoa_powder",
   "guaranteed_effects": [],
   "ingredient_classes": [

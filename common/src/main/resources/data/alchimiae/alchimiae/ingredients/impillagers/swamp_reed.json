@@ -1,5 +1,5 @@
 {
-  "requires": "impillagers",
+  "required": "impillagers",
   "item": "impillagers:swamp_reed",
   "guaranteed_effects": [],
   "ingredient_classes": [

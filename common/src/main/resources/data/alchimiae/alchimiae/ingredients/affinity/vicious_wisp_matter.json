@@ -1,5 +1,5 @@
 {
-  "requires": "affinity",
+  "required": "affinity",
   "item": "affinity:vicious_wisp_matter",
   "guaranteed_effects": [],
   "ingredient_classes": [],

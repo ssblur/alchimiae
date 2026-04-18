@@ -1,5 +1,5 @@
 {
-  "requires": "worldinajar",
+  "required": "worldinajar",
   "item": "worldinajar:bark/minecraft/jungle",
   "guaranteed_effects": [],
   "ingredient_classes": [

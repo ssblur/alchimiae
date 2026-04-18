@@ -1,5 +1,5 @@
 {
-  "requires": "borukva-food",
+  "required": "borukva-food",
   "item": "borukva-food:rice",
   "guaranteed_effects": [],
   "ingredient_classes": [

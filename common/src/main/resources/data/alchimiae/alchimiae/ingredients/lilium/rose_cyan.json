@@ -1,5 +1,5 @@
 {
-  "requires": "lilium",
+  "required": "lilium",
   "item": "lilium:rose_cyan",
   "guaranteed_effects": [],
   "ingredient_classes": [

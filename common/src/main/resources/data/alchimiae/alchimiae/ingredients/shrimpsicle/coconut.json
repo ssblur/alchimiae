@@ -1,5 +1,5 @@
 {
-  "requires": "shrimpsicle",
+  "required": "shrimpsicle",
   "item": "shrimpsicle:coconut",
   "guaranteed_effects": [],
   "ingredient_classes": [

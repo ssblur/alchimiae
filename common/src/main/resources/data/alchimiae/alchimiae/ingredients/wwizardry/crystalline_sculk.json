@@ -1,5 +1,5 @@
 {
-  "requires": "wwizardry",
+  "required": "wwizardry",
   "item": "wwizardry:crystalline_sculk",
   "guaranteed_effects": [],
   "ingredient_classes": [

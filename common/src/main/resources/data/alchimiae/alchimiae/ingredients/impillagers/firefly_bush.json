@@ -1,5 +1,5 @@
 {
-  "requires": "impillagers",
+  "required": "impillagers",
   "item": "impillagers:firefly_bush",
   "guaranteed_effects": [],
   "ingredient_classes": [

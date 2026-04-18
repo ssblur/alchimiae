@@ -1,5 +1,5 @@
 {
-  "requires": "shrimpsicle",
+  "required": "shrimpsicle",
   "item": "shrimpsicle:shrub",
   "guaranteed_effects": [],
   "ingredient_classes": [

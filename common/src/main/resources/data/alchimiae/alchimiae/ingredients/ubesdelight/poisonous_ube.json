@@ -1,5 +1,5 @@
 {
-  "requires": "ubesdelight",
+  "required": "ubesdelight",
   "item": "ubesdelight:poisonous_ube",
   "guaranteed_effects": [
     "alchimiae:poison"

@@ -1,5 +1,5 @@
 {
-  "requires": "chickensaurs",
+  "required": "chickensaurs",
   "item": "chickensaurs:chickensaur",
   "guaranteed_effects": [],
   "ingredient_classes": [

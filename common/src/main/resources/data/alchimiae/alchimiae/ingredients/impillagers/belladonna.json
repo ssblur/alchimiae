@@ -1,5 +1,5 @@
 {
-  "requires": "impillagers",
+  "required": "impillagers",
   "item": "impillagers:belladonna",
   "guaranteed_effects": [],
   "ingredient_classes": [

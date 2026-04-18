@@ -1,5 +1,5 @@
 {
-  "requires": "hibernalherbs",
+  "required": "hibernalherbs",
   "item": "hibernalherbs:tarragon",
   "guaranteed_effects": [],
   "ingredient_classes": [

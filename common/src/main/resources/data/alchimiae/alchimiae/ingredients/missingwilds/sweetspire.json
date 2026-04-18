@@ -1,5 +1,5 @@
 {
-  "requires": "missingwilds",
+  "required": "missingwilds",
   "item": "missingwilds:sweetspire",
   "guaranteed_effects": [],
   "ingredient_classes": [

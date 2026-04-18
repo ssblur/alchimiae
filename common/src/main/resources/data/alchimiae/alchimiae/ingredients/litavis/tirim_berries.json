@@ -1,5 +1,5 @@
 {
-  "requires": "litavis",
+  "required": "litavis",
   "item": "litavis:tirim_berries",
   "guaranteed_effects": [],
   "ingredient_classes": [
