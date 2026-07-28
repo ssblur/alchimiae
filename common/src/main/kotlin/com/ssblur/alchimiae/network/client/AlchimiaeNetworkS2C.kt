@@ -12,12 +12,12 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 
 object AlchimiaeNetworkS2C {
-  data class SendIngredients(val key: ResourceLocation, val effects: List<ResourceLocation>)
+  data class SendIngredients(val key: ResourceLocation, val effects: List<ResourceLocation>, val total: Int)
   val sendIngredients = NetworkManager.registerS2C(
     location("client_ingredients"),
     SendIngredients::class
-  ) { (key, effects) ->
-    ClientAlchemyHelper.update(key, effects)
+  ) { (key, effects, total) ->
+    ClientAlchemyHelper.update(key, effects, total)
   }
 
   data class SyncCustomEffects(val effects: Map<ResourceLocation, CustomEffects.CustomEffect>)
@@ -61,6 +61,7 @@ object AlchimiaeNetworkS2C {
     particle(SendParticle(pos, ParticleType.FLAME), players)
   }
 
+  @Suppress("unused")
   fun smokeParticle(pos: Vec3, players: List<Player>) {
     particle(SendParticle(pos, ParticleType.SMOKE), players)
   }

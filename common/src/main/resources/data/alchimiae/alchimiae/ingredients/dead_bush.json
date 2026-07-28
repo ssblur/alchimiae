@@ -4,5 +4,5 @@
   "ingredient_classes": [],
   "rarity": 0.0,
   "duration": 100,
-  "no_effects": false
+  "number_of_effects": 1
 }

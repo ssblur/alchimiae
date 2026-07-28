@@ -75,7 +75,9 @@ class IngredientEffectsSavedData : SavedData {
       looping = false
       effects.forEach{ (effectKey, effectValue) ->
         val validIngredients = ingredients.filter{ (key, value) ->
-          value.effects.size < 4
+          println(key)
+          println((Ingredients.byItemKey(key)?.numberOfEffects ?: 4))
+          value.effects.size < (Ingredients.byItemKey(key)?.numberOfEffects ?: 4)
               && (rarity[key] ?: 0f) >= effectValue.rarity!!
               && value.effects.none { it.effect == effectKey }
         }

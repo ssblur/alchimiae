@@ -15,12 +15,17 @@ object ClientAlchemyHelper {
     EFFECTS = HashMap()
   }
 
-  fun update(item: Item?, effects: List<ResourceLocation>?) {
-    EFFECTS[item] = effects
+  fun update(item: Item?, effects: List<ResourceLocation>?, total: Int) {
+    val paddedEffects = (effects ?: listOf()).toMutableList()
+    if((effects?.size ?: 0) <= total)
+      (0..((total - 1) - (effects?.size ?: 0))).forEach { _ ->
+        paddedEffects.addLast(UNKNOWN)
+      }
+    EFFECTS[item] = paddedEffects
   }
 
-  fun update(id: ResourceLocation, effects: List<ResourceLocation>) {
-    update(BuiltInRegistries.ITEM.get(id), effects)
+  fun update(id: ResourceLocation, effects: List<ResourceLocation>, total: Int) {
+    update(BuiltInRegistries.ITEM.get(id), effects, total)
   }
 
   fun get(item: Item?): List<ResourceLocation>? {

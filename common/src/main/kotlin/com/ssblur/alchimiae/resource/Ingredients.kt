@@ -16,7 +16,7 @@ object Ingredients {
     val ingredientClasses: List<ResourceLocation>,
     val rarity: Float,
     val duration: Int,
-    val noEffects: Boolean
+    val numberOfEffects: Int? = 4
   )
 
   val INGREDIENTS: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("ingredients"))
@@ -36,5 +36,9 @@ object Ingredients {
       } else if(option.isEmpty)
         AlchimiaeMod.LOGGER.warn("Could not bind item ${ingredient.item} to an ingredient!")
     }
+  }
+
+  fun byItemKey(key: ResourceLocation?) = ingredients.values.firstOrNull { v ->
+    v.item == key
   }
 }

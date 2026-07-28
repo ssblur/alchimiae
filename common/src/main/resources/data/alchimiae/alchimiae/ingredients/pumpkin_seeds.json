@@ -5,6 +5,5 @@
     "alchimiae:seeds"
   ],
   "rarity": 1.0,
-  "duration": 200,
-  "no_effects": false
+  "duration": 200
 }

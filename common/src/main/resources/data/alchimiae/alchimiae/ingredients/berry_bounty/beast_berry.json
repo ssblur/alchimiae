@@ -6,6 +6,5 @@
     "alchimiae:berries"
   ],
   "rarity": 1.0,
-  "duration": 400,
-  "no_effects": false
+  "duration": 400
 }

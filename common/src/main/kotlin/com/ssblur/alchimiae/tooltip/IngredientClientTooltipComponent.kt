@@ -12,17 +12,18 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import kotlin.math.max
 
 @Environment(EnvType.CLIENT)
 data class IngredientClientTooltipComponent(val tooltip: IngredientTooltipComponent): ClientTooltipComponent {
   override fun getHeight(): Int {
-    return if(tooltip.shift) 66 else 14
+    return if(tooltip.shift) 14 * (1 + tooltip.effects.size) else 28
   }
 
   override fun getWidth(font: Font): Int {
     if(tooltip.shift)
-      return tooltip.effects.map { font.width(I18n.get("effect." + it.toLanguageKey())) }.max() + 20
-    return 52 + font.width(I18n.get("lore.alchimiae.hold_shift"))
+      return (tooltip.effects.maxOfOrNull { font.width(I18n.get("effect." + it.toLanguageKey())) } ?: 0) + 20
+    return max(52,  font.width(I18n.get("lore.alchimiae.hold_shift")))
   }
 
   val missingEffect = ResourceLocation.parse("alchimiae:missing")
@@ -55,8 +56,8 @@ data class IngredientClientTooltipComponent(val tooltip: IngredientTooltipCompon
       guiGraphics.drawString(
         font,
         Component.translatable("lore.alchimiae.hold_shift"),
-        x + 1,
-        y + 3,
+        i + 1,
+        y + 14,
         ChatFormatting.GRAY.color!!
       )
     }

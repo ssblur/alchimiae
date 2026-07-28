@@ -5,6 +5,5 @@
     "alchimiae:nether_plant"
   ],
   "rarity": 3.0,
-  "duration": 1000,
-  "no_effects": false
+  "duration": 1000
 }

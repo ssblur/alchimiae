@@ -84,14 +84,12 @@ class IngredientMemorySavedData : SavedData {
       this.data[key] = updatedData
       val syncData = updatedData.toMutableList()
       val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
+      var total = 0
       ingredient?.let {
-        if(syncData.size < it.effects.size)
-          (0..<(it.effects.size-updatedData.size)).forEach { _ ->
-            syncData.add(ResourceLocation.parse("alchimiae:unknown"))
-          }
+        total = it.effects.size
       }
       AlchimiaeNetworkS2C.sendIngredients(
-        AlchimiaeNetworkS2C.SendIngredients(key, syncData), listOf(player)
+        AlchimiaeNetworkS2C.SendIngredients(key, syncData, total), listOf(player)
       )
       setDirty()
     }
@@ -103,14 +101,12 @@ class IngredientMemorySavedData : SavedData {
       if(key == null) continue
       val items = value.toMutableList()
       val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
+      var total = 0
       ingredient?.let {
-        if(items.size < it.effects.size)
-          (0..<(it.effects.size-items.size)).forEach { ignored ->
-            items.add(ResourceLocation.parse("alchimiae:unknown"))
-          }
+        total = it.effects.size
       }
 
-      AlchimiaeNetworkS2C.sendIngredients(AlchimiaeNetworkS2C.SendIngredients(key, items), listOf(player))
+      AlchimiaeNetworkS2C.sendIngredients(AlchimiaeNetworkS2C.SendIngredients(key, items, total), listOf(player))
     }
   }
 

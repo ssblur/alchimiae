@@ -7,6 +7,5 @@
     "alchimiae:food"
   ],
   "rarity": 2.0,
-  "duration": 200,
-  "no_effects": false
+  "duration": 200
 }

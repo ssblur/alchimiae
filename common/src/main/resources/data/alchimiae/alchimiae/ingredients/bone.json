@@ -3,6 +3,5 @@
   "guaranteed_effects": [],
   "ingredient_classes": [],
   "rarity": 2.0,
-  "duration": 600,
-  "no_effects": false
+  "duration": 600
 }
