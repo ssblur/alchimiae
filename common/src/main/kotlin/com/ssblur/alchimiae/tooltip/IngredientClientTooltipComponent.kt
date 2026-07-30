@@ -17,7 +17,7 @@ import kotlin.math.max
 @Environment(EnvType.CLIENT)
 data class IngredientClientTooltipComponent(val tooltip: IngredientTooltipComponent): ClientTooltipComponent {
   override fun getHeight(): Int {
-    return if(tooltip.shift) 14 * (1 + tooltip.effects.size) else 28
+    return if(tooltip.shift) 16 * tooltip.effects.size + 4 else 28
   }
 
   override fun getWidth(font: Font): Int {
