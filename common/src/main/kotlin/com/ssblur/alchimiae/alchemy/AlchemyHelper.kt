@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.alchemy.PotionContents
 import java.util.*
 import kotlin.math.floor
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 object AlchemyHelper {
@@ -27,8 +28,8 @@ object AlchemyHelper {
     }
 
     duration /= ingredients.size
-    duration *= ingredients.size + 1
-    duration = Math.round((duration.toFloat()) * efficiency)
+    duration *= 2
+    duration = ((duration.toFloat()) * efficiency).roundToInt()
     val output = HashMap<ResourceLocation, Int>()
     potency.entries.stream()
       .filter { e: Map.Entry<ResourceLocation, Float> -> e.value >= 2 }
