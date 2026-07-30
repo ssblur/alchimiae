@@ -1,5 +1,6 @@
 package com.ssblur.alchimiae.effect
 
+import com.ssblur.unfocused.extension.MinecraftServerExtension.runOnce
 import net.minecraft.world.effect.InstantenousMobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.effect.MobEffectInstance
@@ -8,20 +9,25 @@ import kotlin.math.pow
 
 class ExtendMobEffect(val modifier: Double) :
   InstantenousMobEffect(if(modifier < 1) MobEffectCategory.HARMFUL else MobEffectCategory.BENEFICIAL, -0x10000) {
-  override fun applyEffectTick(livingEntity: LivingEntity, i: Int): Boolean {
-    livingEntity.activeEffects.map { effect ->
-      if(effect.effect.value() !is ExtendMobEffect) {
-        livingEntity.removeEffect(effect.effect)
-        livingEntity.addEffect(
-          MobEffectInstance(
-            effect.effect,
-            (effect.duration * modifier.pow(i)).toInt(),
-            effect.amplifier
+  override fun onEffectAdded(livingEntity: LivingEntity, i: Int) {
+    livingEntity.server?.runOnce {
+      val effects = livingEntity.activeEffects.toList()
+      effects.forEach { effect ->
+        if(effect.effect.value()?.isInstantenous != true) {
+          livingEntity.removeEffect(effect.effect)
+          livingEntity.addEffect(
+            MobEffectInstance(
+              effect.effect,
+              (effect.duration * modifier.pow(i + 1)).coerceAtMost(Int.MAX_VALUE.toDouble()).toInt(),
+              effect.amplifier
+            )
           )
-        )
+        } else if(effect.effect.value() == this) {
+          livingEntity.removeEffect(effect.effect)
+        }
       }
     }
-    return true
+    super.onEffectAdded(livingEntity, i)
   }
 
   override fun shouldApplyEffectTickThisTick(i: Int, j: Int) = true
