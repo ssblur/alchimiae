@@ -1,6 +1,5 @@
 {
-  "item": "dusk_autumn:crimson_vivions",
-  "required": "dusk_autumn",
+  "item": "dusks_and_dungeons:warped_vivions",
   "guaranteed_effects": [],
   "ingredient_classes": [
     "alchimiae:nether_plant",

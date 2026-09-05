@@ -1,6 +1,6 @@
 {
-  "item": "dusk_autumn:wild_petals",
-  "required": "dusk_autumn",
+  "item": "dusks_and_dungeons:red_petals",
+  "required": "dusks_and_dungeons",
   "guaranteed_effects": [],
   "ingredient_classes": [
     "alchimiae:flower",

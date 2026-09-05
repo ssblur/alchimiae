@@ -1,8 +1,9 @@
 {
-  "item": "dusk_autumn:warped_vivions",
+  "item": "dusks_and_dungeons:wild_petals",
+  "required": "dusks_and_dungeons",
   "guaranteed_effects": [],
   "ingredient_classes": [
-    "alchimiae:nether_plant",
+    "alchimiae:flower",
     "alchimiae:petals"
   ],
   "rarity": 3.0,

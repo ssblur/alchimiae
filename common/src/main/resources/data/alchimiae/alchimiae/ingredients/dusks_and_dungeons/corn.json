@@ -1,0 +1,10 @@
+{
+  "item": "dusks_and_dungeons:corn",
+  "required": "dusks_and_dungeons",
+  "guaranteed_effects": [],
+  "ingredient_classes": [
+    "alchimiae:food"
+  ],
+  "rarity": 1.0,
+  "duration": 400
+}

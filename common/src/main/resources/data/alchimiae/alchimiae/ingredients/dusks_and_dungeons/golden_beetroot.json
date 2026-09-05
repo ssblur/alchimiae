@@ -1,6 +1,6 @@
 {
-  "item": "dusk_autumn:golden_beetroot",
-  "required": "dusk_autumn",
+  "item": "dusks_and_dungeons:golden_beetroot",
+  "required": "dusks_and_dungeons",
   "guaranteed_effects": [],
   "ingredient_classes": [
     "alchimiae:food"

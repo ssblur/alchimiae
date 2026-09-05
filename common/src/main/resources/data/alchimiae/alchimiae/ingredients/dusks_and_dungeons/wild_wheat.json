@@ -1,6 +1,6 @@
 {
-  "item": "dusk_autumn:wild_wheat",
-  "required": "dusk_autumn",
+  "item": "dusks_and_dungeons:wild_wheat",
+  "required": "dusks_and_dungeons",
   "guaranteed_effects": [],
   "ingredient_classes": [
     "alchimiae:food"
