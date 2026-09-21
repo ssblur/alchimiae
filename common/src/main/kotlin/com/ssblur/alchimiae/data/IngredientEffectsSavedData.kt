@@ -83,11 +83,15 @@ class IngredientEffectsSavedData : SavedData {
           val ingredient = validIngredients.entries.toList()[Random.nextInt(validIngredients.size)]
           ingredients[ingredient.key] = AlchemyIngredient(
             ingredient.value.duration,
-            listOf(listOf(IngredientEffect(effectKey, Random.nextFloat() + 1f)), ingredient.value.effects).flatten()
+            listOf(IngredientEffect(effectKey, Random.nextFloat() + 1f)) + ingredient.value.effects
           )
           looping = true
         }
       }
+    }
+
+    for((k, v) in ingredients) {
+      ingredients[k] = AlchemyIngredient(v.duration, v.effects.distinctBy { it.effect })
     }
 
     this.data = ingredients
