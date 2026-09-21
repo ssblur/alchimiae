@@ -66,7 +66,7 @@
   "effect.alchimiae.custom_effect_neutral.description": "A custom effect",
   "effect.null": "Custom",
   "effect.alchimiae.unknown": "Undiscovered Effect",
-  "effect.description.alchimiae.unknown": "These ingredients have at least one undiscovered effect",
+  "effect.alchimiae.unknown.description": "These ingredients have at least one undiscovered effect",
 
   "effect.alchimiae.test": "Test Effect",
   "effect.alchimiae.test_2": "Other Test",
@@ -83,6 +83,7 @@
   "gui.alchimiae.any_ingredient": "Any Ingredient",
   "gui.alchimiae.effects": "Effects",
   "gui.alchimiae.items": "Items",
+  "gui.alchimiae.back": "Back",
 
   "info.alchimiae.grinder_1": "Grinders can be used to combine Ingredients into Mash.",
   "info.alchimiae.grinder_2": "Just craft multiple items marked as \"Ingredient\" with a Grinder or Mortar and Pestle.",
