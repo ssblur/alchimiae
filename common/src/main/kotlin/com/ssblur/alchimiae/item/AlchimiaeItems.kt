@@ -42,6 +42,9 @@ object AlchimiaeItems {
   val NETHERITE_MORTAR_AND_PESTLE = AlchimiaeMod.registerItem("netherite_mortar_and_pestle") {
     GrinderItem(1.0f, Item.Properties().durability(128))
   }.tab(TAB)
+  val ALCHEMINDEX = AlchimiaeMod.registerItem("alchemindex") {
+    AlchemindexItem()
+  }.tab(TAB)
 
   val MASH = AlchimiaeMod.registerItem("mash") {
     Mash(Item.Properties().component(
@@ -75,6 +78,7 @@ object AlchimiaeItems {
   }
 
   val GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("grinder"))
+
 
   fun register() {
     try { clientInit() } catch (_: NoSuchMethodError) {}

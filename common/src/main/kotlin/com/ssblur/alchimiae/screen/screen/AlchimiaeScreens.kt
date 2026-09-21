@@ -20,5 +20,11 @@ object AlchimiaeScreens {
         AlembicScreen(abstractContainerMenu, inventory, component)
       }
     }
+
+    AlchimiaeMenus.ALCHEMINDEX.then {
+      AlchimiaeMod.registerScreen(it) { abstractContainerMenu, inventory, component ->
+        AlchemindexScreen(abstractContainerMenu, inventory, component)
+      }
+    }
   }
 }
