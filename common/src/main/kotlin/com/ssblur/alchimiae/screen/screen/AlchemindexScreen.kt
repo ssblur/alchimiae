@@ -206,7 +206,7 @@ class AlchemindexScreen(abstractContainerMenu: AlchemindexMenu, inventory: Inven
           ))
           headerDrawn = true
         }
-        add(ItemButtonWidget(leftPos + x, topPos + y, EFFECT_SIZE, i) {
+        add(ItemButtonWidget(leftPos + x, topPos + y, ITEM_SIZE, i) {
           item = i
           effect = null
           page = 0
@@ -214,7 +214,7 @@ class AlchemindexScreen(abstractContainerMenu: AlchemindexMenu, inventory: Inven
           SoundEvents.UI_BUTTON_CLICK.play()
         })
       } else if(curPage > page) break
-      x += ITEM_SIZE
+      x += ITEM_SIZE + ITEM_SPACING
       if((x + ITEM_SIZE) > w) {
         y += ITEM_SIZE + ITEM_SPACING
         x = LEFT_PADDING
