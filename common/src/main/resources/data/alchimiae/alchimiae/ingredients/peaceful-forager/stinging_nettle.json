@@ -1,5 +1,5 @@
 {
-  "requires": "peaceful-forager",
+  "required": "peaceful-forager",
   "item": "peaceful-forager:stinging_nettle",
   "guaranteed_effects": [],
   "ingredient_classes": [

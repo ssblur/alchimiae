@@ -1,5 +1,5 @@
 {
-  "requires": "peaceful-forager",
+  "required": "peaceful-forager",
   "item": "peaceful-forager:burr",
   "guaranteed_effects": [],
   "ingredient_classes": [],

@@ -40,6 +40,11 @@ class IngredientEffectsSavedData : SavedData {
     val groups = groups.toMutableMap()
     val effects = Effects.effects.filter{ it.value.rarity != null }
 
+    // Remove air from the effect pool if already present
+    // Don't remove it later so I can see if there are issues which put it in the pool, since those can
+    // affect the rarity of effects unintentionally
+    ingredients.remove(ResourceLocation.parse("minecraft:air"))
+
     IngredientClasses.groups.filter{ !groups.containsKey(it.key) }.forEach{ (key, group) ->
       if(group.guaranteedEffects.isNotEmpty()) {
         groups[key] = group.guaranteedEffects

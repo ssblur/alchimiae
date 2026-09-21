@@ -1,5 +1,5 @@
 {
-  "requires": "moue_milkshakes",
+  "required": "moue_milkshakes",
   "item": "moue_milkshakes:strawberry",
   "guaranteed_effects": [],
   "ingredient_classes": [

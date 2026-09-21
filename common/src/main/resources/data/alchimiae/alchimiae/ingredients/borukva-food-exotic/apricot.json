@@ -1,5 +1,5 @@
 {
-  "requires": "borukva-food-exotic",
+  "required": "borukva-food-exotic",
   "item": "borukva-food-exotic:apricot",
   "guaranteed_effects": [],
   "ingredient_classes": [

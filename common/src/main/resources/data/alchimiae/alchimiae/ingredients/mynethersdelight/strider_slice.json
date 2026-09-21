@@ -1,5 +1,5 @@
 {
-  "requires": "mynethersdelight",
+  "required": "mynethersdelight",
   "item": "mynethersdelight:strider_slice",
   "guaranteed_effects": [
     "alchimiae:fire_resistance"

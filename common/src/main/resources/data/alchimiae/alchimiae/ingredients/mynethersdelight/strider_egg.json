@@ -1,5 +1,5 @@
 {
-  "requires": "mynethersdelight",
+  "required": "mynethersdelight",
   "item": "mynethersdelight:strider_egg",
   "guaranteed_effects": [
     "alchimiae:instant_damage"

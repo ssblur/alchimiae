@@ -1,5 +1,5 @@
 {
-  "requires": "mirthdew_encore",
+  "required": "mirthdew_encore",
   "item": "mirthdew_encore:cyan_foghair",
   "guaranteed_effects": [],
   "ingredient_classes": [

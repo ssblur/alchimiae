@@ -1,5 +1,5 @@
 {
-  "requires": "mynethersdelight",
+  "required": "mynethersdelight",
   "item": "mynethersdelight:hoglin_loin",
   "guaranteed_effects": [],
   "ingredient_classes": [

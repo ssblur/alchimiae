@@ -1,5 +1,5 @@
 {
-  "requires": "operation_starcleave",
+  "required": "operation_starcleave",
   "item": "operation_starcleave:mulchborne_tuft",
   "guaranteed_effects": [],
   "ingredient_classes": [

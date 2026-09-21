@@ -1,5 +1,5 @@
 {
-  "requires": "operation_starcleave",
+  "required": "operation_starcleave",
   "item": "operation_starcleave:short_holy_moss",
   "guaranteed_effects": [],
   "ingredient_classes": [

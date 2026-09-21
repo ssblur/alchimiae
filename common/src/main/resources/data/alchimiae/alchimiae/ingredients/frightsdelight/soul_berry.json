@@ -1,5 +1,5 @@
 {
-  "requires": "frightsdelight",
+  "required": "frightsdelight",
   "item": "frightsdelight:soul_berry",
   "guaranteed_effects": [],
   "ingredient_classes": [

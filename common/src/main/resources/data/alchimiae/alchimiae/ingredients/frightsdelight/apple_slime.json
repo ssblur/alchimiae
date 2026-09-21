@@ -1,5 +1,5 @@
 {
-  "requires": "frightsdelight",
+  "required": "frightsdelight",
   "item": "frightsdelight:apple_slime",
   "guaranteed_effects": [],
   "ingredient_classes": [

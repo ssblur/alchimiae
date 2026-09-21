@@ -1,5 +1,5 @@
 {
-  "requires": "hibernalherbs",
+  "required": "hibernalherbs",
   "item": "hibernalherbs:calendula",
   "guaranteed_effects": [],
   "ingredient_classes": [
