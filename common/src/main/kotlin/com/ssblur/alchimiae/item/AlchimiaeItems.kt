@@ -77,6 +77,10 @@ object AlchimiaeItems {
     ))
   }
 
+  val ACTIVATED_CHARCOAL = AlchimiaeMod.registerItem("activated_charcoal") {
+    Item(Item.Properties())
+  }.tab(TAB)
+
   val GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("grinder"))
 
 

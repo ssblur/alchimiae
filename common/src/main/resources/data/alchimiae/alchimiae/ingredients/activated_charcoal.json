@@ -1,0 +1,10 @@
+{
+  "item": "alchimiae:activated_charcoal",
+  "guaranteed_effects": [
+    "alchimiae:cleanse"
+  ],
+  "ingredient_classes": [],
+  "rarity": 0.0,
+  "duration": 5,
+  "number_of_effects": 1
+}
