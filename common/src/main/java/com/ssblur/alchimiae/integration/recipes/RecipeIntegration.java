@@ -83,7 +83,7 @@ public class RecipeIntegration {
                     instance.getAmplifier()
             )
     ).toList();
-    return new CustomPotionEffects(effects, null);
+    return new CustomPotionEffects(effects, null, null);
   }
 
   public static ItemStack defaultMash(){
