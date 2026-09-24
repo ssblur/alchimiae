@@ -34,34 +34,30 @@ class AlembicBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   var litTime: Int = 0
   var litDuration: Int = 0
   var processTime: Int = 0
-  val dataAccess: ContainerData
-
-  var inventory: NonNullList<ItemStack> = NonNullList.withSize(4, ItemStack.EMPTY)
-
-  init {
-    this.dataAccess = object : ContainerData {
-      override fun get(i: Int): Int {
-        return when (i) {
-          0 -> litTime
-          1 -> litDuration
-          2 -> processTime
-          else -> 0
-        }
-      }
-
-      override fun set(i: Int, j: Int) {
-        when (i) {
-          0 -> litTime = j
-          1 -> litDuration = j
-          2 -> processTime = j
-        }
-      }
-
-      override fun getCount(): Int {
-        return 3
+  val dataAccess: ContainerData = object : ContainerData {
+    override fun get(i: Int): Int {
+      return when (i) {
+        0 -> litTime
+        1 -> litDuration
+        2 -> processTime
+        else -> 0
       }
     }
+
+    override fun set(i: Int, j: Int) {
+      when (i) {
+        0 -> litTime = j
+        1 -> litDuration = j
+        2 -> processTime = j
+      }
+    }
+
+    override fun getCount(): Int {
+      return 3
+    }
   }
+
+  var inventory: NonNullList<ItemStack> = NonNullList.withSize(4, ItemStack.EMPTY)
 
   override fun getContainerSize(): Int {
     return 4

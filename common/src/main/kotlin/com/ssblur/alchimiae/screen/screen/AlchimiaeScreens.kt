@@ -21,6 +21,12 @@ object AlchimiaeScreens {
       }
     }
 
+    AlchimiaeMenus.FILTER.then {
+      AlchimiaeMod.registerScreen(it) { abstractContainerMenu, inventory, component ->
+        FilterScreen(abstractContainerMenu, inventory, component)
+      }
+    }
+
     AlchimiaeMenus.ALCHEMINDEX.then {
       AlchimiaeMod.registerScreen(it) { abstractContainerMenu, inventory, component ->
         AlchemindexScreen(abstractContainerMenu, inventory, component)

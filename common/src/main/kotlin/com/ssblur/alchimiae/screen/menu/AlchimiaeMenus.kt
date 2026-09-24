@@ -20,6 +20,13 @@ object AlchimiaeMenus {
     )
   }
 
+  val FILTER = AlchimiaeMod.registerMenu("filter") {
+    MenuType(
+      { i: Int, inventory: Inventory -> FilterMenu(i, inventory) },
+      FeatureFlagSet.of()
+    )
+  }
+
   val ALCHEMINDEX = AlchimiaeMod.registerMenu("alchemindex") {
     MenuType(
       { i: Int, _: Inventory -> AlchemindexMenu(i) },

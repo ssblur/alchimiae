@@ -27,5 +27,16 @@ object AlchimiaeBlockEntities {
     ).build(null)
   }
 
+  val FILTER = AlchimiaeMod.registerBlockEntity("filter") {
+    BlockEntityType.Builder.of(
+      { blockPos, blockState ->
+        FilterBlockEntity(
+          blockPos,
+          blockState
+        )
+      }, AlchimiaeBlocks.FILTER.first.get()
+    ).build(null)
+  }
+
   fun register() {}
 }

@@ -4,6 +4,8 @@
   "lore.alchimiae.ingredient": "Ingredient",
   "lore.alchimiae.hold_shift": "(Hold Sneak)",
   "lore.alchimiae.no_effects": "No Effects",
+  "lore.alchimiae.filtered": "Filtered %s times",
+  "lore.alchimiae.filtered_1": "Filtered 1 time",
 
   "tag.item.alchimiae.grinder": "Grinder",
   "tag.item.alchimiae.ingredients": "Mash Ingredients",
@@ -23,6 +25,7 @@
 
   "block.alchimiae.boiler": "Boiler",
   "block.alchimiae.alembic": "Alembic",
+  "block.alchimiae.filter": "Filter",
 
   "effect.alchimiae.feast": "Feast",
   "effect.alchimiae.feast.description": "Instantly fills hunger",
@@ -94,5 +97,6 @@
   "info.alchimiae.alchemindex": "Records all discovered ingredients and effects",
 
   "menu.alchimiae.boiler": "Boiler",
-  "menu.alchimiae.alembic": "Alembic"
+  "menu.alchimiae.alembic": "Alembic",
+  "menu.alchimiae.filter": "Filter"
 }
