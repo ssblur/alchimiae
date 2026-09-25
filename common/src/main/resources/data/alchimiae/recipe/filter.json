@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "i  ",
+    "g g",
+    "sgs"
+  ],
+  "key": {
+    "s": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "id": "alchimiae:filter",
+    "count": 1
+  }
+}
