@@ -11,6 +11,8 @@ import net.minecraft.core.NonNullList
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.player.Inventory
@@ -109,6 +111,9 @@ class FilterBlockEntity(blockPos: BlockPos, blockState: BlockState) :
       inventory[PAPER_SLOT].shrink(1)
       inventory[MASH_SLOT].shrink(1)
       if(inventory[CHARCOAL_SLOT].count > 0) inventory[CHARCOAL_SLOT].shrink(1)
+
+      level?.playSound(null, blockPos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS)
+      setChanged()
     }
   }
 

@@ -10,6 +10,8 @@ import net.minecraft.core.NonNullList
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.WorldlyContainer
 import net.minecraft.world.entity.ai.attributes.Attributes
@@ -223,6 +225,8 @@ class AlembicBlockEntity(blockPos: BlockPos, blockState: BlockState) :
       secondPotion = level!!.potionBrewing().mix(ingredient, secondPotion)
     }
     ingredient.shrink(1)
+    level?.playSound(null, blockPos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS)
+    setChanged()
   }
 
   var firstPotion: ItemStack

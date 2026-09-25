@@ -18,7 +18,7 @@ class FilterMenu: AbstractContainerMenu {
   var filter: FilterBlockEntity? = null
   var data: ContainerData
   constructor(i: Int, inventory: Inventory, filterBlockEntity: FilterBlockEntity? = null) : super(AlchimiaeMenus.FILTER.get(), i) {
-    val mx = 60 - (9 * 9) / 2
+    val mx = 50 - (9 * 9) / 2
     val my = 94
     for (j in 0..2) {
       for (k in 0..8) {
@@ -30,11 +30,12 @@ class FilterMenu: AbstractContainerMenu {
       this.addSlot(Slot(inventory, j, j * 18 + mx, my + 60))
     }
 
+    val xo = 82
     filter = filterBlockEntity
     var container = filterBlockEntity ?: SimpleContainer(4)
     data = filterBlockEntity?.dataAccess ?: SimpleContainerData(1)
 
-    this.addSlot(object: Slot(container, FilterBlockEntity.MASH_SLOT, 90, 20) {
+    this.addSlot(object: Slot(container, FilterBlockEntity.MASH_SLOT, xo, 20) {
       override fun mayPlace(itemStack: ItemStack): Boolean {
         return itemStack.item is Mash
       }
@@ -43,7 +44,7 @@ class FilterMenu: AbstractContainerMenu {
         return Pair(InventoryMenu.BLOCK_ATLAS, AlchimiaeMod.location("item/empty_mash"))
       }
     })
-    this.addSlot(object: Slot(container, FilterBlockEntity.PAPER_SLOT, 90 - 24, 43) {
+    this.addSlot(object: Slot(container, FilterBlockEntity.PAPER_SLOT, xo - 24, 39) {
       override fun mayPlace(itemStack: ItemStack): Boolean {
         return itemStack matches Items.PAPER
       }
@@ -52,7 +53,7 @@ class FilterMenu: AbstractContainerMenu {
         return Pair(InventoryMenu.BLOCK_ATLAS, AlchimiaeMod.location("item/empty_paper"))
       }
     })
-    this.addSlot(object: Slot(container, FilterBlockEntity.CHARCOAL_SLOT, 90 + 24, 43) {
+    this.addSlot(object: Slot(container, FilterBlockEntity.CHARCOAL_SLOT, xo + 24, 39) {
       override fun mayPlace(itemStack: ItemStack): Boolean {
         return itemStack matches AlchimiaeItems.ACTIVATED_CHARCOAL.get()
       }
@@ -61,7 +62,7 @@ class FilterMenu: AbstractContainerMenu {
         return Pair(InventoryMenu.BLOCK_ATLAS, AlchimiaeMod.location("item/empty_charcoal"))
       }
     })
-    this.addSlot(object: Slot(container, FilterBlockEntity.RESULT_SLOT, 90, 66) {
+    this.addSlot(object: Slot(container, FilterBlockEntity.RESULT_SLOT, xo, 69) {
       override fun mayPlace(itemStack: ItemStack): Boolean = false
     })
     this.addDataSlots(data)
@@ -71,6 +72,19 @@ class FilterMenu: AbstractContainerMenu {
     player: Player,
     i: Int
   ): ItemStack? {
+    val slot = slots[i]
+    if(slot.hasItem()) {
+      val item = slot.item
+      if(i > 3) { // player's inventory
+        moveItemStackTo(item, 0, 3, false)
+      } else {
+        return if (moveItemStackTo(item, 3, 39, true)) {
+          item.copy()
+        } else {
+          ItemStack.EMPTY
+        }
+      }
+    }
     return ItemStack.EMPTY
   }
 
