@@ -6,6 +6,7 @@ import com.ssblur.alchimiae.screen.menu.FilterMenu
 import com.ssblur.unfocused.screen.UnfocusedScreen
 import com.ssblur.unfocused.screen.renderable.InventoryBackground
 import com.ssblur.unfocused.screen.renderable.VerticalProgressGraphic
+import com.ssblur.unfocused.screen.widget.HelpButtonWidget
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
@@ -22,6 +23,10 @@ class FilterScreen(val filterMenu: FilterMenu, inventory: Inventory, component: 
     inventoryLabelX += 2
     titleLabelX = inventoryLabelX
     add(InventoryBackground(leftPos, topPos, imageWidth, imageHeight))
+    add(HelpButtonWidget(
+      leftPos + imageWidth - 20, topPos + 8, 12, 12,
+      AlchimiaeMod.location("filter")
+    ))
   }
 
   override fun render(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {

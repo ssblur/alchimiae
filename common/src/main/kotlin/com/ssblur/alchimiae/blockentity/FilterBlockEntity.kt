@@ -75,7 +75,11 @@ class FilterBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   }
 
   fun tick() {
-    if(inventory[PAPER_SLOT] matches Items.PAPER && inventory[MASH_SLOT].item is Mash) filterTime++
+    if(
+      inventory[PAPER_SLOT] matches Items.PAPER &&
+      inventory[MASH_SLOT].item is Mash &&
+      (inventory[MASH_SLOT][AlchimiaeDataComponents.CUSTOM_POTION]?.filtered ?: 0) < 2
+      ) filterTime++
     else filterTime = 0
 
     if(filterTime >= FILTER_TIME) {
