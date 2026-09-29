@@ -126,6 +126,6 @@ class FilterBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     const val PAPER_SLOT = 1
     const val CHARCOAL_SLOT = 2
     const val RESULT_SLOT = 3
-    const val FILTER_TIME = 200
+    const val FILTER_TIME = 600
   }
 }
