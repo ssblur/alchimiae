@@ -10,5 +10,11 @@ object AlchimiaeDataComponents {
       .build()
   }
 
+  val POTION_RECIPE = AlchimiaeMod.registerDataComponent("potion_recipe") {
+    it.persistent(KClassCodec.codec(PotionRecipe::class))
+      .networkSynchronized(KClassCodec.streamCodec(PotionRecipe::class))
+      .build()
+  }
+
   fun register() {}
 }

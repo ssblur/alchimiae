@@ -6,6 +6,11 @@
   "lore.alchimiae.no_effects": "No Effects",
   "lore.alchimiae.filtered": "Filtered %s times",
   "lore.alchimiae.filtered_1": "Filtered 1 time",
+  "lore.alchimiae.recipe_contents": "Contents:",
+  "lore.alchimiae.recipe_contents_2": "- %s",
+  "lore.alchimiae.identify_recipe": "Use to identify it!",
+
+  "author.alchimiae.unknown": "An Unknown Author",
 
   "tag.item.alchimiae.grinder": "Grinder",
   "tag.item.alchimiae.ingredients": "Mash Ingredients",
@@ -22,6 +27,14 @@
   "item.alchimiae.lingering_potion": "Lingering %s",
   "item.alchimiae.alchemindex": "Alchemindex",
   "item.alchimiae.activated_charcoal": "Activated Charcoal",
+  "item.alchimiae.unidentified_recipe": "Unidentified Recipe",
+  "item.alchimiae.recipe": "Recipe for Mash of %s",
+  "item.alchimiae.recipe_join": "Recipe for %1$s and %2$s Mash",
+  "item.alchimiae.recipe_too_many_1": "Questionable Use",
+  "item.alchimiae.recipe_too_many_2": "Strange Substances",
+  "item.alchimiae.recipe_too_many_3": "Odd Bricabrac",
+  "item.alchimiae.recipe_too_many_4": "Dubious Wisdom",
+
 
   "block.alchimiae.boiler": "Boiler",
   "block.alchimiae.alembic": "Alembic",
@@ -95,6 +108,9 @@
   "info.alchimiae.mash_2": "The simplest of these is crafting them with a bottle of water, which makes one potion.",
   "info.alchimiae.mash_3": "You can also place them into the top slot of a Brewing Stand, though their duration will be reduced.",
   "info.alchimiae.alchemindex": "Records all discovered ingredients and effects",
+
+  "extra.alchimiae.recipe_uncovered": "You studied the recipe...",
+  "extra.alchimiae.recipe_learned": "You took note of the ingredients and effects within!",
 
   "menu.alchimiae.boiler": "Boiler",
   "menu.alchimiae.alembic": "Alembic",

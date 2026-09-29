@@ -59,12 +59,15 @@ class IngredientMemorySavedData : SavedData {
   }
 
   fun add(player: ServerPlayer, item: Item, effects: List<ResourceLocation>) {
-    val key = BuiltInRegistries.ITEM.getKey(item)
+    add(player, BuiltInRegistries.ITEM.getKey(item), effects)
+  }
+
+  fun add(player: ServerPlayer, itemKey: ResourceLocation, effects: List<ResourceLocation>) {
     val ingredientEffectsData: IngredientEffectsSavedData =
       IngredientEffectsSavedData.computeIfAbsent(player.serverLevel())
 
     var checksumA = 0
-    val data = ArrayList(data.getOrDefault(key, listOf()))
+    val data = ArrayList(data.getOrDefault(itemKey, listOf()))
     for (effect in data) checksumA += effect.hashCode()
 
     var checksumB = 0
@@ -73,7 +76,7 @@ class IngredientMemorySavedData : SavedData {
       effects.stream(),
       data.stream()
     ).filter { effect ->
-      ingredientEffectsData.data[key]!!.effectKeys().map{ Effects.effects[it]?.effect }.contains(effect)
+      ingredientEffectsData.data[itemKey]!!.effectKeys().map{ Effects.effects[it]?.effect }.contains(effect)
     }
       .distinct().toList()) {
       checksumB += location.hashCode()
@@ -81,15 +84,15 @@ class IngredientMemorySavedData : SavedData {
     }
 
     if (checksumA != checksumB) {
-      this.data[key] = updatedData
+      this.data[itemKey] = updatedData
       val syncData = updatedData.toMutableList()
-      val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[key]
+      val ingredient = IngredientEffectsSavedData.computeIfAbsent(player.serverLevel()).data[itemKey]
       var total = 0
       ingredient?.let {
         total = it.effects.size
       }
       AlchimiaeNetworkS2C.sendIngredients(
-        AlchimiaeNetworkS2C.SendIngredients(key, syncData, total), listOf(player)
+        AlchimiaeNetworkS2C.SendIngredients(itemKey, syncData, total), listOf(player)
       )
       setDirty()
     }

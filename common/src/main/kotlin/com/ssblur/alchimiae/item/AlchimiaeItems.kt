@@ -45,6 +45,12 @@ object AlchimiaeItems {
   val ALCHEMINDEX = AlchimiaeMod.registerItem("alchemindex") {
     AlchemindexItem()
   }.tab(TAB)
+  val IDENTIFIED_RECIPE = AlchimiaeMod.registerItem("identified_recipe") {
+    IdentifiedRecipe(Item.Properties())
+  }
+  val UNIDENTIFIED_RECIPE = AlchimiaeMod.registerItem("unidentified_recipe") {
+    UnidentifiedRecipe(Item.Properties())
+  }.tab(TAB)
 
   val MASH = AlchimiaeMod.registerItem("mash") {
     Mash(Item.Properties().component(
