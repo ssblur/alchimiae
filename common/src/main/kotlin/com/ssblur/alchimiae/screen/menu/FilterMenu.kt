@@ -76,11 +76,11 @@ class FilterMenu: AbstractContainerMenu {
     if(slot.hasItem()) {
       val item = slot.item
       if(i > 3) { // player's inventory
-        if(moveItemStackTo(item, 0, 3, false))
+        if(moveItemStackTo(item, 0, 4, false))
           return item.copy()
         return ItemStack.EMPTY
       } else { // machine inventory
-        if (moveItemStackTo(item, 3, 39, true))
+        if (moveItemStackTo(item, 4, 36 + 4, true))
           return item.copy()
         return ItemStack.EMPTY
       }
