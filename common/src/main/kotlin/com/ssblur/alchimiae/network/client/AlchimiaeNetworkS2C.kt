@@ -65,4 +65,6 @@ object AlchimiaeNetworkS2C {
   fun smokeParticle(pos: Vec3, players: List<Player>) {
     particle(SendParticle(pos, ParticleType.SMOKE), players)
   }
+
+  fun init() {}
 }

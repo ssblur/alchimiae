@@ -15,8 +15,9 @@ import net.minecraft.server.level.ServerPlayer
 
 object AlchimiaeEvents {
   fun register() {
-    AlchimiaeNetworkS2C
-    AlchimiaeNetworkC2S
+    AlchimiaeNetworkS2C.init()
+    AlchimiaeNetworkC2S.init()
+    AddLootEvent.init()
 
     PlayerJoinedEvent.register{ player ->
       val data: IngredientMemorySavedData = IngredientMemorySavedData.computeIfAbsent(player)
