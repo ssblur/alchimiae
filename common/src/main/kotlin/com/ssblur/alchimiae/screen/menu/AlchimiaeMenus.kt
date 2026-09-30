@@ -34,5 +34,12 @@ object AlchimiaeMenus {
     )
   }
 
+  val ALCHEMY_TABLE = AlchimiaeMod.registerMenu("alchemy_table") {
+    MenuType(
+      { i: Int, _: Inventory -> AlchemyTableMenu(i) },
+      FeatureFlagSet.of()
+    )
+  }
+
   fun register() {}
 }

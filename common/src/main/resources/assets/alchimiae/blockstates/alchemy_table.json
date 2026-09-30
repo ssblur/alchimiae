@@ -1,0 +1,58 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "alchimiae:block/alchemy_table",
+        "y": 270
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alchemy_table",
+        "y": 0
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alchemy_table",
+        "y": 90
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alchemy_table",
+        "y": 180
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alchemy_table_mortar_pestle",
+        "y": 180
+      },
+      "when": {
+        "mortar": "mortar"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/alchemy_table_grinder",
+        "y": 180
+      },
+      "when": {
+        "mortar": "grinder"
+      }
+    }
+  ]
+}

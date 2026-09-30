@@ -38,5 +38,16 @@ object AlchimiaeBlockEntities {
     ).build(null)
   }
 
+  val ALCHEMY_TABLE = AlchimiaeMod.registerBlockEntity("alchemy_table") {
+    BlockEntityType.Builder.of(
+      { blockPos, blockState ->
+        AlchemyTableBlockEntity(
+          blockPos,
+          blockState
+        )
+      }, AlchimiaeBlocks.ALCHEMY_TABLE.first.get()
+    ).build(null)
+  }
+
   fun register() {}
 }

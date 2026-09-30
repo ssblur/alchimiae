@@ -7,8 +7,11 @@ import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.network.server.AlchimiaeNetworkC2S
 import com.ssblur.alchimiae.resource.CustomEffects
+import com.ssblur.alchimiae.resource.Ingredients
+import com.ssblur.alchimiae.resource.Ingredients.INGREDIENTS
 import com.ssblur.unfocused.event.common.PlayerCraftEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
+import com.ssblur.unfocused.event.common.ServerStartEvent
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
 
@@ -44,6 +47,10 @@ object AlchimiaeEvents {
           }
         }
       }
+    }
+
+    ServerStartEvent.register { _ ->
+      BuiltInRegistries.ITEM.bindTags(mapOf(Pair(INGREDIENTS, Ingredients.ingredientSet.toList())))
     }
   }
 }

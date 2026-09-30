@@ -35,10 +35,10 @@
   "item.alchimiae.recipe_too_many_3": "Odd Bricabrac",
   "item.alchimiae.recipe_too_many_4": "Dubious Wisdom",
 
-
   "block.alchimiae.boiler": "Boiler",
   "block.alchimiae.alembic": "Alembic",
   "block.alchimiae.filter": "Filter",
+  "block.alchimiae.alchemy_table": "Alchemy Table",
 
   "effect.alchimiae.feast": "Feast",
   "effect.alchimiae.feast.description": "Instantly fills hunger",

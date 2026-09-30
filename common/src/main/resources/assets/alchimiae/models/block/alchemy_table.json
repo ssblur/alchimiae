@@ -1,0 +1,59 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "alchimiae:block/alchemy_table",
+		"particle": "alchimiae:block/alchemy_table"
+	},
+	"elements": [
+		{
+			"name": "table",
+			"from": [0, 0, 0],
+			"to": [16, 8, 16],
+			"faces": {
+				"north": {"uv": [4, 0, 8, 2], "texture": "#0"},
+				"east": {"uv": [4, 2, 8, 4], "texture": "#0"},
+				"south": {"uv": [4, 4, 8, 6], "texture": "#0"},
+				"west": {"uv": [4, 6, 8, 8], "texture": "#0"},
+				"up": {"uv": [0, 0, 4, 4], "texture": "#0"},
+				"down": {"uv": [0, 4, 4, 8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "book",
+			"from": [2, 8, 1],
+			"to": [8, 10, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 8, 5]},
+			"faces": {
+				"north": {"uv": [8, 2.5, 9.5, 3], "texture": "#0"},
+				"east": {"uv": [1.5, 8, 3.5, 8.5], "texture": "#0"},
+				"south": {"uv": [8, 3, 9.5, 3.5], "texture": "#0"},
+				"west": {"uv": [8, 2, 10, 2.5], "texture": "#0"},
+				"up": {"uv": [0, 8, 1.5, 10], "texture": "#0"},
+				"down": {"uv": [8, 0, 9.5, 2], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 3.5, 0],
+			"scale": [0.33, 0.33, 0.33]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 1.75, 0],
+			"scale": [0.32, 0.32, 0.32]
+		},
+		"ground": {
+			"translation": [0, 2.25, 0],
+			"scale": [0.66, 0.66, 0.66]
+		},
+		"gui": {
+			"rotation": [28, 55, 0],
+			"translation": [0, 1.25, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"head": {
+			"translation": [0, 14, 0]
+		}
+	}
+}

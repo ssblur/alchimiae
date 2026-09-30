@@ -1,0 +1,38 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "alchimiae:block/alchemy_mortar",
+		"particle": "alchimiae:block/alchemy_table"
+	},
+	"elements": [
+		{
+			"name": "pestle",
+			"from": [6, 8, 10],
+			"to": [10, 12, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 12]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 4], "texture": "#1"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#1"},
+				"south": {"uv": [4, 0, 8, 4], "texture": "#1"},
+				"west": {"uv": [4, 4, 8, 8], "texture": "#1"},
+				"up": {"uv": [0, 8, 4, 12], "texture": "#1"},
+				"down": {"uv": [8, 0, 12, 4], "texture": "#1"}
+			}
+		},
+		{
+			"name": "mortar",
+			"from": [11, 8, 8],
+			"to": [13, 10, 12],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [11, 8, 10]},
+			"faces": {
+				"north": {"uv": [6, 10, 8, 12], "texture": "#1"},
+				"east": {"uv": [4, 8, 8, 10], "texture": "#1"},
+				"south": {"uv": [10, 6, 12, 8], "texture": "#1"},
+				"west": {"uv": [8, 4, 12, 6], "texture": "#1"},
+				"up": {"uv": [8, 6, 10, 10], "texture": "#1"},
+				"down": {"uv": [4, 10, 6, 14], "texture": "#1"}
+			}
+		}
+	]
+}

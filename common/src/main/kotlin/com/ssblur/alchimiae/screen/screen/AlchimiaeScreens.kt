@@ -32,5 +32,11 @@ object AlchimiaeScreens {
         AlchemindexScreen(abstractContainerMenu, inventory, component)
       }
     }
+
+    AlchimiaeMenus.ALCHEMY_TABLE.then {
+      AlchimiaeMod.registerScreen(it) { abstractContainerMenu, inventory, component ->
+        AlchemyTableScreen(abstractContainerMenu, inventory, component)
+      }
+    }
   }
 }
