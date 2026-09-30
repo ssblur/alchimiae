@@ -1,7 +1,9 @@
 package com.ssblur.alchimiae.blockentity
 
+import com.ssblur.alchimiae.block.FilterBlock
 import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.data.CustomPotionEffects
+import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.item.potions.Mash
 import com.ssblur.alchimiae.screen.menu.FilterMenu
 import com.ssblur.unfocused.extension.ItemStackExtension.matches
@@ -75,6 +77,30 @@ class FilterBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   }
 
   fun tick() {
+    if(level?.isClientSide != true) {
+      var state = FilterBlock.State.EMPTY
+      if (inventory[PAPER_SLOT] matches Items.PAPER) {
+        state = if (inventory[CHARCOAL_SLOT] matches AlchimiaeItems.ACTIVATED_CHARCOAL.get())
+          FilterBlock.State.FILTER_AND_CHARCOAL
+        else
+          FilterBlock.State.FILTER
+      }
+      val full = inventory[RESULT_SLOT].count > 0
+      if (
+        blockState.getValue(FilterBlock.STATE) != state ||
+        blockState.getValue(FilterBlock.FULLNESS) != full
+      ) {
+        level?.setBlockAndUpdate(
+          blockPos,
+          blockState
+            .setValue(FilterBlock.STATE, state)
+            .setValue(FilterBlock.FULLNESS, full)
+        )
+      }
+    }
+
+
+
     if(
       inventory[PAPER_SLOT] matches Items.PAPER &&
       inventory[MASH_SLOT].item is Mash &&

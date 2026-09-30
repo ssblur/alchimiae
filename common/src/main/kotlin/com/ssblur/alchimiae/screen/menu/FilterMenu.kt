@@ -20,15 +20,6 @@ class FilterMenu: AbstractContainerMenu {
   constructor(i: Int, inventory: Inventory, filterBlockEntity: FilterBlockEntity? = null) : super(AlchimiaeMenus.FILTER.get(), i) {
     val mx = 50 - (9 * 9) / 2
     val my = 94
-    for (j in 0..2) {
-      for (k in 0..8) {
-        this.addSlot(Slot(inventory, k + j * 9 + 9, k * 18 + mx, j * 18 + my))
-      }
-    }
-
-    for (j in 0..8) {
-      this.addSlot(Slot(inventory, j, j * 18 + mx, my + 60))
-    }
 
     val xo = 82
     filter = filterBlockEntity
@@ -65,6 +56,17 @@ class FilterMenu: AbstractContainerMenu {
     this.addSlot(object: Slot(container, FilterBlockEntity.RESULT_SLOT, xo, 69) {
       override fun mayPlace(itemStack: ItemStack): Boolean = false
     })
+
+    for (j in 0..2) {
+      for (k in 0..8) {
+        this.addSlot(Slot(inventory, k + j * 9 + 9, k * 18 + mx, j * 18 + my))
+      }
+    }
+
+    for (j in 0..8) {
+      this.addSlot(Slot(inventory, j, j * 18 + mx, my + 60))
+    }
+
     this.addDataSlots(data)
   }
 

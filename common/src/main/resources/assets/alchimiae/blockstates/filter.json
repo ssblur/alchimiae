@@ -1,7 +1,36 @@
 {
-  "variants": {
-    "": {
-      "model": "alchimiae:block/filter_empty"
+  "multipart": [
+    {
+      "apply": {
+        "model": "alchimiae:block/filter_empty"
+      },
+      "when": {
+        "state": "empty"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/filter_paper"
+      },
+      "when": {
+        "state": "filter"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/filter_charcoal"
+      },
+      "when": {
+        "state": "filter_and_charcoal"
+      }
+    },
+    {
+      "apply": {
+        "model": "alchimiae:block/filter_potion"
+      },
+      "when": {
+        "full": true
+      }
     }
-  }
+  ]
 }
