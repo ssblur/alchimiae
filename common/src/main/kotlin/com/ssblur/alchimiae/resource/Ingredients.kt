@@ -21,8 +21,10 @@ object Ingredients {
 
   val INGREDIENTS: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("ingredients"))
   val ingredients = mutableMapOf<ResourceLocation, IngredientResource>()
+  var ingredientSet = mutableSetOf<Holder<Item>>()
   init {
-    val set = mutableSetOf<Holder<Item>>()
+    ingredientSet = mutableSetOf()
+    val set = ingredientSet
     AlchimiaeMod.registerDataLoader(
       "alchimiae/ingredients",
       IngredientResource::class,
@@ -32,7 +34,6 @@ object Ingredients {
       val option = BuiltInRegistries.ITEM.getHolder(ingredient.item)
       if(option.isPresent) {
         set.add(option.get())
-        BuiltInRegistries.ITEM.bindTags(mapOf(Pair(INGREDIENTS, set.toList())))
       } else if(option.isEmpty)
         AlchimiaeMod.LOGGER.warn("Could not bind item ${ingredient.item} to an ingredient!")
     }
