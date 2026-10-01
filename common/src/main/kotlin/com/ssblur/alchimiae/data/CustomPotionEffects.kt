@@ -7,6 +7,10 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 
 data class CustomPotionEffects(val effects: List<CustomEffect>, var customColor: String? = null, var filtered: Int? = null) {
+  init {
+   // Calling this prevents the colors from flashing since it inits the customColor if it is null
+   color
+  }
   fun decorate(list: MutableList<Component>) {
     for((key, duration, strength) in effects) {
       var component = Component.translatable("effect." + key.toLanguageKey())
