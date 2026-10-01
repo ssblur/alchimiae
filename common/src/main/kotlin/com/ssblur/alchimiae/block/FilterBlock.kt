@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
 import net.minecraft.util.StringRepresentable
+import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
@@ -77,29 +78,15 @@ class FilterBlock :
     return RenderShape.MODEL
   }
 
-  override fun playerDestroy(
-    level: Level,
-    player: Player,
-    blockPos: BlockPos,
+  override fun onRemove(
     blockState: BlockState,
-    blockEntity: BlockEntity?,
-    itemStack: ItemStack
+    level: Level,
+    blockPos: BlockPos,
+    blockState2: BlockState,
+    movedByPiston: Boolean,
   ) {
-    if (!level.isClientSide) {
-      if (blockEntity is FilterBlockEntity) {
-        for (item in blockEntity.inventory) {
-          val entity = ItemEntity(
-            level,
-            (blockPos.x + 0.5f).toDouble(),
-            (blockPos.y + 0.5f).toDouble(),
-            (blockPos.z + 0.5f).toDouble(),
-            item
-          )
-          level.addFreshEntity(entity)
-        }
-      }
-    }
-    super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack)
+    Containers.dropContentsOnDestroy(blockState, blockState2, level, blockPos)
+    super.onRemove(blockState, level, blockPos, blockState2, movedByPiston)
   }
 
   public override fun getShape(

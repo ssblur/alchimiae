@@ -7,6 +7,7 @@ import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
+import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
@@ -75,5 +76,16 @@ class BoilerBlock :
     return BlockEntityTicker { tickerLevel, blockPos, state, blockEntity: T ->
       BoilerBlockEntity.tick(tickerLevel, blockPos, state, blockEntity)
     }
+  }
+
+  override fun onRemove(
+    blockState: BlockState,
+    level: Level,
+    blockPos: BlockPos,
+    blockState2: BlockState,
+    movedByPiston: Boolean,
+  ) {
+    Containers.dropContentsOnDestroy(blockState, blockState2, level, blockPos)
+    super.onRemove(blockState, level, blockPos, blockState2, movedByPiston)
   }
 }
