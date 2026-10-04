@@ -29,7 +29,6 @@ data class CustomPotionEffects(val effects: List<CustomEffect>, var customColor:
       list.add(Component.translatable("lore.alchimiae.filtered", filtered).withStyle(ChatFormatting.GRAY))
   }
 
-  @OptIn(ExperimentalStdlibApi::class)
   val color: Int
       get() {
         try {
