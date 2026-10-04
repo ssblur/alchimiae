@@ -12,6 +12,7 @@ import com.ssblur.alchimiae.resource.Ingredients.INGREDIENTS
 import com.ssblur.unfocused.event.common.PlayerCraftEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
+import com.ssblur.unfocused.extension.MinecraftServerExtension.runOnce
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
 
@@ -49,8 +50,14 @@ object AlchimiaeEvents {
       }
     }
 
-    ServerStartEvent.register { _ ->
-      BuiltInRegistries.ITEM.bindTags(mapOf(Pair(INGREDIENTS, Ingredients.ingredientSet.toList())))
+    ServerStartEvent.register { server ->
+      server.runOnce {
+        val tags = BuiltInRegistries.ITEM.tags.toList().associate {
+          it.first to it.second.toList()
+        }.toMutableMap()
+        tags[INGREDIENTS] = Ingredients.ingredientSet.toList()
+        BuiltInRegistries.ITEM.bindTags(tags)
+      }
     }
   }
 }
