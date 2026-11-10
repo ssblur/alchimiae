@@ -45,8 +45,10 @@ public class LivingEntityMixin {
         var self = (LivingEntity) (Object) this;
         if(self instanceof Player player)
             if (!self.onGround() && !self.isInWater() && !self.hasEffect(MobEffects.LEVITATION)) {
-                if(ChrysopicMobEffect.Companion.isAffected(player)) ci.cancel();
-                self.gameEvent(GameEvent.ELYTRA_GLIDE);
+                if(ChrysopicMobEffect.Companion.isAffected(player) && !self.isCrouching()) {
+                    ci.cancel();
+                    self.gameEvent(GameEvent.ELYTRA_GLIDE);
+                }
             }
     }
 }
