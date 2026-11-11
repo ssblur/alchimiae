@@ -3,10 +3,15 @@ package com.ssblur.alchimiae.blockentity
 import com.ssblur.alchimiae.screen.menu.AlchemyTableMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
+import net.minecraft.world.ContainerHelper
 import net.minecraft.world.WorldlyContainer
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.player.StackedContents
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.StackedContentsCompatible
@@ -17,9 +22,10 @@ import net.minecraft.world.level.block.state.BlockState
 class AlchemyTableBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   BaseContainerBlockEntity(AlchimiaeBlockEntities.ALCHEMY_TABLE.get(), blockPos, blockState),
   WorldlyContainer, StackedContentsCompatible {
-  var inventory: NonNullList<ItemStack> = NonNullList.withSize(11, ItemStack.EMPTY)
+  var inventory: NonNullList<ItemStack> = NonNullList.withSize(1, ItemStack.EMPTY)
 
   override fun getDefaultName(): Component = Component.translatable("block.alchimiae.alchemy_table")
+
   override fun getItems(): NonNullList<ItemStack> = inventory
   override fun setItems(nonNullList: NonNullList<ItemStack>) {
     inventory = nonNullList
@@ -28,13 +34,9 @@ class AlchemyTableBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     i: Int,
     inventory: Inventory
   ): AbstractContainerMenu = AlchemyTableMenu(i, inventory, this)
-  override fun getContainerSize(): Int = 11
-  override fun getSlotsForFace(direction: Direction): IntArray? {
-    return when(direction) {
-      Direction.UP -> (2..11).toList().toIntArray()
-      Direction.DOWN -> intArrayOf(RESULT_SLOT)
-      else -> intArrayOf(MORTAR_SLOT)
-    }
+  override fun getContainerSize(): Int = 1
+  override fun getSlotsForFace(direction: Direction): IntArray {
+    return intArrayOf(0)
   }
   override fun canPlaceItemThroughFace(
     i: Int,
@@ -50,10 +52,21 @@ class AlchemyTableBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     for (itemStack in inventory) stackedContents.accountStack(itemStack)
   }
 
-  // only process into result slot when it's clicked OR when the block gets a redstone signal
+  override fun stillValid(player: Player): Boolean {
+    return blockPos.center.distanceTo(player.position()) < player.attributes.getValue(Attributes.BLOCK_INTERACTION_RANGE)
+  }
+
+  override fun saveAdditional(compoundTag: CompoundTag, provider: HolderLookup.Provider) {
+    super.saveAdditional(compoundTag, provider)
+    ContainerHelper.saveAllItems(compoundTag, inventory, provider)
+  }
+
+  override fun loadAdditional(compoundTag: CompoundTag, provider: HolderLookup.Provider) {
+    super.loadAdditional(compoundTag, provider)
+    ContainerHelper.loadAllItems(compoundTag, inventory, provider)
+  }
 
   companion object {
     const val MORTAR_SLOT = 0
-    const val RESULT_SLOT = 1
   }
 }

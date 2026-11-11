@@ -22,7 +22,7 @@ class FilterScreen(val filterMenu: FilterMenu, inventory: Inventory, component: 
     inventoryLabelY = imageHeight - 98
     inventoryLabelX += 2
     titleLabelX = inventoryLabelX
-    add(InventoryBackground(leftPos, topPos, imageWidth, imageHeight))
+    addBackground(InventoryBackground(leftPos, topPos, imageWidth, imageHeight))
     add(HelpButtonWidget(
       leftPos + imageWidth - 20, topPos + 8, 12, 12,
       AlchimiaeMod.location("filter")
@@ -31,7 +31,10 @@ class FilterScreen(val filterMenu: FilterMenu, inventory: Inventory, component: 
 
   override fun render(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
     super.render(guiGraphics, i, j, f)
+  }
 
+  override fun renderBackground(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
+    super.renderBackground(guiGraphics, i, j, f)
     val progress = filterMenu.data[0].toDouble() / FilterBlockEntity.FILTER_TIME.toDouble()
     VerticalProgressGraphic.draw(
       guiGraphics,
@@ -44,12 +47,7 @@ class FilterScreen(val filterMenu: FilterMenu, inventory: Inventory, component: 
       progress,
       true
     )
-
     renderSlotBackgrounds(guiGraphics, *filterMenu.slots.toTypedArray())
-  }
-
-  override fun renderBackground(guiGraphics: GuiGraphics, i: Int, j: Int, f: Float) {
-    super.renderBackground(guiGraphics, i, j, f)
   }
 
   override fun renderLabels(guiGraphics: GuiGraphics, i: Int, j: Int) {
