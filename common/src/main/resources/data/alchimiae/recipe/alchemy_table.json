@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " a ",
+    "www",
+    "-s-"
+  ],
+  "key": {
+    "w": {
+      "tag": "minecraft:wool"
+    },
+    "-": {
+      "tag": "minecraft:logs"
+    },
+    "a": {
+      "item": "alchimiae:alchemindex"
+    },
+    "s": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "id": "alchimiae:alchemy_table",
+    "count": 1
+  }
+}
