@@ -7,7 +7,10 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 
 class FoodMobEffect(refill: Boolean) :
-  InstantenousMobEffect(if (refill) MobEffectCategory.BENEFICIAL else MobEffectCategory.HARMFUL, 10) {
+  InstantenousMobEffect(
+    if (refill) MobEffectCategory.BENEFICIAL else MobEffectCategory.HARMFUL,
+    if (refill) 0xffdddd00u.toInt() else 0xff008800u.toInt()
+  ) {
   var signum: Int = if (refill) 1 else -1
 
   override fun applyEffectTick(livingEntity: LivingEntity, i: Int): Boolean {
