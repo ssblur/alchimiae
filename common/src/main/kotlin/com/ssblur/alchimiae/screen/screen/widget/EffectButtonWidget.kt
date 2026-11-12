@@ -36,7 +36,7 @@ class EffectButtonWidget(x: Int, y: Int, val size: Int, val effect: ResourceLoca
       guiGraphics.renderComponentTooltip(
         Minecraft.getInstance().font,
         listOf(Component.translatable(effect.toLanguageKey("effect"))),
-        size,
+        -Minecraft.getInstance().font.width(Component.translatable(effect.toLanguageKey("effect")))/2,
         0
       )
     }

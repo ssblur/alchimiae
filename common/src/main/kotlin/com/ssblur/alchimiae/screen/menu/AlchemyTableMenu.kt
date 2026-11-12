@@ -22,6 +22,7 @@ class AlchemyTableMenu(i: Int, val inventory: Inventory? = null, val blockEntity
   val resultSlot: Slot
   val craftingContainer: TransientCraftingContainer
   val resultContainer: ResultContainer
+  val grinderSlot: Slot
   val player: Player?
   init {
     val mx = 50 - (9 * 9) / 2
@@ -43,7 +44,7 @@ class AlchemyTableMenu(i: Int, val inventory: Inventory? = null, val blockEntity
     resultContainer = ResultContainer()
     player = inventory?.player
 
-    val grinderSlot = this.addSlot(object: Slot(container, AlchemyTableBlockEntity.MORTAR_SLOT, xo - 21, yo + 18) {
+    grinderSlot = this.addSlot(object: Slot(container, AlchemyTableBlockEntity.MORTAR_SLOT, xo - 21, yo + 18) {
       override fun mayPlace(itemStack: ItemStack): Boolean {
         return itemStack matches AlchimiaeItems.GRINDER
       }
