@@ -1,6 +1,9 @@
 package com.ssblur.alchimiae.blockentity
 
+import com.ssblur.alchimiae.block.AlchemyTableBlock
+import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.screen.menu.AlchemyTableMenu
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -64,6 +67,41 @@ class AlchemyTableBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   override fun loadAdditional(compoundTag: CompoundTag, provider: HolderLookup.Provider) {
     super.loadAdditional(compoundTag, provider)
     ContainerHelper.loadAllItems(compoundTag, inventory, provider)
+  }
+
+  fun tick() {
+    if(level?.isClientSide != false) return
+
+    val grinder = inventory[0]
+    val state = blockState.getValue(AlchemyTableBlock.MORTAR)
+    if(grinder matches AlchimiaeItems.ALCHEMY_TABLE_GRINDER) {
+      if(state != AlchemyTableBlock.Companion.AlchemyMortar.GRINDER)
+        level?.setBlockAndUpdate(
+          blockPos,
+          blockState.setValue(
+            AlchemyTableBlock.MORTAR,
+            AlchemyTableBlock.Companion.AlchemyMortar.GRINDER
+          )
+        )
+    } else if(grinder matches AlchimiaeItems.ALCHEMY_TABLE_MORTAR) {
+      if(state != AlchemyTableBlock.Companion.AlchemyMortar.MORTAR)
+        level?.setBlockAndUpdate(
+          blockPos,
+          blockState.setValue(
+            AlchemyTableBlock.MORTAR,
+            AlchemyTableBlock.Companion.AlchemyMortar.MORTAR
+          )
+        )
+    } else {
+      if(state != AlchemyTableBlock.Companion.AlchemyMortar.NONE)
+        level?.setBlockAndUpdate(
+          blockPos,
+          blockState.setValue(
+            AlchemyTableBlock.MORTAR,
+            AlchemyTableBlock.Companion.AlchemyMortar.NONE
+          )
+        )
+    }
   }
 
   companion object {

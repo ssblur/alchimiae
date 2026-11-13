@@ -88,6 +88,8 @@ object AlchimiaeItems {
   }.tab(TAB)
 
   val GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("grinder"))
+  val ALCHEMY_TABLE_GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("alchemy_table_grinder"))
+  val ALCHEMY_TABLE_MORTAR: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("alchemy_table_mortar"))
 
 
   fun register() {
