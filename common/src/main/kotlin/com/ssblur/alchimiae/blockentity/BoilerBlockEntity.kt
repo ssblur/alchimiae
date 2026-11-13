@@ -6,6 +6,7 @@ import com.ssblur.alchimiae.data.CustomPotionEffects
 import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.screen.menu.BoilerMenu
+import com.ssblur.unfocused.UtilityExpectPlatform
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -23,7 +24,6 @@ import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.StackedContentsCompatible
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
@@ -198,8 +198,8 @@ class BoilerBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     }
 
     if (inventory[INGREDIENT_SLOT].`is`(AlchimiaeItems.MASH.get())) {
-      if (litTime == 0 && AbstractFurnaceBlockEntity.getFuel()[inventory[FUEL_SLOT].item] != null) {
-        litDuration = (AbstractFurnaceBlockEntity.getFuel()[inventory[FUEL_SLOT].item] ?: 0) / 2
+      if (litTime == 0 && UtilityExpectPlatform.getBurnTime(inventory[FUEL_SLOT]) > 0) {
+        litDuration = UtilityExpectPlatform.getBurnTime(inventory[FUEL_SLOT]) / 2
         litTime = litDuration
         inventory[FUEL_SLOT].shrink(1)
       }

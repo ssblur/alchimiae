@@ -3,6 +3,7 @@ package com.ssblur.alchimiae.blockentity
 import com.ssblur.alchimiae.block.AlembicBlock
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.screen.menu.AlembicMenu
+import com.ssblur.unfocused.UtilityExpectPlatform
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -23,7 +24,6 @@ import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.StackedContentsCompatible
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
@@ -206,7 +206,7 @@ class AlembicBlockEntity(blockPos: BlockPos, blockState: BlockState) :
   }
 
   fun fuelValueInSlot(): Int {
-    return AbstractFurnaceBlockEntity.getFuel()[inventory[FUEL_SLOT].item] ?: 0
+    return UtilityExpectPlatform.getBurnTime(inventory[FUEL_SLOT])
   }
 
   fun validRecipe(): Boolean {
