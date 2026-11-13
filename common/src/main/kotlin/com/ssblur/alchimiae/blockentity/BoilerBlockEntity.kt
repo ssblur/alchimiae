@@ -198,8 +198,8 @@ class BoilerBlockEntity(blockPos: BlockPos, blockState: BlockState) :
     }
 
     if (inventory[INGREDIENT_SLOT].`is`(AlchimiaeItems.MASH.get())) {
-      if (litTime == 0 && AbstractFurnaceBlockEntity.isFuel(inventory[FUEL_SLOT])) {
-        litDuration = AbstractFurnaceBlockEntity.getFuel()[inventory[FUEL_SLOT].item]!! / 2
+      if (litTime == 0 && AbstractFurnaceBlockEntity.getFuel()[inventory[FUEL_SLOT].item] != null) {
+        litDuration = (AbstractFurnaceBlockEntity.getFuel()[inventory[FUEL_SLOT].item] ?: 0) / 2
         litTime = litDuration
         inventory[FUEL_SLOT].shrink(1)
       }
