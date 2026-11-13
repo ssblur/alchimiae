@@ -29,7 +29,8 @@ class MashRecipe(craftingBookCategory: CraftingBookCategory?) : CustomRecipe(cra
 
       return AlchemyHelper.getEffects(items, server!!, 1.0f) != null
     } else {
-      return false
+      // Return true on client and allow server to falsify the recipe. Prevents items in crafting grid from flashing wrong number or vanishing
+      return true
     }
   }
 
