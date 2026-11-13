@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
 import net.minecraft.util.StringRepresentable
+import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -89,6 +90,17 @@ class AlchemyTableBlock: BaseEntityBlock(Properties.ofFullCopy(Blocks.CRAFTING_T
       val entity = level.getBlockEntity(blockPos)
       if(entity is AlchemyTableBlockEntity) entity.tick()
     }
+  }
+
+  override fun onRemove(
+    blockState: BlockState,
+    level: Level,
+    blockPos: BlockPos,
+    blockState2: BlockState,
+    movedByPiston: Boolean,
+  ) {
+    Containers.dropContentsOnDestroy(blockState, blockState2, level, blockPos)
+    super.onRemove(blockState, level, blockPos, blockState2, movedByPiston)
   }
 
   companion object {
