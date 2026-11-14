@@ -3,6 +3,7 @@ package com.ssblur.alchimiae.events
 import com.ssblur.alchimiae.data.AlchimiaeDataComponents
 import com.ssblur.alchimiae.data.IngredientEffectsSavedData
 import com.ssblur.alchimiae.data.IngredientMemorySavedData
+import com.ssblur.alchimiae.data.PlayerData
 import com.ssblur.alchimiae.item.AlchimiaeItems
 import com.ssblur.alchimiae.network.client.AlchimiaeNetworkS2C
 import com.ssblur.alchimiae.network.server.AlchimiaeNetworkC2S
@@ -12,6 +13,7 @@ import com.ssblur.alchimiae.resource.Ingredients.INGREDIENTS
 import com.ssblur.unfocused.event.common.PlayerCraftEvent
 import com.ssblur.unfocused.event.common.PlayerJoinedEvent
 import com.ssblur.unfocused.event.common.ServerStartEvent
+import com.ssblur.unfocused.extension.ItemStackExtension.matches
 import com.ssblur.unfocused.extension.MinecraftServerExtension.runOnce
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
@@ -47,6 +49,8 @@ object AlchimiaeEvents {
             memory.add(player, inventory.getItem(i).item, it.effects.map { effect -> effect.location })
           }
         }
+      } else if (player is ServerPlayer && constructed matches AlchimiaeItems.KNOWLEDGE_SCROLL.get()) {
+        constructed[AlchimiaeDataComponents.PLAYER_DATA] = PlayerData.ofPlayer(player)
       }
     }
 

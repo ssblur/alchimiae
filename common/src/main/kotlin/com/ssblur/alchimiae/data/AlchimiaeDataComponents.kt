@@ -16,5 +16,11 @@ object AlchimiaeDataComponents {
       .build()
   }
 
+  val PLAYER_DATA = AlchimiaeMod.registerDataComponent("player_data") {
+    it.persistent(KClassCodec.codec(PlayerData::class))
+      .networkSynchronized(KClassCodec.streamCodec(PlayerData::class))
+      .build()
+  }
+
   fun register() {}
 }

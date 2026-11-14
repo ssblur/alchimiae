@@ -87,6 +87,10 @@ object AlchimiaeItems {
     Item(Item.Properties())
   }.tab(TAB)
 
+  val KNOWLEDGE_SCROLL = AlchimiaeMod.registerItem("knowledge_scroll") {
+    KnowledgeScroll(Item.Properties())
+  }.tab(TAB)
+
   val GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("grinder"))
   val ALCHEMY_TABLE_GRINDER: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("alchemy_table_grinder"))
   val ALCHEMY_TABLE_MORTAR: TagKey<Item> = TagKey.create(Registries.ITEM, AlchimiaeMod.location("alchemy_table_mortar"))

@@ -46,6 +46,14 @@ class IngredientMemorySavedData : SavedData {
     setDirty()
   }
 
+  fun learnFrom(inputData: Map<ResourceLocation?, List<ResourceLocation>>) {
+    inputData.forEach { (item, effects) ->
+      val list = data[item]?.toMutableList() ?: mutableListOf()
+      list.addAll(effects)
+      data[item] = list.distinct()
+    }
+  }
+
   fun reset(level: ServerLevel) {
     data.clear()
     fill(level)

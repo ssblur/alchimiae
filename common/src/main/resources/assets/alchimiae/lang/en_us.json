@@ -34,6 +34,7 @@
   "item.alchimiae.recipe_too_many_2": "Strange Substances",
   "item.alchimiae.recipe_too_many_3": "Odd Bricabrac",
   "item.alchimiae.recipe_too_many_4": "Dubious Wisdom",
+  "item.alchimiae.knowledge_scroll": "Scroll of Alchemical Knowledge",
 
   "block.alchimiae.boiler": "Boiler",
   "block.alchimiae.alembic": "Alembic",
@@ -110,9 +111,12 @@
   "info.alchimiae.mash_2": "The simplest of these is crafting them with a bottle of water, which makes one potion.",
   "info.alchimiae.mash_3": "You can also place them into the top slot of a Brewing Stand, though their duration will be reduced.",
   "info.alchimiae.alchemindex": "Records all discovered ingredients and effects",
+  "info.alchimiae.knowledge_scroll": "Contains the knowledge of %s",
+  "info.alchimiae.bind_scroll": "Use to bind this scroll to your knowledge",
 
   "extra.alchimiae.recipe_uncovered": "You studied the recipe...",
   "extra.alchimiae.recipe_learned": "You took note of the ingredients and effects within!",
+  "extra.alchimiae.knowledge_learned": "You dug through %s's research, learning all you could.",
 
   "menu.alchimiae.boiler": "Boiler",
   "menu.alchimiae.alembic": "Alembic",

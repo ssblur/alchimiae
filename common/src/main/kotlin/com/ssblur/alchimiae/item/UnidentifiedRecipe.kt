@@ -27,7 +27,7 @@ class UnidentifiedRecipe(properties: Properties) : Item(properties) {
     list: MutableList<Component?>,
     tooltipFlag: TooltipFlag
   ) {
-    list.add(Component.translatable("lore.alchimiae.identify_recipe"))
+    list.add(Component.translatable("lore.alchimiae.identify_recipe").withStyle(ChatFormatting.GRAY))
     super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag)
   }
 
